@@ -5,10 +5,12 @@ import gsap from 'gsap'
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { navlink, navlinkDropdown } from "@/interfaces/navbar.interface";
+import { useGSAP } from '@gsap/react';
 
 const NAVLINKS = [
     { 
-        title: 'Adults',
+        title: 'Men',
+				img: 'shirts.avif',
         dropdown: [
             {
                 title: 'Shirts',
@@ -54,103 +56,150 @@ const NAVLINKS = [
 						},
         ]
     },
-    { title: 'Kids',
-		dropdown: [
-			{
-					title: 'Shirts',
+		{ title: 'Woman',
+			img: 'woman.webp',
+			dropdown: [
+				{
+						title: 'Shirts',
+						types: [
+								{
+										title: 'Oversize'
+								},
+								{
+										title: 'Regular'
+								},
+								{
+										title: 'Sleeveless'
+								},
+								{
+										title: 'Long Sleeve'
+								}
+						]
+				},
+				{
+					title: 'Hoodies',
 					types: [
 							{
 									title: 'Oversize'
 							},
 							{
 									title: 'Regular'
-							},
-							{
-									title: 'Sleeveless'
-							},
-							{
-									title: 'Long Sleeve'
 							}
 					]
-			},
-			{
-				title: 'Hoodies',
-				types: [
-						{
-								title: 'Oversize'
-						},
-						{
-								title: 'Regular'
-						}
-				]
-			},
-			{
-				title: 'Pants',
-				types: [
-						{
-								title: 'Regular'
-						},
-						{
-								title: 'Cargo'
-						}
-				]
-			},
-			{
-				title: 'Others',
-			},
-	] },
+				},
+				{
+					title: 'Pants',
+					types: [
+							{
+									title: 'Regular'
+							},
+							{
+									title: 'Cargo'
+							}
+					]
+				},
+				{
+					title: 'Others',
+				},
+		] },
+    { title: 'Kids',
+			img: 'shirts.avif',
+			dropdown: [
+				{
+						title: 'Shirts',
+						types: [
+								{
+										title: 'Oversize'
+								},
+								{
+										title: 'Regular'
+								},
+								{
+										title: 'Sleeveless'
+								},
+								{
+										title: 'Long Sleeve'
+								}
+						]
+				},
+				{
+					title: 'Hoodies',
+					types: [
+							{
+									title: 'Oversize'
+							},
+							{
+									title: 'Regular'
+							}
+					]
+				},
+				{
+					title: 'Pants',
+					types: [
+							{
+									title: 'Regular'
+							},
+							{
+									title: 'Cargo'
+							}
+					]
+				},
+				{
+					title: 'Others',
+				},
+		] },
     { title: 'Accessories' },
     { title: 'About' },
     { title: 'Other' }
 ];
 
 export default function Header() {
-    const [navlinks, setNavlinks] = useState(NAVLINKS);
+    const [navlinks, setNavlinks] = useState<navlink[]>(NAVLINKS);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
-
-    useEffect(() => {
-      gsap.to('.appear li', {
+		
+		useGSAP(() => {
+			gsap.to('.appear li', {
         y: 0,
         duration: 1.2,
       });
-    }, []);
-
+			gsap.killTweensOf(".dropdown-item");
+			if(hoveredIndex !== null) {
+				gsap.fromTo('.image-dropdown', 
+				{
+					opacity: 0
+				},
+				{
+					opacity: 1,
+					duration: 1,
+				})
+				gsap.fromTo('.dropdown-item', {
+					opacity: 0,
+					x: -20
+				},{
+					opacity: 1,
+					delay: 0.2,
+					x: 0,
+					stagger: 0.15,
+					ease: "power4.inOut",
+				})	
+			}
+		}, [hoveredIndex]);
+			
 		const restartMenu = () => {
 			setHoveredIndex(null)
 			setActiveSubmenu(null)
 			setHoveredButtonIndex(null)
-
-			gsap.to('.image-dropdown', 
-			{
-				opacity: 0,
-			})
-			gsap.to('.dropdown-item', {
-				opacity: 0
-			})
 		}
 
     const hoverlink = (i: number) => {
       setHoveredIndex(i);
-			
       if (navlinks[i].dropdown) {
         setShowDropdown(true);
-				gsap.to('.image-dropdown', 
-				{
-					opacity: 1,
-					delay: 0.5,
-					duration: 1,
-					onStart: () => {
-						gsap.to('.dropdown-item', {
-							opacity: 1,
-							stagger: 0.1,
-							duration: 0.5,
-						})
-					}
-				})
+				
       } else {
         setShowDropdown(false);
 				restartMenu()
@@ -197,9 +246,9 @@ export default function Header() {
 	};
   
     return (
-      <header>
+      <header className="fixed left-0 top-0 w-full z-10">
         <div className="w-full flex flex-col items-center">
-          <nav className={classNames("w-11/12 z-10 rounded border border-[#edecec] mt-4 px-6 py-3 bg-white flex justify-center", {'w-full': showDropdown})}>
+          <nav className={classNames("w-11/12 z-10 rounded border border-[#edecec] mt-4 px-6 py-3 bg-white flex justify-center", {'w-full rounded-none': showDropdown})}>
             <div className="flex items-center justify-start navbar">
               <div className="text-black w-28 mr-10">
                 <Logo />
@@ -208,10 +257,11 @@ export default function Header() {
                 {navlinks.map((link, index) => (
                   <li
                     key={index}
-                    className={classNames('font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
+                    className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
                     onMouseEnter={() => hoverlink(index)}
                   >
-                    {link.title}
+											<span>{link.title}</span>
+											{/* <span className="hover-button">{link.title}</span> */}
                   </li>
                 ))}
               </ul>
@@ -252,13 +302,15 @@ export default function Header() {
 										))}
 								</ul>
               </div>
-						{/* )} */}
               <div className="h-full w-[50vw] absolute right-0 image-dropdown">
-                <Image 
-                  src='/images/shirts.avif'  
-                  layout='fill'
-                  objectFit='cover'
-                />
+								{hoveredIndex !== null && 
+									<Image 
+										src={`/images/${navlinks[hoveredIndex as number].img}`}
+										layout='fill'
+										objectFit='cover'
+										alt='clothes'
+									/>
+								}
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 export interface navlink {
     title: string
+    img: string
     dropdown? : navlinkDropdown[] 
 }
 
