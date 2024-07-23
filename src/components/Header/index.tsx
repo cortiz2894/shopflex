@@ -248,7 +248,7 @@ export default function Header() {
     return (
       <header className="fixed left-0 top-0 w-full z-10">
         <div className="w-full flex flex-col items-center">
-          <nav className={classNames("w-11/12 z-10 rounded border border-[#edecec] mt-4 px-6 py-3 bg-white flex justify-center", {'w-full rounded-none': showDropdown})}>
+          <nav className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}>
             <div className="flex items-center justify-start navbar">
               <div className="text-black w-28 mr-10">
                 <Logo />
@@ -268,7 +268,7 @@ export default function Header() {
             </div>
           </nav>
           <div 
-            className={classNames("w-full bg-white menu-dropdown z-10 flex justify-center overflow-hidden relative", {"active": showDropdown})}
+            className={classNames("w-full bg-white menu-dropdown border-t border-standar-lighter z-10 flex justify-center overflow-hidden relative", {"active": showDropdown})}
             onMouseLeave={() => {
 							setShowDropdown(false)
 							restartMenu()
