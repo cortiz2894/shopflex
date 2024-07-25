@@ -36,8 +36,6 @@ export default function Hero() {
 
   }, [])
 
-
-
   const animate = () => {
 		if(xPercent < -100){
 		  xPercent = 0;
@@ -59,14 +57,14 @@ export default function Hero() {
             layout='fill'
             objectFit='cover'
             alt='clothes'
-						className=''
+			className=''
           />
-            <div className={'sliderContainer'}>
-							<div ref={slider} className={'slider'}>
-                <p ref={firstText}>Shopflex Hero -</p>
-                <p ref={secondText}>Shopflex Hero -</p>
-							</div>
-						</div>
+		<div className={'sliderContainer'}>
+			<div ref={slider} className={'slider'}>
+				<p ref={firstText}>Shopflex Hero -</p>
+				<p ref={secondText}>Shopflex Hero -</p>
+			</div>
+		</div>
       </div>
   );
 }

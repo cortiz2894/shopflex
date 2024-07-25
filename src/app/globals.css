@@ -139,6 +139,19 @@ nav:before {
   transition: background-color .5s ease-in-out;
 }
 
+
+/* CURVE MENU */
+
+.svgCurve{
+  position: absolute;
+  top: 0;
+  left: -99px;
+  width: 100px;
+  height: 100%;
+  fill: white;
+  stroke: none;
+}
+
 /* HERO */
 
 .header-overlay:before {

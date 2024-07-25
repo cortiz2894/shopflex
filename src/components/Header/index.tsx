@@ -2,10 +2,17 @@
 import Logo from "@/icons/Logo";
 import Image from "next/image";
 import gsap from 'gsap'
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { navlink, navlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
+import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
+import { IoCloseOutline } from "react-icons/io5";
+
+import Curve from "@/Components/Header/Curve";
+import Button from "@/Components/Button";
+import CartDrawer from "./CartDrawer/index";
+import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 
 const NAVLINKS = [
     { 
@@ -154,13 +161,17 @@ const NAVLINKS = [
 ];
 
 export default function Header() {
+
     const [navlinks, setNavlinks] = useState<navlink[]>(NAVLINKS);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 
+		const [isCartOpen, setIsCartOpen] = useState(false);
+
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
-		
+		let tl = gsap.timeline({ paused: true });
+
 		useGSAP(() => {
 			gsap.to('.appear li', {
         y: 0,
@@ -244,27 +255,45 @@ export default function Header() {
 					createShowSubmenuAnimation(index);
 			}			
 	};
+
+	const toggleCart = () => {
+		setIsCartOpen(!isCartOpen)
+	}
   
     return (
       <header className="fixed left-0 top-0 w-full z-10">
         <div className="w-full flex flex-col items-center">
           <nav className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}>
-            <div className="flex items-center justify-start navbar">
-              <div className="text-black w-28 mr-10">
-                <Logo />
-              </div>
-              <ul className="flex appear overflow-hidden">
-                {navlinks.map((link, index) => (
-                  <li
-                    key={index}
-                    className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
-                    onMouseEnter={() => hoverlink(index)}
-                  >
-											<span>{link.title}</span>
-											{/* <span className="hover-button">{link.title}</span> */}
-                  </li>
-                ))}
-              </ul>
+            <div className="flex items-center justify-between navbar">
+							<div className="flex items-center">
+								<div className="text-black w-28 mr-10">
+									<Logo />
+								</div>
+								<ul className="flex appear overflow-hidden">
+									{navlinks.map((link, index) => (
+										<li
+											key={index}
+											className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
+											onMouseEnter={() => hoverlink(index)}
+										>
+												<span>{link.title}</span>
+										</li>
+									))}
+								</ul>
+
+							</div>
+							<div className="flex gap-2">
+								<div>
+									<ButtonPrimary text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
+								</div>
+								<div>
+									<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
+								</div>
+								<div onClick={() => toggleCart()}>
+									<ButtonPrimary text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
+								</div>
+							</div>
+							<CartDrawer isCartOpen={isCartOpen} toggleCart={toggleCart} />
             </div>
           </nav>
           <div 
@@ -274,9 +303,9 @@ export default function Header() {
 							restartMenu()
 						}}
           >
-            <div className="w-11/12 flex justify-between">
-              <div className="w-1/2 py-5">
-              	<p className="text-2xl text-black mb-3">{hoveredIndex !== null && navlinks[hoveredIndex as number].title}</p>
+						<div className="w-11/12 flex justify-between">
+							<div className="w-1/2 py-5">
+								<p className="text-2xl text-black mb-3">{hoveredIndex !== null && navlinks[hoveredIndex as number].title}</p>
 								<ul className="pl-2 w-auto">
 										{(hoveredIndex !== null && navlinks[hoveredIndex].dropdown) && navlinks[hoveredIndex].dropdown!.map((item:navlinkDropdown, index:number) => (
 												<li key={index} className="dropdown-item mb-2 relative">
@@ -301,8 +330,8 @@ export default function Header() {
 												</li>
 										))}
 								</ul>
-              </div>
-              <div className="h-full w-[50vw] absolute right-0 image-dropdown">
+							</div>
+							<div className="h-full w-[50vw] absolute right-0 image-dropdown">
 								{hoveredIndex !== null && 
 									<Image 
 										src={`/images/${navlinks[hoveredIndex as number].img}`}
@@ -311,8 +340,8 @@ export default function Header() {
 										alt='clothes'
 									/>
 								}
-              </div>
-            </div>
+							</div>
+						</div>
           </div>
           <div className={classNames("overlay", {"active": showDropdown})}></div>
         </div>
