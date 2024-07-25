@@ -1,4 +1,4 @@
-import classNames from 'classNames'
+import classNames from "classnames";
 import styles from './ButtonPrimary.module.scss';
 
 type Props = {

@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import styles from './CartDrawer.module.scss'
 import classNames from "classnames";
 import { IoCloseOutline } from "react-icons/io5";
-import Curve from "@/Components/Header/Curve";
 import Button from '@/components/Button/index';
 import ButtonPrimary from '@/components/ButtonPrimary/ButtonPrimary';
+import Curve from '../Curve/index';
 
 
 type CartDrawerProps = {
