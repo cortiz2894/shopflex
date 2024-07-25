@@ -2,15 +2,11 @@
 import Logo from "@/icons/Logo";
 import Image from "next/image";
 import gsap from 'gsap'
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
 import { navlink, navlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
 import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
-import { IoCloseOutline } from "react-icons/io5";
-
-import Curve from "@/Components/Header/Curve";
-import Button from "@/Components/Button";
 import CartDrawer from "./CartDrawer/index";
 import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 
