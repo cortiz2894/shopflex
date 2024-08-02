@@ -1,20 +1,61 @@
 .card {
+    position: relative;
     border-radius: 25px;
     border: 1px solid #cdcdcd;
 
     &:hover {
         .imageContainer {
-            left: 15%;
-            top: -15%;
+            top: -20%;
             transform: scale(1.1);
         }
+        .content {
+            &:before {
+                height: 46%;
+            }
+            & > div > span, p {
+                color: #fff;
+            }
+        }
+        .description {
+            color: #fff;
+        }
+        .svgCurve {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
+}
+
+.description {
+    transition-delay: 0.1s;
+    transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.content {
+    display: block;
+    & > div > span, p {
+        transition-delay: 0.1s;
+        transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+   
+    &::before {
+        z-index: -1;
+        content: '';
+        width: 100%;
+        position: absolute;
+        left: 0px;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        bottom: 0;
+        background: black;
+        height: 0%;
+        transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
     }
 }
 .imageContainer {
     width: calc(100% - 45px);
     height: 100%;
     position: absolute;
-    left: 24px;
     top: 0;
     transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
     &::before {
@@ -30,4 +71,18 @@
         right: calc(50% - 35%);
         bottom: 10%;
     }
+}
+
+.svgCurve {
+    position: absolute;
+    bottom: -48%;
+    left: 0px;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    fill: rgb(0, 0, 0);
+    stroke: none;
+    transform: rotate(90deg);
+    z-index: -1;
+    transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
 }

@@ -27,7 +27,7 @@ export default function Curve({active}: Props) {
 
     active ? animatePath(targetPath) : animatePath(initialPath);
 
-  }, [active, initialPath, targetPath]);
+  }, [active]);
 
   return (
     <svg className={'svgCurve'}>
