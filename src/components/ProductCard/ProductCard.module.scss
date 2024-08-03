@@ -10,7 +10,7 @@
         }
         .content {
             &:before {
-                height: 46%;
+                height: 56%;
             }
             & > div > span, p {
                 color: #fff;
@@ -20,8 +20,7 @@
             color: #fff;
         }
         .svgCurve {
-            bottom: 0;
-            opacity: 1;
+            bottom: 55%;
         }
     }
 }
@@ -33,6 +32,11 @@
 
 .content {
     display: block;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding-top: 37%;
+    overflow: hidden;
+    margin-top: -37%;
     & > div > span, p {
         transition-delay: 0.1s;
         transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
@@ -75,14 +79,12 @@
 
 .svgCurve {
     position: absolute;
-    bottom: -48%;
+    bottom: -40%;
     left: 0px;
     width: 100%;
-    opacity: 0;
     pointer-events: none;
     fill: rgb(0, 0, 0);
     stroke: none;
-    transform: rotate(90deg);
     z-index: -1;
     transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
 }

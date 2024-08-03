@@ -25,10 +25,11 @@ export default function ProductCard({}:Props) {
     useEffect(() => {
       if (card.current) {
         const width = card.current.clientWidth;
-        setInitialPath(`M50 0 L100 0 L100 ${width} L100 ${width} Q100 ${width / 2} 0 0`);
-        setTargetPath(`M100 0 L200 0 L200 ${width} L100 ${width} Q-0 ${width / 2} 100 0`);
+        setInitialPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} 100 0 100`);
+        // setInitialPath(`M0 0 L0 0 L${width} 0 L${width} 0 Q${width / 2} 0 0 0`);
+        setTargetPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} -10 0 100`);
       }
-    }, [card.current]);
+    }, []);
   
   const animatePath = (path:string) => {
     gsap.to(pathRef.current, {
@@ -49,8 +50,7 @@ export default function ProductCard({}:Props) {
       onMouseLeave={() => animatePath(initialPath)}
     >
       <div 
-        className='relative h-[60%] flex justify-center'
-        style={{height: `${card?.current?.clientWidth}px`}}
+        className='relative w-full pb-[100%] flex justify-center'
       >
         <div className={styles.imageContainer}>
           <Image 
@@ -60,8 +60,8 @@ export default function ProductCard({}:Props) {
           />
         </div>
       </div>
-      <div className={classNames('bottom-0 px-6 py-6', [styles.content])}>
-        <svg className={styles.svgCurve} style={{height: `${card?.current?.clientWidth}px`}}>
+      <div className={classNames('bottom-0 px-6 py-6 relative', [styles.content])}>
+        <svg className={styles.svgCurve}>
           <path ref={pathRef} d={initialPath}></path>
         </svg>
         <div className='flex justify-between'>
