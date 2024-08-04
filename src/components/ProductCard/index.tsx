@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, forwardRef } from 'react';
 import styles from './ProductCard.module.scss'
 import classNames from "classnames";
 import Image from "next/image";
@@ -8,28 +8,37 @@ import { CustomEase } from 'gsap/CustomEase';
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 import {FiShoppingCart} from "react-icons/fi";
 import { FiHeart } from "react-icons/fi";
-
+import { Product } from './product.types';
 
 type Props = {
+  item: Product,
+  variant?: 'default'
 }
 
 gsap.registerPlugin(CustomEase);
 
-export default function ProductCard({}:Props) {
+const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default'}, ref) => {
+
   const pathRef = useRef<SVGPathElement>(null);
-  const card = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [initialPath, setInitialPath] = useState('');
   const [targetPath, setTargetPath] = useState('');
 
-
-    useEffect(() => {
-      if (card.current) {
-        const width = card.current.clientWidth;
-        setInitialPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} 100 0 100`);
-        // setInitialPath(`M0 0 L0 0 L${width} 0 L${width} 0 Q${width / 2} 0 0 0`);
-        setTargetPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} -10 0 100`);
-      }
-    }, []);
+  const getWidthCard = () => {
+    if (cardRef.current) {
+      const width = cardRef.current.clientWidth;
+      setInitialPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} 100 0 100`);
+      setTargetPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} -10 0 100`);
+    }
+  }
+  
+  useEffect(() => {
+    getWidthCard()
+    window.addEventListener('resize', getWidthCard)
+    return () => {
+      window.removeEventListener('resize', getWidthCard)
+    };
+  }, []);
   
   const animatePath = (path:string) => {
     gsap.to(pathRef.current, {
@@ -43,18 +52,18 @@ export default function ProductCard({}:Props) {
 
   return (
     <div 
-      className={classNames(`w-1/4 relative`, [styles.card])} 
-      
-      ref={card}
+      className={classNames(`w-full relative`, [styles.card])} 
+      ref={ref}
       onMouseEnter={() => animatePath(targetPath)}
       onMouseLeave={() => animatePath(initialPath)}
     >
       <div 
+        ref={cardRef}
         className='relative w-full pb-[100%] flex justify-center'
       >
         <div className={styles.imageContainer}>
           <Image 
-            src={`/images/shorts.png`}
+            src={`/images/${item.image}`}
             width={500} height={500} objectFit="none"
             alt='clothes'
           />
@@ -65,10 +74,10 @@ export default function ProductCard({}:Props) {
           <path ref={pathRef} d={initialPath}></path>
         </svg>
         <div className='flex justify-between'>
-          <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>Baseball cap</p>
-          <span className='text-xl uppercase text-black font-semibold'>$ 44.9</span>
+          <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
+          <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
         </div>
-        <span className={classNames('text-black my-3 block', [styles.description])}>Es posible que el SVG no el card tenga una referencia válida. Vamos a asegurarnos inicializar </span>
+        <span className={classNames('text-black my-3 block', [styles.description])}>{item.description}</span>
         <div className='flex justify-between items-center'>
           
           <ButtonPrimary text={<FiHeart className='text-[20px]'/>} variant='outlined' size='small'></ButtonPrimary>
@@ -78,4 +87,6 @@ export default function ProductCard({}:Props) {
       </div>
     </div>
   );
-}
+});
+
+export default ProductCard

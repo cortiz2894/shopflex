@@ -1,18 +1,13 @@
 import Hero from "@/components/Hero/Hero";
-import ProductCard from "@/components/ProductCard/index";
+import ProductList from "@/components/ProductList/index";
 
 export default function Home() {
+
   return (
     <main>
       <Hero />
       <div className="flex justify-center my-20">
-        <div className="w-[90%] flex gap-12">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </div>
-
+        <ProductList />
       </div>
     </main>
   );
