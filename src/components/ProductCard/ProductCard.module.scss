@@ -2,8 +2,11 @@
     position: relative;
     border-radius: 25px;
     border: 1px solid #cdcdcd;
+    transition: border-color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
 
     &:hover {
+        border-color: #292929;
+        cursor: pointer;
         .imageContainer {
             top: -20%;
             transform: scale(1.1);

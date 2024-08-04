@@ -28,7 +28,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
     if (cardRef.current) {
       const width = cardRef.current.clientWidth;
       setInitialPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} 100 0 100`);
-      setTargetPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} -10 0 100`);
+      setTargetPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} 0 0 100`);
     }
   }
   
@@ -78,10 +78,10 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
         </div>
         <span className={classNames('text-black my-3 block', [styles.description])}>{item.description}</span>
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center gap-4'>
           
-          <ButtonPrimary text={<FiHeart className='text-[20px]'/>} variant='outlined' size='small'></ButtonPrimary>
-          <ButtonPrimary text={<span className='flex'>Comprar<FiShoppingCart className='text-[20px] ml-2'/></span>} variant='outlined'></ButtonPrimary>
+          <ButtonPrimary theme='light' text={<FiHeart className='text-[20px]'/>} size='small' variant='lessRounded'></ButtonPrimary>
+          <ButtonPrimary theme='light' text={<span className='flex'>Comprar<FiShoppingCart className='text-[20px] ml-2'/></span>} variant='lessRounded' size='full'></ButtonPrimary>
 
         </div>
       </div>

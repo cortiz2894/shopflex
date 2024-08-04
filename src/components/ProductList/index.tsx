@@ -1,6 +1,7 @@
 'use client'
 import ProductCard from "@/components/ProductCard/index";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import { Product } from "../ProductCard/product.types";
 
@@ -35,6 +36,9 @@ const PRODUCT_LIST = [
   }
 ]
 
+gsap.registerPlugin(ScrollTrigger);
+
+
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>(PRODUCT_LIST)
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -43,12 +47,12 @@ export default function ProductList() {
     gsap.fromTo(
       productRefs.current,
       { opacity: 0, y: 100 },
-      { opacity: 1, y: 0 , stagger: 0.3, duration: 0.5 }
+      { opacity: 1, y: 0 , stagger: 0.3, duration: 0.5, scrollTrigger: productRefs.current }
     );
   }, []);
 
   return (
-        <div className="w-[90%] grid grid-cols-4 gap-12">
+        <div className="grid grid-cols-4 gap-5">
 					{products.map((item, index) => {
 						return(
 							<ProductCard 

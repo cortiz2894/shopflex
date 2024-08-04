@@ -5,16 +5,47 @@
     cursor: pointer;
     overflow: hidden;
     border: 1px solid #292929;
+    justify-content: center;
+    display: flex;
+    &.light {
+        background-color: #f9f9f9;
+        .text {
+            color: #292929 !important;
+        }
+    }
+    &.lessRounded {
+        border-radius: 15px;
+        .overlay {
+            & div {
+                border-radius: 15px;
+                width: 100%;
+            }
+        }
+    }
+    &.full {
+        width: 100%;
+    }
     &.large {
         padding: 10px 30px;
     }
     &.default {
-        border: none;
-        background-color: white;
+        
+        border: none !important;
+        background-color: #f9f9f9;
     }
     &:hover {
         .text {
             top: -40px;
+        }
+        &.light {
+            border: 1px solid white;
+        }
+        &.lessRounded {
+            .overlay {
+                & div {
+                    border-radius: 15px;
+                }
+            }
         }
         .overlay {
             top: 0;
@@ -29,7 +60,7 @@
     top: 0;
     color: #292929;
     position: relative;
-    transition: top .4s cubic-bezier(.33,1,.68,1);
+    transition: top .4s cubic-bezier(.33,1,.68,1) !important;
 }
 .overlay {
     position: absolute;

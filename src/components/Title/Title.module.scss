@@ -1,0 +1,16 @@
+.title {
+    font-size: clamp(2.5rem, 1.1413rem + 2.1739vw, 3.75rem);;
+    line-height: clamp(3rem, 1.6413rem + 2.1739vw, 4.25rem);;
+    background: #f9f9f9;
+    padding-right: 1rem;
+}
+
+.line {
+    width: 100%;
+    position: absolute;
+    height: 1px;
+    background-color: #d2d2d2;
+    left: 0;
+    z-index: -1;
+    margin-top: 0.5rem;
+}
