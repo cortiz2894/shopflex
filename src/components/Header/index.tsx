@@ -7,8 +7,8 @@ import classNames from "classnames";
 import { navlink, navlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
 import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
-import CartDrawer from "./CartDrawer/index";
-import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
+import CartDrawer from "./CartDrawer";
+import ButtonPrimary from "../shared/ButtonPrimary";
 
 const NAVLINKS = [
     { 
@@ -259,7 +259,10 @@ export default function Header() {
     return (
       <header className="fixed left-0 top-0 w-full z-10">
         <div className="w-full flex flex-col items-center">
-          <nav className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}>
+          <nav 
+						className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
+						style={{boxShadow: '1px 1px 5px #9898980f'}}
+					>
             <div className="flex items-center justify-between navbar">
 							<div className="flex items-center">
 								<div className="text-black w-28 mr-10">
@@ -285,7 +288,7 @@ export default function Header() {
 								<div>
 									<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
-								<div onClick={() => toggleCart()}>
+								<div onClick={() => toggleCart()} id='cartButton'>
 									<ButtonPrimary text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
 							</div>

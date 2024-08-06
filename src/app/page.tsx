@@ -1,7 +1,7 @@
 import Container from "@/components/Container/index";
-import Hero from "@/components/Hero/Hero";
+import Hero from "@/components/Hero/index";
 import ProductList from "@/components/ProductList/index";
-import Title from "@/components/Title/index";
+import SectionTitle from "@/components/shared/SectionTitle/index";
 
 export default function Home() {
 
@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
       <div className="flex justify-center my-10">
         <Container>
-          <Title text='Drops of the month'/>
+          <SectionTitle text='Drops of the month'/>
           <ProductList />
         </Container>
       </div>

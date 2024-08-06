@@ -3,7 +3,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useLayoutEffect, useRef, useState } from "react";
 import classNames from "classnames";
-import styles from './Title.module.scss'
+import styles from './SectionTitle.module.scss'
 
 interface Props {
     text: string
@@ -12,7 +12,7 @@ interface Props {
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function Title({text}:Props) {
+export default function SectionTitle({text}:Props) {
 	const lineRef = useRef<HTMLDivElement>(null)
 
 	useLayoutEffect(() => {

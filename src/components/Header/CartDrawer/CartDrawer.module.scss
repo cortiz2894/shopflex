@@ -5,7 +5,6 @@
   }
   
   .drawer > .content{
-    padding: 100px;
     box-sizing: border-box;
     height: 100%;
     width: 100%;
@@ -26,20 +25,28 @@
   }
   
   .drawer:before {
+    content: "";
     opacity: 0;
-    content: '';
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
     z-index: -1;
     position: fixed;
-    background: #00000030;
-    transition: opacity 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+    transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
     pointer-events: none;
+    background-color: rgba(42, 41, 47, 0.5);
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
   }
   
   .drawer.active:before {
     pointer-events: all;
     opacity: 1;
+    -webkit-backdrop-filter: blur(32px);
+    backdrop-filter: blur(32px);
+  }
+
+  .freeShippingContainer {
+    padding: 1em;
   }
