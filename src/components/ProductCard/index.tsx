@@ -10,6 +10,7 @@ import {FiShoppingCart} from "react-icons/fi";
 import { FiHeart } from "react-icons/fi";
 import { Product } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+import { CartStore, useCartStore } from '@/store/cartStore';
 
 type Props = {
   item: Product,
@@ -40,6 +41,9 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   const [initialPath, setInitialPath] = useState('');
   const [targetPath, setTargetPath] = useState('');
   const [isLoading, setIsLoading] = useState(false)
+
+  const addProductToStore = useCartStore((state:CartStore) => state.addToCart)
+
 
   const getWidthCard = () => {
     if (cardRef.current) {
@@ -99,6 +103,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           ease: 'power1.out',
           onComplete: () => {
             document.body.removeChild(clonedImg);
+            addProductToStore(item)
             setIsLoading(false)
           }
         })

@@ -10,6 +10,8 @@ import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
 import CartDrawer from "./CartDrawer";
 import ButtonPrimary from "@/components/shared/ButtonPrimary";
 import Counter from "./CartDrawer/Counter/index";
+import { CartStore, useCartStore } from "@/store/cartStore";
+import shallow from 'zustand/shallow';
 
 const NAVLINKS = [
     { 
@@ -166,6 +168,10 @@ export default function Header() {
 		const [counter, setCounter] = useState(0)
 		const [isCartOpen, setIsCartOpen] = useState(false);
 
+		const { products } = useCartStore((state:CartStore) => ({
+			products : state.products
+		}), shallow)
+
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
 		let tl = gsap.timeline({ paused: true });
 
@@ -291,7 +297,7 @@ export default function Header() {
 								</div>
 								<div id='cartButton' className="relative">
 									<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
-										<Counter number={counter} />
+										<Counter number={products.length} />
 									</div>
 									<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
