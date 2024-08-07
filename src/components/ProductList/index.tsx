@@ -39,8 +39,8 @@ const PRODUCT_LIST = [
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProductList() {
-  const [products, setProducts] = useState(PRODUCT_LIST);
-  const productRefs = useRef([]);
+  const [products, setProducts] = useState<Product[]>(PRODUCT_LIST);
+  const productRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     gsap.fromTo(

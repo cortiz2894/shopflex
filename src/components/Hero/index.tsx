@@ -15,8 +15,6 @@ export default function Hero() {
 
 	let direction = -1;
 
-
-
   useEffect( () => {
 
     gsap.registerPlugin(ScrollTrigger);
@@ -61,8 +59,8 @@ export default function Hero() {
           />
 		<div className={'sliderContainer'}>
 			<div ref={slider} className={'slider'}>
-				<p ref={firstText}>Shopflex Hero -</p>
-				<p ref={secondText}>Shopflex Hero -</p>
+				<p ref={firstText}>Some text in here -</p>
+				<p ref={secondText}>Some text in here -</p>
 			</div>
 		</div>
       </div>
