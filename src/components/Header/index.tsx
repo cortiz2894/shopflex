@@ -8,7 +8,7 @@ import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
 import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
 import CartDrawer from "./CartDrawer";
-import ButtonPrimary from "../shared/ButtonPrimary";
+import ButtonPrimary from "@/components/shared/ButtonPrimary";
 import Counter from "./CartDrawer/Counter/index";
 
 const NAVLINKS = [
@@ -310,7 +310,7 @@ export default function Header() {
 							<div className="w-1/2 py-5">
 								<p className="text-2xl text-black mb-3">{hoveredIndex !== null && navlinks[hoveredIndex as number].title}</p>
 								<ul className="pl-2 w-auto">
-										{(hoveredIndex !== null && navlinks[hoveredIndex].dropdown) && navlinks[hoveredIndex].dropdown!.map((item:navlinkDropdown, index:number) => (
+										{(hoveredIndex !== null && navlinks[hoveredIndex].dropdown) && navlinks[hoveredIndex].dropdown!.map((item:NavlinkDropdown, index:number) => (
 												<li key={index} className="dropdown-item mb-2 relative">
 														<button
 																className={classNames("font-inter text-standar-lighter hover:text-standar-lighter text-xl bg-none border-none", 
