@@ -18,6 +18,19 @@ type Props = {
 
 gsap.registerPlugin(CustomEase, MotionPathPlugin);
 
+const ButtonRender = ({isLoading}:{isLoading:boolean}) => {
+
+  return(
+    isLoading ? (
+      <div>
+        <span className={styles.addText}>Agregando...</span>
+        <div className={styles.progress}></div>
+      </div>
+    ) : (
+      <span className={styles.buyText}>Comprar<FiShoppingCart className='text-[20px] ml-2'/></span>
+    )
+  )
+}
 
 const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default'}, ref) => {
 
@@ -26,6 +39,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   const imgRef = useRef<HTMLImageElement>(null);
   const [initialPath, setInitialPath] = useState('');
   const [targetPath, setTargetPath] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
 
   const getWidthCard = () => {
     if (cardRef.current) {
@@ -52,9 +66,8 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   };
 
   const addToCart = () => {
-      
-
-      if (imgRef.current) {
+    if (imgRef.current && !isLoading) {
+        setIsLoading(true)
         const rect = imgRef.current.getBoundingClientRect();
         const clonedImg = imgRef.current.cloneNode() as HTMLElement;
         //@ts-ignore
@@ -70,17 +83,23 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           opacity: 1
         });
 
-        document.body.appendChild(clonedImg);
-        
-        gsap.to(clonedImg, {
-          top:rectCartButton.y - (rect.height / 2),
+        gsap.timeline()
+        .to(imgRef.current, 0.2, { y: '-12', ease: 'Power1.easeNone' })
+        .to(imgRef.current, 0.1, { y: '0', ease: 'Power1.easeOut',
+          onComplete: () => {
+            document.body.appendChild(clonedImg);
+          }
+         })
+        .to(clonedImg, {
+          top:rectCartButton.y - ((rect.height * 0.85) / 2),
           opacity: 0.1,
-          left: rectCartButton.x - (rect.width / 2),
+          left: rectCartButton.x - ((rect.height * 0.85) / 2),
           scale: 0.1,
           duration: 1,
           ease: 'power1.out',
           onComplete: () => {
             document.body.removeChild(clonedImg);
+            setIsLoading(false)
           }
         })
       }
@@ -89,13 +108,6 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
 
 
-  // useEffect(() => {
-  //   return () => {
-  //     if (clonedImage) {
-  //       document.body.removeChild(clonedImage);
-  //     }
-  //   };
-  // }, [clonedImage]);
 
   return (
     <div 
@@ -128,9 +140,19 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
         <span className={classNames('text-black my-3 block', [styles.description])}>{item.description}</span>
         <div className='flex justify-between items-center gap-4'>
           
-          <ButtonPrimary theme='light' text={<FiHeart className='text-[20px]'/>} size='small' variant='lessRounded'></ButtonPrimary>
-          <ButtonPrimary action={addToCart} theme='light' text={<span className='flex'>Comprar<FiShoppingCart className='text-[20px] ml-2'/></span>} variant='lessRounded' size='full'></ButtonPrimary>
-
+          <ButtonPrimary 
+            theme='light' 
+            size='small' 
+            variant='lessRounded'
+            text={<FiHeart className='text-[20px]'/>} 
+          />
+          <ButtonPrimary 
+            action={addToCart} 
+            theme='light' 
+            variant='lessRounded' 
+            size='full'
+            text={<ButtonRender isLoading={isLoading} />} 
+          />
         </div>
       </div>
     </div>

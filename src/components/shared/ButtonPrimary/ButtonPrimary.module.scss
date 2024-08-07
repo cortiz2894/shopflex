@@ -60,6 +60,10 @@
     top: 0;
     color: #292929;
     position: relative;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
     transition: top .4s cubic-bezier(.33,1,.68,1) !important;
 }
 .overlay {
@@ -75,6 +79,10 @@
     & p {
         color: white;
         position: absolute;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
     }
     & div {
         background-color: black;

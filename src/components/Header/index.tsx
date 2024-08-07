@@ -4,11 +4,12 @@ import Image from "next/image";
 import gsap from 'gsap'
 import { useState } from "react";
 import classNames from "classnames";
-import { navlink, navlinkDropdown } from "@/interfaces/navbar.interface";
+import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
 import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
 import CartDrawer from "./CartDrawer";
 import ButtonPrimary from "../shared/ButtonPrimary";
+import Counter from "./CartDrawer/Counter/index";
 
 const NAVLINKS = [
     { 
@@ -158,11 +159,11 @@ const NAVLINKS = [
 
 export default function Header() {
 
-    const [navlinks, setNavlinks] = useState<navlink[]>(NAVLINKS);
+    const [navlinks, setNavlinks] = useState<Navlink[]>(NAVLINKS);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
-
+		const [counter, setCounter] = useState(0)
 		const [isCartOpen, setIsCartOpen] = useState(false);
 
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
@@ -283,13 +284,16 @@ export default function Header() {
 							</div>
 							<div className="flex gap-2">
 								<div>
-									<ButtonPrimary text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
+									<ButtonPrimary action={() => setCounter(counter + 1)} text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
 								<div>
 									<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
-								<div onClick={() => toggleCart()} id='cartButton'>
-									<ButtonPrimary text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
+								<div id='cartButton' className="relative">
+									<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
+										<Counter number={counter} />
+									</div>
+									<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
 							</div>
 							<CartDrawer isCartOpen={isCartOpen} toggleCart={toggleCart} />

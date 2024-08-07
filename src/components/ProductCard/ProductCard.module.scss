@@ -91,3 +91,48 @@
     z-index: -1;
     transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
 }
+
+.progress {
+    position: absolute;
+    width: 0%;
+    height: calc(100% + 20px) !important;
+    border-radius: 0px !important;    
+    background-color: white !important;
+    left: -10px !important;
+    top: -10px !important;
+    z-index: auto;
+    animation: progressAnimation 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes progressAnimation {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: calc(100% + 20px);
+    }
+}
+
+.buyText {
+    display: flex;
+    position: relative;
+    top: 50px;
+
+    animation: textAppear 0.3s ease forwards;
+}
+
+@keyframes textAppear {
+    0% {
+        top: 50px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+.addText {
+    position: relative;
+    z-index: 10;
+    color: white;
+    mix-blend-mode: difference;
+}

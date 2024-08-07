@@ -1,10 +1,10 @@
-export interface navlink {
+export interface Navlink {
     title: string
-    img: string
-    dropdown? : navlinkDropdown[] 
+    img?: string
+    dropdown? : NavlinkDropdown[] 
 }
 
-export interface navlinkDropdown {
+export interface NavlinkDropdown {
     title: string
     types? : typeDropdown[]
 }
