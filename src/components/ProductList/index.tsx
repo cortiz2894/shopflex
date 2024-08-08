@@ -45,13 +45,25 @@ export default function ProductList() {
   useEffect(() => {
     gsap.fromTo(
       productRefs.current,
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, stagger: 0.3, scrollTrigger: productRefs.current }
+      { 
+        opacity: 0,
+        y: 200 
+      },
+      { 
+        opacity: 1,
+        y: 0,
+        stagger: {
+          each: 0.1,
+          // from: "center"
+        }, 
+        scrollTrigger: productRefs.current, 
+        ease: 'ease' 
+      }
     );
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid grid-cols-4 gap-5 overflow-y-hidden pt-[7%] mt-[-6%]">
       {products.map((item, index) => {
         return (
           <ProductCard

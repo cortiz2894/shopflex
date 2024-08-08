@@ -32,7 +32,7 @@ const Counter = ({ number }:Props) => {
 
   return (
     <div className="counter">
-      <div ref={numberRef}>
+      <div ref={numberRef} className={'flex pt-[2px]'}>
         <span className="text-white text-xs">{currentNumber}</span>
       </div>
     </div>

@@ -2,7 +2,7 @@
 import Logo from "@/icons/Logo";
 import Image from "next/image";
 import gsap from 'gsap'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
@@ -261,7 +261,6 @@ export default function Header() {
 	const toggleCart = () => {
 		setIsCartOpen(!isCartOpen)
 	}
-  
     return (
       <header className="fixed left-0 top-0 w-full z-10">
         <div className="w-full flex flex-col items-center">
