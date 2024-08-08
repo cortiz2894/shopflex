@@ -165,11 +165,10 @@ export default function Header() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
-		const [counter, setCounter] = useState(0)
 		const [isCartOpen, setIsCartOpen] = useState(false);
 
-		const { products } = useCartStore((state:CartStore) => ({
-			products : state.products
+		const { totalQuantity } = useCartStore((state:CartStore) => ({
+			totalQuantity : state.totalQuantity
 		}), shallow)
 
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
@@ -290,14 +289,14 @@ export default function Header() {
 							</div>
 							<div className="flex gap-2">
 								<div>
-									<ButtonPrimary action={() => setCounter(counter + 1)} text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
+									<ButtonPrimary text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
 								<div>
 									<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
 								<div id='cartButton' className="relative">
 									<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
-										<Counter number={products.length} />
+										<Counter number={totalQuantity} />
 									</div>
 									<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
 								</div>

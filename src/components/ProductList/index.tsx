@@ -45,8 +45,8 @@ export default function ProductList() {
   useEffect(() => {
     gsap.fromTo(
       productRefs.current,
-      { opacity: 0, y: 100 },
-      { opacity: 1, y: 0, stagger: 0.3, duration: 0.5, scrollTrigger: productRefs.current }
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, stagger: 0.3, scrollTrigger: productRefs.current }
     );
   }, []);
 

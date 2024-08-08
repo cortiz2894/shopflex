@@ -76,7 +76,6 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
         const clonedImg = imgRef.current.cloneNode() as HTMLElement;
         //@ts-ignore
         const rectCartButton = document.getElementById('cartButton').getBoundingClientRect()
-        console.log('rectCartButton: ', rectCartButton)
         Object.assign(clonedImg.style, {
           position: 'fixed',
           top: `${rect.top}px`,
@@ -96,11 +95,11 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
          })
         .to(clonedImg, {
           top:rectCartButton.y - ((rect.height * 0.85) / 2),
-          opacity: 0.1,
+          opacity: 0.2,
           left: rectCartButton.x - ((rect.height * 0.85) / 2),
           scale: 0.1,
-          duration: 1,
-          ease: 'power1.out',
+          duration: 0.7,
+          ease: "M0,0 C0.76,0 0.24,1 1,1",
           onComplete: () => {
             document.body.removeChild(clonedImg);
             addProductToStore(item)

@@ -52,11 +52,24 @@
 }
 
 .product {
-  border-radius: 25px;
-  border: 1px solid #cdcdcd;
+  border-radius: 8px;
+  border: 1px solid #ededed;
   display: flex;
 }
 
 .imageContainer {
   width: 25%;
+}
+
+.productCounter {
+  display: flex;
+  border: 1px solid rgba(205, 205, 205, 0.5647058824);
+  gap: 1rem;
+  padding: 0.6em;
+  float: left;
+  align-items: center;
+  span ,button {
+    color: #242424;
+    float: left;
+  }
 }

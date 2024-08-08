@@ -5,9 +5,9 @@ import { IoCloseOutline } from "react-icons/io5";
 import ButtonPrimary from '@/components/shared/ButtonPrimary';
 import Curve from '../Curve/index';
 import Title from '@/components/shared/Title'
-import { CartStore, useCartStore } from '@/store/cartStore';
-import { Product } from '@/components/ProductCard/product.types';
+import { CartStore, Product, useCartStore } from '@/store/cartStore';
 import Image from 'next/image';
+import Counter from './Counter/index';
 
 type CartDrawerProps = {
     isCartOpen: boolean
@@ -19,9 +19,11 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
   const { products } = useCartStore((state:CartStore) => ({
     products: state.products
   }))
+  const { updateQuantity } = useCartStore();
+  
   return (
     <div className={classNames("h-[100vh] w-[31.5vw] fixed z-10 top-0",[styles.drawer], {[styles.active]: isCartOpen})}>
-        <div className={classNames("bg-white z-10 top-0",[styles.content], {[styles.active]: isCartOpen})}>
+        <div className={classNames("bg-white z-10 top-0 flex flex-col",[styles.content], {[styles.active]: isCartOpen})}>
           <div className={classNames("absolute right-5 top-5", [styles.closeButton])} onClick={() => toggleCart()}>
             <ButtonPrimary text={<IoCloseOutline className='text-[20px]'/>} variant='outlined' size='small'/>
           </div>
@@ -37,9 +39,10 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
               </div>
             </div>
           </div>
-          <div className='px-6 py-3 flex flex-col'>
+          <div className='px-6 py-3 flex flex-col gap-3 h-full overflow-y-auto'>
+            {products.length === 0 && <p className='text-standar-darker flex justify-center h-full items-center'>Your Cart is Empty</p>}
             {products.map((prod:Product) => (
-              <div className={styles.product}>
+              <div key={prod.id} className={classNames('px-3 py-4 gap-3',[styles.product])}>
                 <div className={styles.imageContainer}>
                   <Image 
                     src={`/images/${prod.image}`}
@@ -47,11 +50,22 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
                     alt='clothes'
                   />
                 </div>
-                <div className='px-6 py-6 w-3/4'>
-                  <p className='text-standar-darker'>{prod.title}</p>
+                <div className='w-3/4 flex flex-col justify-around'>
+                  <p className='text-standar-darker font-bold mb-2 text-sm'>{prod.title}</p>
+                  <p className='text-standar-darker mb-2 text-sm'>USD {prod.price}</p>
+                  <div>
+                    <div className={styles.productCounter}>
+                      <button onClick={() => updateQuantity(prod.id, false)}>-</button>
+                        <Counter number={prod.quantity}/>
+                      <button onClick={() => updateQuantity(prod.id, true)}>+</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
+          </div>
+          <div className='bg-black h-52'>
+
           </div>
         </div>
         <Curve active={isCartOpen}/>
