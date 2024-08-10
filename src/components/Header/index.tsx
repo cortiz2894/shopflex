@@ -165,6 +165,7 @@ export default function Header() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+
 		const [isCartOpen, setIsCartOpen] = useState(false);
 
 		const { totalQuantity } = useCartStore((state:CartStore) => ({
@@ -264,14 +265,14 @@ export default function Header() {
     return (
       <header className="fixed left-0 top-0 w-full z-10">
         <div className="w-full flex flex-col items-center">
-          <nav 
-						className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
-						style={{boxShadow: '1px 1px 5px #9898980f'}}
-					>
+			<nav 
+				className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
+				style={{boxShadow: '1px 1px 5px #9898980f'}}
+			>
             <div className="flex items-center justify-between navbar">
 							<div className="flex items-center">
 								<div className="text-black w-28 mr-10">
-									<Logo />
+									<Logo drawAnimation={false}/>
 								</div>
 								<ul className="flex appear overflow-hidden">
 									{navlinks.map((link, index) => (

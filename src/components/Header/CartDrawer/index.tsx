@@ -16,11 +16,12 @@ type CartDrawerProps = {
 
 export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
 
-  const { products } = useCartStore((state:CartStore) => ({
-    products: state.products
+  const { products, totalQuantity } = useCartStore((state:CartStore) => ({
+    products: state.products,
+    totalQuantity: state.totalQuantity
   }))
   const { updateQuantity } = useCartStore();
-  
+
   return (
     <div className={classNames("h-[100vh] w-[31.5vw] fixed z-10 top-0",[styles.drawer], {[styles.active]: isCartOpen})}>
         <div className={classNames("bg-white z-10 top-0 flex flex-col",[styles.content], {[styles.active]: isCartOpen})}>
@@ -29,11 +30,11 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
           </div>
           <div className={classNames('p-6',[styles.header])}>
             <Title text='Your bag'/>
-            <span className='text-standar-darker px-2'><b>{products.length}</b>{` ${products.length <= 1 ? 'item' : 'items'}`}</span>
+            <span className='text-standar-darker px-2'><b>{totalQuantity}</b>{` ${totalQuantity <= 1 ? 'item' : 'items'}`}</span>
           </div>
           <div className='px-6 py-3 border-t border-b border-[#cdcdcd]'>
             <div className={styles.freeShippingContainer}>
-              <span className=' text-standar-darker'>You’re only <b>USD53.00</b> away from FREE shipping!</span>
+              <span className='text-sm text-center text-standar-darker'>You’re only <b>USD53.00</b> away from FREE shipping!</span>
               <div className='w-full rounded-3xl bg-[#cdcdcd] relative h-5 mt-3'>
                 <div className='absolute h-full bg-black rounded-3xl w-1/2'></div>
               </div>

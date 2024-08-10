@@ -43,12 +43,8 @@ export default function ProductList() {
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
   
   useEffect(() => {
-    gsap.fromTo(
+    gsap.to(
       productRefs.current,
-      { 
-        opacity: 0,
-        y: 200 
-      },
       { 
         opacity: 1,
         y: 0,
@@ -56,7 +52,10 @@ export default function ProductList() {
           each: 0.1,
           // from: "center"
         }, 
-        scrollTrigger: productRefs.current, 
+        scrollTrigger: {
+          trigger: productRefs.current,
+          // toggleActions: 'restart none none none'
+        }, 
         ease: 'ease' 
       }
     );
