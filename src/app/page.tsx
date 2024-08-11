@@ -2,7 +2,6 @@ import Container from "@/components/Container/index";
 import Hero from "@/components/Hero/index";
 import ProductList from "@/components/ProductList/index";
 import SectionTitle from "@/components/shared/SectionTitle/index";
-import Loader from "@/components/shared/Loader/index";
 
 export default function Home() {
 
@@ -17,7 +16,6 @@ export default function Home() {
           <ProductList />
         </Container>
       </div>
-      <Loader />
     </main>
   );
 }

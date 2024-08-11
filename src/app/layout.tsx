@@ -1,20 +1,25 @@
+'use client'
 import Header from "@/components/Header/index";
+import Loader from "@/components/shared/Loader/index";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { useState } from "react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Shopflex",
-  description: "Shopflex basic template",
-};
+// export const metadata: Metadata = {
+//   title: "Shopflex",
+//   description: "Shopflex basic template",
+// };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [pageLoaded, setPageLoaded] = useState(false)
+  
   return (
     <html lang="en">
       <head>
@@ -23,8 +28,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Zain:wght@200;300;400;700;800;900&display=swap" rel="stylesheet"/>
       </head>
       <body className={inter.className}>
-        <Header />  
+        <Header pageLoaded={pageLoaded}/>  
         {children}
+        <Loader isAnimationFinish={setPageLoaded}/>
       </body>
     </html>
   );

@@ -2,8 +2,14 @@
 import Logo from "@/icons/Logo";
 import { useEffect, useRef, useState } from "react";
 import styles from './Loader.module.scss'
+import classNames from "classnames";
 
-export default function Loader() {
+type Props = {
+  onAnimationEnd?: () => void
+  isAnimationFinish?: (state:boolean) => void
+}
+
+export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
 
   const loader = useRef<HTMLDivElement>(null);
   const path = useRef<SVGPathElement>(null);
@@ -18,7 +24,7 @@ export default function Loader() {
     requestAnimationFrame(activeLogoDraw)
     setTimeout( () => {
       requestAnimationFrame(animate)
-    }, 2100)
+    }, 3700)
   }, [])
 
   const activeLogoDraw = () => {
@@ -47,25 +53,31 @@ export default function Loader() {
     )
   }
 
-  const animate = (timestamp:number) => {
-    
-    if(start === undefined){
-      start = timestamp
+  const animate = (timestamp: number) => {
+    if (start === undefined) {
+      start = timestamp;
     }
-
+  
     const elapsed = timestamp - start;
-
-    if(!loader.current) return
-
+  
+    if (!loader.current) return;
+  
     loader.current.style.top = easeOutQuad(elapsed, 0, -(loaderHeight() as number), duration) + "px";
-
-    if(elapsed < duration){
-      requestAnimationFrame(animate)
-    }
-
-    const newCurve = easeOutQuad(elapsed, initialCurve, -200, duration)
+  
+    const newCurve = easeOutQuad(elapsed, initialCurve, -200, duration);
     setPath(newCurve);
-  }
+  
+    if (elapsed < duration) {
+      requestAnimationFrame(animate);
+    } else {
+      // onAnimationEnd()
+      if (isAnimationFinish) {
+        isAnimationFinish(true)
+      }
+      
+      console.log('finish animation');
+    }
+  };
 
   const easeOutQuad = (time:number, start:number, end:number, duration:number) => {
     return -end * (time /= duration) * (time - 2) + start;
@@ -77,7 +89,10 @@ export default function Loader() {
           <path ref={path}></path>
         </svg>
         <div className={styles.logo}>
-          <Logo drawAnimation={activeLogoAnimation}/>
+          {/* <div> */}
+            <Logo drawAnimation={activeLogoAnimation}/>
+            <div className={classNames([styles.progress], 'mt-5')}></div>
+          {/* </div> */}
         </div>
       </div>
   );

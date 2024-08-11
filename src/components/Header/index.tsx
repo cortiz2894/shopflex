@@ -2,7 +2,7 @@
 import Logo from "@/icons/Logo";
 import Image from "next/image";
 import gsap from 'gsap'
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
@@ -159,14 +159,19 @@ const NAVLINKS = [
     { title: 'Other' }
 ];
 
-export default function Header() {
+type Props = {
+	pageLoaded: boolean
+}
+
+
+export default function Header({pageLoaded}:Props) {
 
     const [navlinks, setNavlinks] = useState<Navlink[]>(NAVLINKS);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
-
 		const [isCartOpen, setIsCartOpen] = useState(false);
+		const headerRef = useRef<HTMLDivElement>(null)
 
 		const { totalQuantity } = useCartStore((state:CartStore) => ({
 			totalQuantity : state.totalQuantity
@@ -174,12 +179,31 @@ export default function Header() {
 
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
 		let tl = gsap.timeline({ paused: true });
+		
+		useGSAP(() => {
+			if(pageLoaded) {
+				if(!headerRef.current) return
+				tl.to(headerRef.current, {
+					y:0,
+					ease: 'sine.inOut',
+					duration: 0.5
+				})
+				.to('.appear li', {
+					y: 0,
+					stagger: 0.1,
+					duration: 0.4,
+					ease: 'sine.inOut',
+				});
+	
+				tl.play()
+			}
+		}, [pageLoaded]);
 
 		useGSAP(() => {
-			gsap.to('.appear li', {
-        y: 0,
-        duration: 1.2,
-      });
+			// gsap.to('.appear li', {
+      //   y: 0,
+      //   duration: 1.2,
+      // });
 			gsap.killTweensOf(".dropdown-item");
 			if(hoveredIndex !== null) {
 				gsap.fromTo('.image-dropdown', 
@@ -263,16 +287,18 @@ export default function Header() {
 		setIsCartOpen(!isCartOpen)
 	}
     return (
-      <header className="fixed left-0 top-0 w-full z-10">
-        <div className="w-full flex flex-col items-center">
-			<nav 
-				className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
-				style={{boxShadow: '1px 1px 5px #9898980f'}}
+      <header className="fixed left-0 top-0 translate-y-[-150%] w-full z-10"
+			ref={headerRef}
 			>
+        <div className="w-full flex flex-col items-center">
+          <nav 
+						className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
+						style={{boxShadow: '1px 1px 5px #9898980f'}}
+					>
             <div className="flex items-center justify-between navbar">
 							<div className="flex items-center">
 								<div className="text-black w-28 mr-10">
-									<Logo drawAnimation={false}/>
+									<Logo />
 								</div>
 								<ul className="flex appear overflow-hidden">
 									{navlinks.map((link, index) => (
