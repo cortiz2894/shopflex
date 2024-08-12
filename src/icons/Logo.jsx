@@ -1,8 +1,33 @@
-import * as React from "react"
+'use client'
+import { useLayoutEffect, useRef, useState } from "react";
 import styles from './Logo.module.scss'
 import classNames from "classnames";
+import gsap from 'gsap'
 
-const Logo = ({ drawAnimation = false, ...props }) => (
+const Logo = ({ drawAnimation = false, ...props }) => {
+  const firstPathRef = useRef(null)
+  const secondPathRef = useRef(null)
+
+  useLayoutEffect(() => {
+    if(drawAnimation && firstPathRef.current && secondPathRef.current) {
+      requestAnimationFrame(drawLogo)
+    }
+  }, [drawAnimation])
+    
+  const drawLogo = () => {
+    gsap.to(firstPathRef.current, {
+      strokeDashoffset: 0,
+      duration: 10,
+      ease: 'ease'
+    })
+    gsap.to(secondPathRef.current, {
+      strokeDashoffset: 0,
+      duration: 10,
+      ease: 'ease'
+    })
+  }
+  
+  return(
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 118 34"
@@ -10,6 +35,7 @@ const Logo = ({ drawAnimation = false, ...props }) => (
   >
     <g fill="currentColor">
       <path 
+        ref={firstPathRef}
         className={classNames({ [styles.logoPath]: drawAnimation })}
         {...(drawAnimation ? {
           stroke: "white",
@@ -20,6 +46,7 @@ const Logo = ({ drawAnimation = false, ...props }) => (
         d="M66.99 21.947c-2.609 0-4.79-2.032-4.79-4.958.118-6.55 9.484-6.522 9.613 0 0 2.932-2.216 4.957-4.824 4.957Zm0-13.357c-6.958-.097-10.814 7.554-7.005 13.282 3.124 4.69 10.902 4.673 14.038 0 3.839-5.74-.07-13.379-7.028-13.282m32.031 6.225c.24-.645.603-1.232 1.137-1.706 2.157-1.866 6.5-1.318 7.185 1.706h-8.322Zm12.208 1.945c.129-11.148-16.323-10.651-16.276.177-.076 3.292 1.835 6.636 5.052 7.857 3.271 1.3 7.415.519 9.712-2.169 0 0 .446-.456-.053-.798l-.445-.308s-1.231-.845-1.624-1.153c-.392-.308-.638.052-.638.052-1.044 1.26-2.849 1.7-4.443 1.466-2.222-.274-3.722-2.083-3.833-4.21h11.968c.322 0 .58-.258.58-.571v-.348" 
       />
       <path 
+        ref={secondPathRef}
         className={classNames({ [styles.logoPath]: drawAnimation })}
         {...(drawAnimation ? {
           stroke: "white",
@@ -30,5 +57,5 @@ const Logo = ({ drawAnimation = false, ...props }) => (
       />
     </g>
   </svg>
-)
+)}
 export default Logo

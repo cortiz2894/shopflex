@@ -22,6 +22,7 @@ export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
   useEffect(() => {
     setPath(initialCurve)
     requestAnimationFrame(activeLogoDraw)
+
     setTimeout( () => {
       requestAnimationFrame(animate)
     }, 3700)
@@ -70,12 +71,9 @@ export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
     if (elapsed < duration) {
       requestAnimationFrame(animate);
     } else {
-      // onAnimationEnd()
       if (isAnimationFinish) {
         isAnimationFinish(true)
       }
-      
-      console.log('finish animation');
     }
   };
 
@@ -89,10 +87,8 @@ export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
           <path ref={path}></path>
         </svg>
         <div className={styles.logo}>
-          {/* <div> */}
             <Logo drawAnimation={activeLogoAnimation}/>
             <div className={classNames([styles.progress], 'mt-5')}></div>
-          {/* </div> */}
         </div>
       </div>
   );
