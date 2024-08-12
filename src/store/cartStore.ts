@@ -8,7 +8,7 @@ export interface Product extends ProductBase {
 export interface CartStore {
   products: Product[];
   addToCart: (product: ProductBase) => void;
-  updateProductQuantity: (productId: number, add: boolean) => void;
+  updateQuantity: (productId: number, add: boolean) => void;
   totalQuantity: number;
 }
 
