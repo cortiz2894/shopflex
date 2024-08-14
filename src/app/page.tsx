@@ -3,8 +3,12 @@ import Hero from "@/components/Hero/index";
 import ProductList from "@/components/ProductList/index";
 import SectionTitle from "@/components/shared/SectionTitle/index";
 
-export default function Home() {
+export const metadata = {
+  title: "Shopflex",
+  description: "Shopflex basic template",
+};
 
+export default function Home() {
   return (
     <main>
       <Hero />

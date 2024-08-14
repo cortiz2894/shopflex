@@ -1,7 +1,16 @@
+// @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100..900&display=swap');
+
 .sliderContainer{
     z-index: 5;
     position: absolute;
-    top: calc(100vh - 350px);
+    top: calc(100vh - 17em);
+    // width: 100vw;
+    &.small {
+        p {
+            font-size: clamp(6.25rem, 2.8674rem + 5.423vw, 9.375rem);
+            line-height: clamp(6.25rem, 2.8674rem + 5.423vw, 9.375rem);
+        }
+    }
 }
 
 .slider{
@@ -13,9 +22,16 @@
     position: relative;
     margin: 0px;
     color: white;
-    font-size: 230px;
+    // font-family: "Bebas Neue", sans-serif;
+    // font-family: "Inter", sans-serif;
+    font-size: clamp(11.25rem, 7.8674rem + 5.423vw, 14.375rem);
+    line-height: clamp(13.125rem, 9.7424rem + 5.423vw, 16.25rem);
     font-weight: 500;
+    text-transform: capitalize;
     padding-right: 50px;
+    // background-color: #242424;
+
+   
 }
 
 .slider p:nth-of-type(2){

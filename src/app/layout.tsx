@@ -8,11 +8,6 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   title: "Shopflex",
-//   description: "Shopflex basic template",
-// };
-
 export default function RootLayout({
   children,
 }: Readonly<{

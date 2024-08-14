@@ -4,14 +4,16 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 import styles from './InfiniteText.module.scss'
+import classNames from "classnames";
 
 gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
-    text: string
+    text: string,
+	size?: 'small'| 'medium'
 }
 
-export default function InfiniteText({text}: Props) {
+export default function InfiniteText({text, size = 'medium'}: Props) {
 
 	const firstText = useRef(null);
 	const secondText = useRef(null);
@@ -51,10 +53,10 @@ export default function InfiniteText({text}: Props) {
   }
 
   return (
-		<div className={styles.sliderContainer}>
+		<div className={classNames(styles.sliderContainer, [styles[size]])}>
 			<div ref={slider} className={styles.slider}>
-					<p ref={firstText}>{text}</p>
-					<p ref={secondText}>{text}</p>
+				<p ref={firstText} >{text}</p>
+				<p ref={secondText}>{text}</p>
 			</div>
 		</div>
   );
