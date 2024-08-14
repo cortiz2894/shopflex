@@ -43,9 +43,9 @@ export default function InstagramCard({ className, videoMp4Src, videoWebmSrc, vi
 
     hoverTimeline.current = gsap.timeline({ paused: true })
       .to(cardIgRef.current, {
-        scale: 1.2,
+        scale: 1.1,
         ease: "elastic.out(1,0.3)",
-        duration: 1,
+        duration: 0.7,
       });
     }, []);
 
@@ -53,28 +53,36 @@ export default function InstagramCard({ className, videoMp4Src, videoWebmSrc, vi
         if (!hoverTimeline.current) return;
         hoverTimeline.current.play();
     
-        const numHearts = 20; // Número de corazones
+        const numHearts = 20;
+        const heartClones = [];
+
+        const heartClone = heartContainerRef.current?.querySelector('svg')?.cloneNode(true) as HTMLElement;
+
         for (let i = 0; i < numHearts; i++) {
-          const heartClone = heartContainerRef.current?.querySelector('svg')?.cloneNode(true) as HTMLElement;
           if (heartClone) {
-            heartClone.style.position = 'absolute';
-            heartClone.style.left = `${Math.random() * 100}%`;
-            heartClone.style.top = '50%';
-            heartContainerRef.current?.appendChild(heartClone);
-    
-            gsap.to(heartClone, {
-              x: (Math.random() - 0.5) * 20, // Movimiento horizontal aleatorio
-              y: -Math.random() * 200, // Movimiento hacia arriba
-              scale: Math.random() * 0.5 + 0.5, // Escala aleatoria
-              opacity: 0, // Desaparece
-              duration: 2,
-              ease: "power2.out",
-              onComplete: () => {
-                heartClone.remove(); // Eliminar el corazón después de la animación
-              }
-            });
-          }
+                const heartClone = heartContainerRef.current?.querySelector('svg')?.cloneNode(true) as HTMLElement;
+                heartClone.style.position = 'absolute';
+                // heartClone.style.left = `${Math.random() * 100}%`;
+                heartClone.style.left = '0px';
+                heartClone.style.top = '0px';
+                heartContainerRef.current?.appendChild(heartClone);
+                heartClones.push(heartClone);
+            }
         }
+        gsap.to(heartClones, {
+            x: () => (Math.random() - 0.5) * 100,
+            y: -100,
+            // scale: Math.random() * 0.5 + 0.5,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power2.out",
+            onComplete() {
+                if (!heartContainerRef.current) return
+                heartContainerRef.current.innerHTML = ''
+                heartContainerRef.current.appendChild(heartClone);
+            }
+        });
       };
 
 	const handleMouseLeave = () => {
