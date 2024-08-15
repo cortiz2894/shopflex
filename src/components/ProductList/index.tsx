@@ -66,7 +66,7 @@ export default function ProductList() {
       {products.map((item, index) => {
         return (
           <ProductCard
-            ref={(el) => (productRefs.current[index] = el)}
+            ref={(el) => {productRefs.current[index] = el}}
             key={`item-${item.id}`}
             item={item}
           />

@@ -79,7 +79,7 @@ export default function Gallery() {
 					start: 'top bottom',
 					end: 'top 60%',
 					scrub: 1,
-					markers: true
+					// markers: true
         },
 				duration: 1.5,
         ease: 'ease' 
@@ -110,7 +110,7 @@ export default function Gallery() {
 							<div 
 								className={styles.imageContainer} 
 								key={`gallery-item-${collection.id}`}
-								ref={(el) => (collectionsRefs.current[index] = el)}
+								ref={(el) => { collectionsRefs.current[index] = el }}
 							>
 								<InfiniteText size='small' text={collection.trigger} position='bottom'/>
 								<figcaption>

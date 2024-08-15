@@ -1,5 +1,5 @@
 import { Product as ProductBase } from '@/components/ProductCard/product.types';
-import create from 'zustand';
+import { create } from 'zustand';
 
 export interface Product extends ProductBase {
   quantity: number;
