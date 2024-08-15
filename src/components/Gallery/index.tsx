@@ -45,25 +45,25 @@ export default function Gallery() {
 	  
   useEffect(() => {
 		const createScrollAnimation = (
-      element: HTMLDivElement | null,
-      start: string,
-      end: string,
-      fromTop: string,
-      toTop: string
-    ) => {
-      if (element) {
-        gsap.to(element, {
-          top: toTop,
-          scrollTrigger: {
-            trigger: element,
-            start: start,
-            end: end,
-            scrub: 1,
-          },
-          ease: 'none',
-        });
-      }
-    };
+			element: HTMLDivElement | null,
+			start: string,
+			end: string,
+			fromTop: string,
+			toTop: string
+		) => {
+			if (element) {
+				gsap.to(element, {
+					top: toTop,
+					scrollTrigger: {
+						trigger: element,
+						start: start,
+						end: end,
+						scrub: true,
+					},
+					ease: 'none',
+				});
+			}
+		};
 
     gsap.to(
       collectionsRefs.current,
@@ -76,16 +76,27 @@ export default function Gallery() {
         }, 
         scrollTrigger: {
           trigger: collectionsRefs.current,
+					start: 'top bottom',
+					end: 'top 60%',
+					scrub: 1,
+					markers: true
         },
 				duration: 1.5,
         ease: 'ease' 
       }
     );
 
-		createScrollAnimation(collectionsRefs.current[0], 'top center', 'bottom center', '10vh', '-10vh');
-    createScrollAnimation(collectionsRefs.current[1], 'top center', 'bottom center', '-14vh', '14vh');
-    createScrollAnimation(collectionsRefs.current[2], 'top center', 'bottom center', '12vh', '-12vh');
+		collectionsRefs.current.forEach((element, index) => {
+			let toTop = '10vh'
+			let fromTop = '-10vh'
 
+			if (index % 2 !== 0) {
+				toTop =  '-14vh'
+				fromTop = '14vh'
+			}
+			
+			createScrollAnimation(element, 'top center', 'bottom center', toTop, fromTop);
+		});
   }, []);
 
   return (
@@ -93,7 +104,7 @@ export default function Gallery() {
         <Container>
             <SectionTitle position='center' text='Collections'/>
         </Container>
-				<div className='flex gap-3 relative h-[80vh] mt-[13vh] mb-[25vh]'>
+				<div className='flex gap-3 relative h-[80vh] mt-[13vh] mb-[25vh] mx-auto w-[98.5%]'>
 					{collections.map((collection, index) => {
 						return(
 							<div 

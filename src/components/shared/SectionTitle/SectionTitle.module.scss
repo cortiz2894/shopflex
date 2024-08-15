@@ -10,9 +10,16 @@
 }
 .center {
     justify-content: center;
+    h2 {
+        padding-left: 1rem;
+    }
 }
 .right {
     justify-content: end;
+    h2 {
+        padding-left: 1rem;
+        padding-right: 0em;
+    }
 }
 
 .line {

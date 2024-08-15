@@ -8,7 +8,7 @@
     top: 0;
     transform: translateY(10vh);
     cursor: pointer;
-    transition-property: width, border-radius;
+    transition-property: width, height, border-radius;
     transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);;
     transition-duration: 0.3s;
     &:nth-of-type(2) {
@@ -23,6 +23,7 @@
     }
     &:hover {
         width: 150%;
+        height: 110%;
         border-radius: 8px;
         .overlayBackground {
             opacity: 1;

@@ -4,7 +4,7 @@ import VideoPlayer from "@/components/shared/VideoPlayer/index";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import styles from './InstagramCard.module.scss'
-import { AiFillHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineInstagram } from "react-icons/ai";
 
 interface InstagramCardProps {
   className?: string;
@@ -116,6 +116,9 @@ export default function InstagramCard({ className, videoMp4Src, videoWebmSrc, vi
             </div>
             <span>400</span>
         </div>
+        <AiOutlineInstagram 
+          className={styles.brandLogo}
+        />
     </figcaption>
     </figure>
   );
