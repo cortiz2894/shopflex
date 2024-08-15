@@ -53,7 +53,7 @@ export default function InstagramCard({ className, videoMp4Src, videoWebmSrc, vi
         if (!hoverTimeline.current) return;
         hoverTimeline.current.play();
     
-        const numHearts = 20;
+        const numHearts = 10;
         const heartClones = [];
 
         const heartClone = heartContainerRef.current?.querySelector('svg')?.cloneNode(true) as HTMLElement;

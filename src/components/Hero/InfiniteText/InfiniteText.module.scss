@@ -1,15 +1,18 @@
-// @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100..900&display=swap');
-
 .sliderContainer{
     z-index: 5;
     position: absolute;
-    top: calc(100vh - 17em);
     // width: 100vw;
     &.small {
         p {
-            font-size: clamp(6.25rem, 2.8674rem + 5.423vw, 9.375rem);
-            line-height: clamp(6.25rem, 2.8674rem + 5.423vw, 9.375rem);
+            font-size: clamp(4.0625rem, 0.6799rem + 5.423vw, 7.1875rem);
+            line-height: clamp(4.0625rem, 0.6799rem + 5.423vw, 7.1875rem);
         }
+    }
+    &.hero {
+        top: calc(100vh - 17em);
+    }
+    &.bottom {
+        bottom: 0;
     }
 }
 

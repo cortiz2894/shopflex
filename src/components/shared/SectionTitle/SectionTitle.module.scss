@@ -5,6 +5,16 @@
     padding-right: 1rem;
 }
 
+.left {
+    justify-content: start;
+}
+.center {
+    justify-content: center;
+}
+.right {
+    justify-content: end;
+}
+
 .line {
     width: 100%;
     position: absolute;

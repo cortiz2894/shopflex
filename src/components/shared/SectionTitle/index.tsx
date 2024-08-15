@@ -6,13 +6,14 @@ import classNames from "classnames";
 import styles from './SectionTitle.module.scss'
 
 interface Props {
-    text: string
+    text: string,
+    position?: 'center' | 'left' | 'right'
 }
 
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function SectionTitle({text}:Props) {
+export default function SectionTitle({ text, position = 'left' }:Props) {
 	const lineRef = useRef<HTMLDivElement>(null)
 
 	useLayoutEffect(() => {
@@ -30,7 +31,7 @@ export default function SectionTitle({text}:Props) {
     }, []);
 
   return (
-        <div className="relative flex items-center mt-[2rem] mb-[5rem]">
+        <div className={classNames("relative flex items-center mt-[2rem] mb-[5rem]", [styles[position]])}>
             <h2 className={classNames("text-standar-darker", [styles.title])}>{text}</h2>
             <div ref={lineRef} className={styles.line}></div>
         </div>

@@ -45,7 +45,7 @@ export default function Hero() {
           triggerElement={heroRef.current}
         />
       </a>
-      <InfiniteText text="Embrace the technology - " />
+      <InfiniteText text="Embrace the technology - " controls={true}/>
     </div>
   );
 }

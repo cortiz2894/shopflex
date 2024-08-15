@@ -9,11 +9,13 @@ import classNames from "classnames";
 gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
-    text: string,
-	size?: 'small'| 'medium'
+  text: string,
+	size?: 'small'| 'medium',
+	position?: 'hero' | 'bottom'
+  controls?: boolean
 }
 
-export default function InfiniteText({text, size = 'medium'}: Props) {
+export default function InfiniteText({text, size = 'medium', position = 'hero', controls = false}: Props) {
 
 	const firstText = useRef(null);
 	const secondText = useRef(null);
@@ -23,19 +25,19 @@ export default function InfiniteText({text, size = 'medium'}: Props) {
 	let direction = -1;
 
   useEffect( () => {
-
-    gsap.to(slider.current, {
-		  scrollTrigger: {
-		    trigger: document.documentElement,
-		    scrub: 0.5,
-		    start: 0,
-		    end: window.innerHeight,
-		    onUpdate: e => direction = e.direction * -1
-		  },
-		  x: "-500px",
-		})
-		
-		requestAnimationFrame(animate);	  
+    if(controls) {
+      gsap.to(slider.current, {
+        scrollTrigger: {
+          trigger: document.documentElement,
+          scrub: 0.5,
+          start: 0,
+          end: window.innerHeight,
+          onUpdate: e => direction = e.direction * -1
+        },
+        x: "-500px",
+      })
+    }
+    requestAnimationFrame(animate);	  
   }, [])
 
   const animate = () => {
@@ -53,7 +55,7 @@ export default function InfiniteText({text, size = 'medium'}: Props) {
   }
 
   return (
-		<div className={classNames(styles.sliderContainer, [styles[size]])}>
+		<div className={classNames(styles.sliderContainer, [styles[size]], [styles[position]])}>
 			<div ref={slider} className={styles.slider}>
 				<p ref={firstText} >{text}</p>
 				<p ref={secondText}>{text}</p>

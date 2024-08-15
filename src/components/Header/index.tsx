@@ -2,7 +2,7 @@
 import Logo from "@/icons/Logo";
 import Image from "next/image";
 import gsap from 'gsap'
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import classNames from "classnames";
 import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
