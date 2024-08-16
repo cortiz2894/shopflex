@@ -23,9 +23,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Zain:wght@200;300;400;700;800;900&display=swap" rel="stylesheet"/>
       </head>
       <body className={inter.className}>
+        <Loader isAnimationFinish={setPageLoaded}/>
         <Header pageLoaded={pageLoaded}/>  
         {children}
-        <Loader isAnimationFinish={setPageLoaded}/>
       </body>
     </html>
   );
