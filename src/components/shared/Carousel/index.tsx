@@ -3,7 +3,6 @@ import React, { useRef, useEffect, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import Draggable from "gsap/Draggable";
 import styles from './Carousel.module.scss'
-// import InertiaPlugin from 'gsap-trial/InertiaPlugin';
 import ProductCard from "@/components/ProductCard/index";
 
 gsap.registerPlugin(Draggable);
@@ -71,7 +70,7 @@ export const Carousel = () => {
   const sliderRef = useRef(null);
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
 		gsap.to(
       productRefs.current,
       { 
@@ -102,7 +101,7 @@ export const Carousel = () => {
   }, []);
 
   return (
-		// <div className="relative w-full h-[37vh]">
+		<div className="relative w-full h-[37vw]">
 			<div id="slider" className={styles.slider} ref={sliderRef}>
 				{PRODUCT_LIST.map((item, index) => {
 					return (
@@ -114,6 +113,6 @@ export const Carousel = () => {
 					);
 				})}
 			</div>
-		// </div> 
+		</div> 
   );
 };

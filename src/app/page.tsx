@@ -17,7 +17,7 @@ export default function Home() {
       <Hero />
         <Container>
           <SectionTitle text='Drops of the month'/>
-          <ProductList />
+          <Carousel />
           <SectionTitle text='Most wanted'/>
           <ProductList />
         </Container>
@@ -28,7 +28,7 @@ export default function Home() {
         <SectionTitle text='Most wanted'/>
         <ProductList />
         <SectionTitle text='Carousel culero'/>
-        <Carousel />
+          <ProductList />
       </Container>
     </main>
   );
