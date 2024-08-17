@@ -111,8 +111,6 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
 
   CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
 
-
-
   return (
     <div 
       className={classNames(`w-full relative`, [styles.card])} 

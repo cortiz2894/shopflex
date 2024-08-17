@@ -8,6 +8,7 @@ import Title from '@/components/shared/Title'
 import { CartStore, Product, useCartStore } from '@/store/cartStore';
 import Image from 'next/image';
 import Counter from './Counter/index';
+import { AiOutlineLock } from "react-icons/ai";
 
 type CartDrawerProps = {
     isCartOpen: boolean
@@ -16,9 +17,9 @@ type CartDrawerProps = {
 
 export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
 
-  const { products, totalQuantity } = useCartStore((state:CartStore) => ({
+  const { products, totals } = useCartStore((state:CartStore) => ({
     products: state.products,
-    totalQuantity: state.totalQuantity
+    totals: state.totals
   }))
   const { updateQuantity } = useCartStore();
 
@@ -30,7 +31,7 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
           </div>
           <div className={classNames('p-6',[styles.header])}>
             <Title text='Your bag'/>
-            <span className='text-standar-darker px-2'><b>{totalQuantity}</b>{` ${totalQuantity <= 1 ? 'item' : 'items'}`}</span>
+            <span className='text-standar-darker px-2'><b>{totals.quantity}</b>{` ${totals.quantity <= 1 ? 'item' : 'items'}`}</span>
           </div>
           <div className='px-6 py-3 border-t border-b border-[#cdcdcd]'>
             <div className={styles.freeShippingContainer}>
@@ -65,11 +66,32 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
               </div>
             ))}
           </div>
-          <div className='bg-black h-52'>
+          {products.length > 0 && (
+            <div className='bg-black p-6'>
+              <div className='flex justify-between w-full mb-2'>
+                <h3 className='text-white text-3xl'>
+                  Total
+                </h3>
+                <h3 className='text-white text-3xl'>
+                  <b>{totals.price}usd</b>
+                </h3>
+              </div>
+              <span className='text-white'>Shipping calculated at checkout</span>
+              <div className='mt-3'>
+                <ButtonPrimary 
+                    action={() => console.log()} 
+                    theme='light' 
+                    variant='lessRounded' 
+                    size='full'
+                    text={
+                      <span className={'flex relative'}>Checkout<AiOutlineLock className='text-[20px] ml-2'/></span>
+                    } 
+                  />
 
-          </div>
+              </div>
+            </div>
+          )}
         </div>
-        <Curve active={isCartOpen}/>
     </div>
   );
 }

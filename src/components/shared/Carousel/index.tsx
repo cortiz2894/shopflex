@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useEffect, useLayoutEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import Draggable from "gsap/Draggable";
 import styles from './Carousel.module.scss'
@@ -139,11 +139,11 @@ export const Carousel = () => {
 			</div>
 			<button onClick={() => moveSlider(1)} className={classNames('absolute', [styles.arrow], [styles.left])}>
 				<BsChevronCompactLeft className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
-				<button className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-black'}/></button>
+				<span className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-black'}/></span>
 			</button>
 			<button onClick={() => moveSlider(-1)} className={classNames('absolute', [styles.arrow], [styles.right])}>
 				<BsChevronCompactRight className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
-				<button className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-black'}/></button>
+				<span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-black'}/></span>
 			</button>
 
 		</div> 

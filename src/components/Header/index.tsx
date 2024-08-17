@@ -173,8 +173,8 @@ export default function Header({pageLoaded}:Props) {
 		const [isCartOpen, setIsCartOpen] = useState(false);
 		const headerRef = useRef<HTMLDivElement>(null)
 
-		const { totalQuantity } = useCartStore((state:CartStore) => ({
-			totalQuantity : state.totalQuantity
+		const { totals } = useCartStore((state:CartStore) => ({
+			totals : state.totals
 		}), shallow)
 
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
@@ -322,7 +322,7 @@ export default function Header({pageLoaded}:Props) {
 								</div>
 								<div id='cartButton' className="relative">
 									<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
-										<Counter number={totalQuantity} />
+										<Counter number={totals.quantity} />
 									</div>
 									<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
 								</div>

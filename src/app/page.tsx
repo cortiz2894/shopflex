@@ -24,7 +24,7 @@ export default function Home() {
       <Gallery />
       <Container>
         <SectionTitle text='Most wanted'/>
-        <ProductList />
+        <Carousel />
         <SectionTitle text='Most wanted'/>
         <ProductList />
         <SectionTitle text='Carousel culero'/>

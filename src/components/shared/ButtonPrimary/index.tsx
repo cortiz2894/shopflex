@@ -7,9 +7,10 @@ type Props = {
     size?: 'large' | 'small' | 'full'
     text: React.ReactNode
     action?: () => void
+    [key: string]: any
 }
 
-export default function ButtonPrimary({variant = 'outlined', text, size = 'large', theme = 'light', action} :Props): JSX.Element {
+export default function ButtonPrimary({variant = 'outlined', text, size = 'large', theme = 'light', action, ...rest} :Props): JSX.Element {
 
 //   const scrollToElement = () => {
 //     const element = document.getElementById(text);
@@ -22,6 +23,7 @@ export default function ButtonPrimary({variant = 'outlined', text, size = 'large
     <button 
       className={classNames(styles.button, styles[variant], 'button', styles[size], styles[theme])} 
       onClick={action}
+      {...rest}
     >
         <p className={styles.text}>{text}</p>
         <div className={styles.overlay}>

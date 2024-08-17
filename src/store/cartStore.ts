@@ -5,11 +5,16 @@ export interface Product extends ProductBase {
   quantity: number;
 }
 
+export interface Totals {
+  price: number,
+  quantity: number
+}
+
 export interface CartStore {
   products: Product[];
   addToCart: (product: ProductBase) => void;
   updateQuantity: (productId: number, add: boolean) => void;
-  totalQuantity: number;
+  totals: Totals;
 }
 
 const addProductToCart = (products: Product[], product: ProductBase): Product[] => {
@@ -41,26 +46,35 @@ const updateProductQuantity = (
   });
 };
 
-const calculateTotal = (products: Product[]): number => {
-    return products.reduce((total, product) => total + product.quantity, 0);
+const calculateTotals = (products: Product[]): Totals => {
+    const totalPrice = products.reduce((total, product) => total + (product.quantity * product.price) , 0)
+    const totalQuantity = products.reduce((total, product) => total + product.quantity, 0);
+
+    return {
+      price: totalPrice,
+      quantity: totalQuantity
+    }
 };
 
 
 export const useCartStore = create<CartStore>((set) => ({
   products: [],
+  totals: {
+    price: 0,
+    quantity: 0
+  },
   addToCart: (product: ProductBase) => set((state: CartStore) => {
     const updatedProducts = addProductToCart(state.products, product);
     return {
       products: updatedProducts,
-      totalQuantity: calculateTotal(updatedProducts),
+      totals: calculateTotals(updatedProducts),
     };
   }),
   updateQuantity: (productId: number, add: boolean) => set((state: CartStore) => {
     const updatedProducts = updateProductQuantity(state.products, productId, add);
     return {
       products: updatedProducts,
-      totalQuantity: calculateTotal(updatedProducts),
+      totals: calculateTotals(updatedProducts),
     };
-  }),
-  totalQuantity: 0,
+  })
 }));
