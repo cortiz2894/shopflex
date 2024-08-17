@@ -4,6 +4,8 @@ import { gsap } from "gsap";
 import Draggable from "gsap/Draggable";
 import styles from './Carousel.module.scss'
 import ProductCard from "@/components/ProductCard/index";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import classNames from "classnames";
 
 gsap.registerPlugin(Draggable);
 
@@ -67,10 +69,13 @@ const PRODUCT_LIST = [
 ];
 
 export const Carousel = () => {
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const position = useRef(0);
+
   useEffect(() => {
+		if(!sliderRef.current) return
 		gsap.to(
       productRefs.current,
       { 
@@ -78,11 +83,9 @@ export const Carousel = () => {
         y: 0,
         stagger: {
           each: 0.1,
-          // from: "center"
         }, 
         scrollTrigger: {
           trigger: productRefs.current,
-          // toggleActions: 'restart none none none'
         }, 
         ease: 'ease' 
       }
@@ -91,17 +94,38 @@ export const Carousel = () => {
       Draggable.create(sliderRef.current, {
         type: 'x',
         bounds: {
-          minX: -sliderRef.current.clientWidth + window.innerWidth * 0.88,
+          minX: -(sliderRef.current as HTMLDivElement).clientWidth + window.innerWidth * 0.88,
           maxX: 0,
         },
-        // inertia: true,
+				onDrag: function() {
+          position.current = this.x;
+        }
       });
     });
     return () => ctx.revert();
   }, []);
 
+	const moveSlider = (direction: number) => {
+		if(!sliderRef.current) return 
+    const sliderWidth = (sliderRef.current as HTMLDivElement).clientWidth;
+    const viewportWidth = window.innerWidth * 0.88;
+    const maxPosition = 0;
+    const minPosition = -sliderWidth + viewportWidth;
+		// Calculo el valor de 1em 
+		const fontSize = window.getComputedStyle(sliderRef.current).fontSize;
+    const emValue = parseFloat(fontSize);
+
+		const itemWidth = productRefs.current[0]?.clientWidth ?? 0
+		// Esto es para calcular el valor del gap y que se mueva los px
+    let newPosition = position.current + direction * (itemWidth + emValue * 1.25); 
+    newPosition = Math.max(minPosition, Math.min(maxPosition, newPosition));
+
+    gsap.to(sliderRef.current, { x: newPosition, duration: 0.5, ease: "power2.out" });
+    position.current = newPosition;
+  };
+
   return (
-		<div className="relative w-full h-[37vw]">
+		<div className={classNames("relative w-full h-[37vw]", [styles.container])}>
 			<div id="slider" className={styles.slider} ref={sliderRef}>
 				{PRODUCT_LIST.map((item, index) => {
 					return (
@@ -113,6 +137,13 @@ export const Carousel = () => {
 					);
 				})}
 			</div>
+			<button onClick={() => moveSlider(1)} className={classNames('absolute', [styles.arrow], [styles.left])}>
+				<BsChevronCompactLeft className={'text-[3em] text-[#727272]'}/>
+			</button>
+			<button onClick={() => moveSlider(-1)} className={classNames('absolute', [styles.arrow], [styles.right])}>
+				<BsChevronCompactRight className={'text-[3em] text-[#727272]'}/>
+			</button>
+
 		</div> 
   );
 };

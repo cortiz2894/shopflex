@@ -287,7 +287,7 @@ export default function Header({pageLoaded}:Props) {
 		setIsCartOpen(!isCartOpen)
 	}
     return (
-      <header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[99]"
+      <header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]"
 			ref={headerRef}
 			>
         <div className="w-full flex flex-col items-center">
