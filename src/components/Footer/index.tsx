@@ -39,7 +39,7 @@ export default function Footer() {
 						</div>
 					</div>
 					<div className='w-full'>
-						<p className='text-[#ffffff80] text-sm text-right'>2024 - POWERED BY SHOPFLEX</p>
+						<p className='text-[#ffffff80] text-xs text-right'>2024 - POWERED BY SHOPFLEX</p>
 					</div>
 				</div>
     	</div>
