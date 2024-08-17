@@ -138,10 +138,12 @@ export const Carousel = () => {
 				})}
 			</div>
 			<button onClick={() => moveSlider(1)} className={classNames('absolute', [styles.arrow], [styles.left])}>
-				<BsChevronCompactLeft className={'text-[3em] text-[#727272]'}/>
+				<BsChevronCompactLeft className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
+				<button className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-black'}/></button>
 			</button>
 			<button onClick={() => moveSlider(-1)} className={classNames('absolute', [styles.arrow], [styles.right])}>
-				<BsChevronCompactRight className={'text-[3em] text-[#727272]'}/>
+				<BsChevronCompactRight className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
+				<button className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-black'}/></button>
 			</button>
 
 		</div> 

@@ -35,33 +35,89 @@
     /* background-color: rgb(39 39 39 / 16%); */
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
+    overflow: hidden;
     /* mix-blend-mode: difference; */
     box-shadow: 1px 1px 5px #9898980f;
-    opacity: 0.3;
-    transition-property: left, right, opacity, border-color;
+    opacity: 0.4;
+    transform: scale(0.8);
+    transition-property: left, right, opacity, border-color, border-radius, transform;
     transition-timing-function: cubic-bezier(0.2, 0.32, 0, 0.87);
     transition-duration: 0.3s;
+
+   
+    
     &.left {
         left: 0;
+        .svgPrime {
+            transform: translateX(0%);
+            transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
+        }
+        .animatedButton {
+            transform: translate(150%, -50%);
+        }
     }
     &.right {
         right: 0;
+        .svgPrime {
+            transform: translateX(0%);
+            transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
+        }
+        .animatedButton {
+            transform: translate(-150%, -50%);
+        }
     }
 }
-
+    
 .container {
     &:hover {
         .arrow {
             opacity: 1;
+            transform: scale(1);
             &.left {
-                left: -4em;
+                left: -3.5em;
+                &:active {
+                    transform: scale(0.8);
+                    transition-duration: 0.1s;
+                }
+                &:hover {
+                    .svgPrime {
+                        transform: translateX(-150%);
+                    }
+                    .animatedButton {
+                        transform: translate(-17%, -50%);
+                    }
+                }
             }
            &.right {
-                right: -4em;
+                right: -3.5em;
+                &:active {
+                    transform: scale(0.8);
+                    transition-duration: 0.1s;
+                }
+                &:hover {
+                    .svgPrime {
+                        transform: translateX(150%);
+                    }
+                    .animatedButton {
+                        transform: translate(-17%, -50%);
+                    }
+                }
             }
             &:hover {
-                border-color: #727272;
+                border-color: black;
+                border-radius: 50%;
             }
         }
     }
+}
+
+.animatedButton {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
 }
