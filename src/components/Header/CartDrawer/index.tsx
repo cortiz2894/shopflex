@@ -72,7 +72,7 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
                 <h3 className='text-white text-3xl'>
                   Total
                 </h3>
-                <h3 className='text-white text-3xl'>
+                <h3 className='text-white text-2xl'>
                   <b>{totals.price}usd</b>
                 </h3>
               </div>

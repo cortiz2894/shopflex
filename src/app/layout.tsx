@@ -1,4 +1,5 @@
 'use client'
+import Footer from "@/components/Footer/index";
 import Header from "@/components/Header/index";
 import Loader from "@/components/shared/Loader/index";
 import type { Metadata } from "next";
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Loader isAnimationFinish={setPageLoaded}/>
         <Header pageLoaded={pageLoaded}/>  
         {children}
+        <Footer />
       </body>
     </html>
   );
