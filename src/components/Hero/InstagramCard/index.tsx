@@ -20,6 +20,7 @@ export default function InstagramCard({ className, videoMp4Src, videoWebmSrc, vi
     const heartContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if(!cardIgRef.current) return
     setTimeout(() => {
         gsap.timeline()
         .to(cardIgRef.current, {

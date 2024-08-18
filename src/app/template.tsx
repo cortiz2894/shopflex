@@ -1,36 +1,23 @@
 'use client'
-import Logo from "@/icons/Logo";
-import { useEffect, useRef, useState } from "react";
-import styles from './Loader.module.scss'
-import classNames from "classnames";
 
-type Props = {
-  onAnimationEnd?: () => void
-  isAnimationFinish?: (state:boolean) => void
-}
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react';
+import { useRef } from 'react';
 
-export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
+export default function Template({children}:{children: React.ReactNode}) {
 
   const loader = useRef<HTMLDivElement>(null);
   const path = useRef<SVGPathElement>(null);
-	const [activeLogoAnimation, setActiveLogoAnimation] = useState(true)
 
-  const initialCurve:number = 200;
-  const duration:number = 600;
+  const initialCurve:number = 300;
+  const duration:number = 1000;
   let start:number | undefined;
 
-  useEffect(() => {
-    setPath(initialCurve)
-    requestAnimationFrame(activeLogoDraw)
-
-    setTimeout( () => {
-      requestAnimationFrame(animate)
-    }, 2000)
-  }, [])
-
-  const activeLogoDraw = () => {
-    setActiveLogoAnimation(true)
-  }
+	useGSAP(() => {
+		console.log('Transition')
+		setPath(initialCurve)
+		requestAnimationFrame(animate)
+	}, [])
 
   const loaderHeight = () => {
     if(loader.current) {
@@ -65,15 +52,11 @@ export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
   
     loader.current.style.top = easeOutQuad(elapsed, 0, -(loaderHeight() as number), duration) + "px";
   
-    const newCurve = easeOutQuad(elapsed, initialCurve, -200, duration);
+    const newCurve = easeOutQuad(elapsed, initialCurve, -400, duration);
     setPath(newCurve);
   
     if (elapsed < duration) {
       requestAnimationFrame(animate);
-    } else {
-      if (isAnimationFinish) {
-        isAnimationFinish(true)
-      }
     }
   };
 
@@ -81,15 +64,16 @@ export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
     return -end * (time /= duration) * (time - 2) + start;
   }
 
+
   return (
-      <div ref={loader} className={styles.loader}>
-        <svg>
-          <path ref={path}></path>
-        </svg>
-        <div className={styles.logo}>
-            <Logo drawAnimation={activeLogoAnimation}/>
-            <div className={classNames([styles.progress], 'mt-5')}></div>
-        </div>
+      <div>
+				<div ref={loader} className={'loader'}>
+					<svg>
+						{/* <path ref={path}></path> */}
+						<path ref={path} fill="white" stroke="white"></path>
+					</svg>
+				</div>
+        {children}
       </div>
   );
 }

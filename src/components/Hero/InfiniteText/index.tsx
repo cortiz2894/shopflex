@@ -25,6 +25,7 @@ export default function InfiniteText({text, size = 'medium', position = 'hero', 
 	let direction = -1;
 
   useEffect( () => {
+	if(!slider.current) return
     if(controls) {
       gsap.to(slider.current, {
         scrollTrigger: {
@@ -41,6 +42,9 @@ export default function InfiniteText({text, size = 'medium', position = 'hero', 
   }, [])
 
   const animate = () => {
+	if(!firstText.current) return
+	if(!secondText.current) return
+
 		if(xPercent < -100){
 		  xPercent = 0;
 		}

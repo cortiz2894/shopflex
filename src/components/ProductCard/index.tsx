@@ -11,6 +11,7 @@ import { FiHeart } from "react-icons/fi";
 import { Product } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
+import Link from '../../../node_modules/next/link';
 
 type Props = {
   item: Product,
@@ -113,50 +114,52 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
 
   return (
     <div 
-      className={classNames(`w-full relative`, [styles.card])} 
-      ref={ref}
-      onMouseEnter={() => animatePath(targetPath)}
-      onMouseLeave={() => animatePath(initialPath)}
-    >
-      <div 
-        ref={cardRef}
-        className='relative w-full pb-[100%] flex justify-center'
+        className={classNames(`w-full relative`, [styles.card])} 
+        ref={ref}
+        onMouseEnter={() => animatePath(targetPath)}
+        onMouseLeave={() => animatePath(initialPath)}
       >
-        <div className={styles.imageContainer}>
-          <Image 
-            src={`/images/${item.image}`}
-            width={500} height={500} objectFit="none"
-            alt='clothes'
-            ref={imgRef}
-          />
+      <Link href='/product'>
+        <div 
+          ref={cardRef}
+          className='relative w-full pb-[100%] flex justify-center'
+        >
+          <div className={styles.imageContainer}>
+            <Image 
+              src={`/images/${item.image}`}
+              width={500} height={500} objectFit="none"
+              alt='clothes'
+              ref={imgRef}
+            />
+          </div>
         </div>
-      </div>
-      <div className={classNames('bottom-0 px-6 py-6 relative', [styles.content])}>
-        <svg className={styles.svgCurve}>
-          <path ref={pathRef} d={initialPath}></path>
-        </svg>
-        <div className='flex justify-between'>
-          <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
-          <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
+        <div className={classNames('bottom-0 px-6 py-6 relative', [styles.content])}>
+          <svg className={styles.svgCurve}>
+            <path ref={pathRef} d={initialPath}></path>
+          </svg>
+          <div className='flex justify-between'>
+            <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
+            <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
+          </div>
+          <span className={classNames('text-black my-3 block', [styles.description])}>{item.description}</span>
+          <div className='flex justify-between items-center gap-4'>
+            
+            <ButtonPrimary 
+              theme='light' 
+              size='small' 
+              variant='lessRounded'
+              text={<FiHeart className='text-[20px]'/>} 
+            />
+            <ButtonPrimary 
+              action={addToCart} 
+              theme='light' 
+              variant='lessRounded' 
+              size='full'
+              text={<ButtonRender isLoading={isLoading} />} 
+            />
+          </div>
         </div>
-        <span className={classNames('text-black my-3 block', [styles.description])}>{item.description}</span>
-        <div className='flex justify-between items-center gap-4'>
-          
-          <ButtonPrimary 
-            theme='light' 
-            size='small' 
-            variant='lessRounded'
-            text={<FiHeart className='text-[20px]'/>} 
-          />
-          <ButtonPrimary 
-            action={addToCart} 
-            theme='light' 
-            variant='lessRounded' 
-            size='full'
-            text={<ButtonRender isLoading={isLoading} />} 
-          />
-        </div>
-      </div>
+      </Link>
     </div>
   );
 });

@@ -12,6 +12,7 @@ import ButtonPrimary from "@/components/shared/ButtonPrimary";
 import Counter from "./CartDrawer/Counter/index";
 import { CartStore, useCartStore } from "@/store/cartStore";
 import shallow from 'zustand/shallow';
+import Link from "../../../node_modules/next/link";
 
 const NAVLINKS = [
     { 
@@ -298,7 +299,9 @@ export default function Header({pageLoaded}:Props) {
             <div className="flex items-center justify-between navbar">
 							<div className="flex items-center">
 								<div className="text-black w-28 mr-10">
-									<Logo />
+                  <Link href={'/'}>
+									  <Logo />
+                  </Link>
 								</div>
 								<ul className="flex appear overflow-hidden">
 									{navlinks.map((link, index) => (
@@ -307,7 +310,9 @@ export default function Header({pageLoaded}:Props) {
 											className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
 											onMouseEnter={() => hoverlink(index)}
 										>
-												<span>{link.title}</span>
+												<Link href={'/product'}>
+                          <span>{link.title}</span>
+                        </Link>
 										</li>
 									))}
 								</ul>

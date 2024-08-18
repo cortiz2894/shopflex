@@ -2,10 +2,10 @@
 import Footer from "@/components/Footer/index";
 import Header from "@/components/Header/index";
 import Loader from "@/components/shared/Loader/index";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./globals.css";
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [pageLoaded, setPageLoaded] = useState(false)
-  
+  const pathname = usePathname();
+
   return (
     <html lang="en">
       <head>
@@ -26,7 +27,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Loader isAnimationFinish={setPageLoaded}/>
         <Header pageLoaded={pageLoaded}/>  
-        {children}
+          {children}
         <Footer />
       </body>
     </html>
