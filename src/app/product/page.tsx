@@ -1,5 +1,4 @@
 import ProductDetail from "@/components/ProductDetail/index";
-import Transition from "@/components/shared/Transition/index";
 
 export const metadata = {
   title: "Shopflex",
@@ -9,10 +8,8 @@ export const metadata = {
 export default function Product() {
 
   return (
-    <Transition>
-        <main>
-					<ProductDetail />
-        </main>
-    </Transition>
+      <main>
+        <ProductDetail />
+      </main>
   );
 }
