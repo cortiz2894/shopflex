@@ -14,7 +14,6 @@ export default function Template({children}:{children: React.ReactNode}) {
   let start:number | undefined;
 
 	useGSAP(() => {
-		console.log('Transition')
 		setPath(initialCurve)
 		requestAnimationFrame(animate)
 	}, [])
