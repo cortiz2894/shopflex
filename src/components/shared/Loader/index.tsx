@@ -25,7 +25,7 @@ export default function Loader({onAnimationEnd, isAnimationFinish}: Props) {
 
     setTimeout( () => {
       requestAnimationFrame(animate)
-    }, 2000)
+    }, 3500)
   }, [])
 
   const activeLogoDraw = () => {

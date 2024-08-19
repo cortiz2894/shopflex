@@ -70,7 +70,10 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
     });
   };
 
-  const addToCart = () => {
+  const addToCart = (e) => {
+    
+    e.preventDefault(); // Previene la acción predeterminada del enlace
+    e.stopPropagation(); // Detiene la propagación del evento
     if (imgRef.current && !isLoading) {
         setIsLoading(true)
         const rect = imgRef.current.getBoundingClientRect();
@@ -83,7 +86,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           left: `${rect.left}px`,
           width: `${rect.width}px`,
           height: `${rect.height}px`,
-          zIndex: '1000',
+          zIndex: '99999999',
           opacity: 1
         });
 

@@ -6,7 +6,7 @@ type Props = {
     theme? : 'light' | 'dark',
     size?: 'large' | 'small' | 'full'
     text: React.ReactNode
-    action?: () => void
+    action?: (e:any) => void
     [key: string]: any
 }
 
