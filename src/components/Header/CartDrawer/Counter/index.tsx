@@ -3,10 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 interface Props {
-    number:number
+    number:number 
 }
 
-const Counter = ({ number }:Props) => {
+const Counter = ({ number, ...rest }:Props) => {
   const [currentNumber, setCurrentNumber] = useState(number);
   const numberRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +31,7 @@ const Counter = ({ number }:Props) => {
   }, [number, currentNumber]);
 
   return (
-    <div className="counter">
+    <div className="counter" {...rest}>
       <div ref={numberRef} className={'flex pt-[2px]'}>
         <span className="text-white text-xs">{currentNumber}</span>
       </div>

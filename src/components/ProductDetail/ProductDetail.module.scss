@@ -45,3 +45,41 @@
     transform: translateY(200px);
     opacity: 0;
 }
+
+.counter {
+    width: 1.5em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+        font-size: 1.5em;
+        color: black;
+    }
+}
+
+.colorSelector {
+    border-radius: 8px;
+    border: 1px solid white;
+    padding: 0.5em;
+    width: 20%;
+    height: 100%;
+    & > div {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+    }
+    &:hover {
+        border-color: black;
+    }
+}
+
+.sizeSelector {
+    width: 2.5em;
+    height: 2.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px; 
+    border: 1px solid black;
+}

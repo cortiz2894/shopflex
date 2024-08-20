@@ -29,7 +29,7 @@ const ButtonRender = ({isLoading}:{isLoading:boolean}) => {
         <div className={styles.progress}></div>
       </div>
     ) : (
-      <span className={styles.buyText}>Comprar<FiShoppingCart className='text-[20px] ml-2'/></span>
+      <span className={styles.buyText}>Add to cart<FiShoppingCart className='text-[20px] ml-2'/></span>
     )
   )
 }

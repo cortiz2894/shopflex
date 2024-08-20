@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
 
+
 type Props = {
   active: boolean
 }
@@ -20,19 +21,17 @@ export default function Curve({active}: Props) {
   useLayoutEffect(() => {
     gsap.registerPlugin(CustomEase);
 
-    if (typeof window !== "undefined") {
-      CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
+    CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
 
-      const animatePath = (path:string) => {
-        gsap.to(pathRef.current, {
-          attr: { d: path },
-          duration: 0.8,
-          ease: 'customEase'
-        });
-      };
+    const animatePath = (path:string) => {
+      gsap.to(pathRef.current, {
+        attr: { d: path },
+        duration: 0.8,
+        ease: 'customEase'
+      });
+    };
 
-      active ? animatePath(targetPath) : animatePath(initialPath);
-    }
+    active ? animatePath(targetPath) : animatePath(initialPath);
   }, [active]);
 
   return (
