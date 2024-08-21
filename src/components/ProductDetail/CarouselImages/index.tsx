@@ -7,6 +7,7 @@ import ButtonPrimary from '../../shared/ButtonPrimary/index'
 import { FiHeart} from "react-icons/fi";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap'
+import { BsChevronCompactRight } from "react-icons/bs";
 
 import { getRemValue } from '@/utils/fontValues'
 
@@ -15,9 +16,9 @@ interface Props {
 }
 
 export default function CarouselImages({images}: Props) {
-	const [selectedImage, setSelectedImage] = useState('Reign-Of-Blood-Hoodie-2.webp')
+	const [selected, setSelected] = useState(0)
 	const refSelectedImageContainer = useRef<HTMLDivElement | null>(null)
-  const refImageSelected = useRef<(HTMLImageElement | null)[]>([]);
+  const refImageSelected = useRef<(HTMLDivElement | null)[]>([]);
 
 	useGSAP(() => {
 
@@ -28,6 +29,7 @@ export default function CarouselImages({images}: Props) {
 
 		const widthImageContainer = (refSelectedImageContainer.current.clientWidth * 85) / 100
 		const gap = getRemValue(refSelectedImageContainer.current) * 0.75
+		setSelected(index)
 
 		gsap.to(refSelectedImageContainer.current, {
 			x: -((widthImageContainer) * index + (gap * index)),
@@ -44,7 +46,7 @@ export default function CarouselImages({images}: Props) {
   return (
     <>
 			<div className={styles.image}>
-					<div className='absolute top-2 right-2 z-10'>
+					<div className='absolute top-2 right-2 z-20'>
 						<ButtonPrimary 
 								theme='light' 
 								size='small' 
@@ -58,22 +60,47 @@ export default function CarouselImages({images}: Props) {
 					>
 						<>
 							{images.map( (image, i) => 
-								<Image 
-									src={`/images/${image}`}
-									layout='fill'
-									objectFit='cover'
-									alt={'Reign-Of-Blood'}
+								<div 
 									className={styles.imageSelected}
-									ref={(el:any) => {refImageSelected.current[i] = el}}
-									key={i}
-								/>
+									ref={(el) => {refImageSelected.current[i] = el}}
+								>
+									<Image 
+										src={`/images/${image}`}
+										layout='fill'
+										objectFit='cover'
+										alt={'Reign-Of-Blood'}
+										key={i}
+									/>
+								</div>
 							)}
 						</>
 					</div>
+					{selected < images.length -1 && (
+							<button 
+								onClick={() => handleSelectImage(selected + 1)}
+								className={
+									classNames('absolute right-0 h-full top-0 z-10', [styles.arrow], [styles.right])
+								}
+							>
+								<BsChevronCompactRight className={classNames('text-[3em] text-white', [styles.svgPrime])}/>
+								<span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-white'}/></span>
+							</button>
+					)}
+					{selected === images.length -1 && (
+							<button 
+								onClick={() => handleSelectImage(0)}
+								className={
+									classNames('rotate-180 absolute left-0 h-full top-0 z-10', [styles.arrow], [styles.right])
+								}
+							>
+								<BsChevronCompactRight className={classNames('text-[3em] text-white', [styles.svgPrime])}/>
+								<span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-white'}/></span>
+							</button>
+					)}
 			</div>
 			<div className={styles.carouselImages}>
 					{images.map((image, index) => 
-					<div onClick={() => handleSelectImage(index)} key={index}>
+					<div className={classNames(selected === index && [styles.active])} onClick={() => handleSelectImage(index)} key={index}>
 							<Image 
 									src={`/images/${image}`}
 									layout='fill'
