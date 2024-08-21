@@ -1,15 +1,3 @@
-.image {
-    width: 100%;
-    height: 80%;
-    // img {
-    //     height: calc(100% + 10em) !important;
-    // }
-    position: relative;
-    overflow: hidden;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-}
-
 .infoContainer {
     width: 30%;
     display: flex;
@@ -29,16 +17,6 @@
 .price {
     font-size: 2em;
     font-weight: 300;
-}
-
-.carouselImages {
-    display: flex;
-    height: 20%;
-    gap: 1em;
-    & > div {
-        width: 25%;
-        position: relative;;
-    }
 }
 
 .imageContainer {
@@ -68,6 +46,9 @@
         width: 100%;
         height: 100%;
         border-radius: 5px;
+    }
+    &.active {
+        border-color: black;
     }
     &:hover {
         border-color: black;
