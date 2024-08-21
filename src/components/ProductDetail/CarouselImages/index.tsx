@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from './CarouselImages.module.scss'
 import classNames from 'classnames'
 import ButtonPrimary from '../../shared/ButtonPrimary/index'
-import { FiHeart} from "react-icons/fi";
+import { FiHeart, FiZoomIn } from "react-icons/fi";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap'
 import { BsChevronCompactRight } from "react-icons/bs";
@@ -23,6 +23,10 @@ export default function CarouselImages({images}: Props) {
 	const refSelectedImageContainer = useRef<HTMLDivElement | null>(null)
   const refImageSelected = useRef<(HTMLDivElement | null)[]>([]);
 
+	const [isZoomActive, setIsZoomActive] = useState(false)
+	const [zoomLevel, setZoomLevel] = useState(1);
+	const loupeRef = useRef<(HTMLDivElement | null)[]>([]);
+
 	useGSAP(() => {
 		Draggable.create(refSelectedImageContainer.current, {
 			type: "x",
@@ -36,7 +40,9 @@ export default function CarouselImages({images}: Props) {
 			},
 			onDrag: function () {
 				if (!refSelectedImageContainer.current) return;
-	
+
+				disableZoom()
+
 				const widthImageContainer = (refSelectedImageContainer.current.clientWidth * 85) / 100;
 				const gap = getRemValue(refSelectedImageContainer.current) * 0.75;
 				const xPos = this.x;
@@ -60,6 +66,8 @@ export default function CarouselImages({images}: Props) {
 	const handleSelectImage = (index:number) => {
 		if(!refSelectedImageContainer.current || !refImageSelected.current) return
 
+		disableZoom()
+
 		const widthImageContainer = (refSelectedImageContainer.current.clientWidth * 85) / 100
 		const gap = getRemValue(refSelectedImageContainer.current) * 0.75
 		setSelected(index)
@@ -76,15 +84,81 @@ export default function CarouselImages({images}: Props) {
 		})
 	}
 
+	const handleMouseMove = (e) => {
+		if(!isZoomActive) return
+
+		if (!refImageSelected.current || !loupeRef.current) return;
+
+		const rect = refImageSelected.current[selected].getBoundingClientRect();
+		const offsetX = e.clientX - rect.left;
+		const offsetY = e.clientY - rect.top;
+	
+		const positionRatio = [
+			Math.round(offsetX / rect.width * 1000) / 1000,
+			Math.round(offsetY / rect.height * 1000) / 1000,
+		];
+	
+		const offset = [
+			(loupeRef.current[selected].offsetWidth * positionRatio[0]) - (loupeRef.current[selected].offsetWidth / 2),
+			(loupeRef.current[selected].offsetHeight * positionRatio[1]) - (loupeRef.current[selected].offsetHeight / 2),
+		];
+	
+		loupeRef.current[selected].style.backgroundPosition = `calc(${positionRatio[0] * 100}% - ${offset[0]}px) calc(${positionRatio[1] * 100}% - ${offset[1]}px)`;
+		loupeRef.current[selected].style.top = `${offsetY}px`;
+		loupeRef.current[selected].style.left = `${offsetX}px`;
+	};
+	
+	const handleZoom = (event) => {
+		event.preventDefault();
+		let newZoomLevel = zoomLevel;
+	
+		if (event.deltaY < 0) {
+			newZoomLevel = Math.min(zoomLevel + 0.1, 1.5);
+		} else {
+			newZoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+		}
+	
+		setZoomLevel(newZoomLevel);
+		if (loupeRef.current[selected]) {
+			loupeRef.current[selected].style.backgroundSize = `${newZoomLevel * 100}%`;
+		}
+	};
+
+	const toggleZoom = () => {
+		setIsZoomActive(!isZoomActive)
+		if (!loupeRef.current) return;
+		
+		gsap.to(loupeRef.current[selected], {
+			opacity: isZoomActive ? 0 : 1
+		})
+	}
+
+	const disableZoom = () => {
+		setIsZoomActive(false)
+		gsap.to(loupeRef.current[selected], {
+			opacity: 0
+		})
+	}
+	
+
   return (
     <>
 			<div className={styles.image}>
-					<div className='absolute top-2 right-2 z-[99999]'>
+					<div className='absolute top-2 left-2 z-[99999]'>
 						<ButtonPrimary 
 								theme='light' 
 								size='small' 
 								variant='lessRounded'
 								text={<FiHeart className='text-[20px]'/>} 
+								/>
+					</div>
+					<div className='absolute top-2 right-2 z-[99999]'>
+						<ButtonPrimary 
+								theme='light' 
+								size='small' 
+								variant='lessRounded'
+								action={toggleZoom}
+								text={<FiZoomIn className='text-[20px]'/>} 
 								/>
 					</div>
 					<div 
@@ -94,9 +168,20 @@ export default function CarouselImages({images}: Props) {
 						<>
 							{images.map( (image, i) => 
 								<div 
-									className={styles.imageSelected}
-									ref={(el) => {refImageSelected.current[i] = el}}
+								className={styles.imageSelected}
+								ref={(el) => {
+									refImageSelected.current[i] = el;
+								}}
+								onMouseMove={handleMouseMove}
+								// onWheel={handleZoom}
 								>
+									<div 
+										ref={(el) => {
+											loupeRef.current[i] = el;
+										}}
+										className={styles.loupe}
+										style={{ backgroundImage: `url(/images/${image})` }}
+									></div>
 									<Image 
 										src={`/images/${image}`}
 										layout='fill'

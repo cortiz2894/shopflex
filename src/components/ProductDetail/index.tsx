@@ -6,7 +6,7 @@ import styles from './ProductDetail.module.scss'
 import classNames from 'classnames'
 import Container from '../Container/index'
 import ButtonPrimary from '../shared/ButtonPrimary/index'
-import {FiShoppingCart, FiHeart} from "react-icons/fi";
+import {FiShoppingCart} from "react-icons/fi";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap'
 import Counter from '../Header/CartDrawer/Counter/index'
