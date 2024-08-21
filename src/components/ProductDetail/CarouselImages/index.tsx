@@ -8,6 +8,7 @@ import { FiHeart} from "react-icons/fi";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap'
 import { BsChevronCompactRight } from "react-icons/bs";
+import Draggable from "gsap/Draggable";
 
 import { getRemValue } from '@/utils/fontValues'
 
@@ -15,12 +16,44 @@ interface Props {
 	images: string[]
 }
 
+gsap.registerPlugin(Draggable) 
+
 export default function CarouselImages({images}: Props) {
 	const [selected, setSelected] = useState(0)
 	const refSelectedImageContainer = useRef<HTMLDivElement | null>(null)
   const refImageSelected = useRef<(HTMLDivElement | null)[]>([]);
 
 	useGSAP(() => {
+		Draggable.create(refSelectedImageContainer.current, {
+			type: "x",
+			bounds: {
+          minX: -(refImageSelected.current[0] as HTMLDivElement).clientWidth * (images.length - 1),
+          maxX: 0,
+        },
+			inertia: true,
+			onClick: function () {
+				console.log("clicked");
+			},
+			onDrag: function () {
+				if (!refSelectedImageContainer.current) return;
+	
+				const widthImageContainer = (refSelectedImageContainer.current.clientWidth * 85) / 100;
+				const gap = getRemValue(refSelectedImageContainer.current) * 0.75;
+				const xPos = this.x;
+	
+				const index = Math.round(-xPos / (widthImageContainer + gap));
+				gsap.to(refImageSelected.current, {
+					opacity: 0.8
+				})
+				gsap.to(refImageSelected.current[index], {
+					opacity: 1
+				})
+				setSelected(index);
+			},
+			onDragEnd: function () {
+				console.log("drag ended");
+			},
+		});
 
 	})
 
@@ -46,7 +79,7 @@ export default function CarouselImages({images}: Props) {
   return (
     <>
 			<div className={styles.image}>
-					<div className='absolute top-2 right-2 z-20'>
+					<div className='absolute top-2 right-2 z-[99999]'>
 						<ButtonPrimary 
 								theme='light' 
 								size='small' 
