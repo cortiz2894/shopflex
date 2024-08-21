@@ -12,6 +12,7 @@ import gsap from 'gsap'
 import Counter from '../Header/CartDrawer/Counter/index'
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import CarouselImages from './CarouselImages/index'
+import PaymentMethods from '../shared/PaymentMethods/index'
 
 const PRODUCT = {
 	id: 1,
@@ -26,11 +27,43 @@ const PRODUCT = {
 	collection: 'Reign Of Blood v1'
 }
 
+const PAYMENTS_METHODS = [
+	{
+		id:1,
+		name: 'Mercado Pago',
+		image: 'MERCADOPAGO-LOGO.png',
+	},
+	{
+		id:2,
+		name: 'Master Card',
+		image: 'MASTERDCARD-LOGO.png',
+	},
+	{
+		id:3,
+		name: 'Visa',
+		image: 'VISA.png',
+	},
+	{
+		id:4,
+		name: 'American Express',
+		image: 'AMERICANEXPRESS.png',
+	},
+	{
+		id:5,
+		name: 'Apple Pay',
+		image: 'APPLEPAY-LOGO.png',
+	},
+	// {
+	// 	id:6,
+	// 	name: 'Google Pay',
+	// 	image: 'GOOGLEPAY-LOGO.png',
+	// },
+]
+
 export default function ProductDetail() {
 	const imageContainerRef = useRef(null)
 	const [quantity, setQuantity] = useState(1)
 	const [product, setProduct] = useState(PRODUCT)
-	const [selectedImage, setSelectedImage] = useState('Reign-Of-Blood-Hoodie-2.webp')
 
 	useGSAP(() => {
 		if(!imageContainerRef.current) return
@@ -39,7 +72,6 @@ export default function ProductDetail() {
 			y: 0,
 			opacity: 1,
 			delay: 0.3,
-			// delay: 500
 		})
 	})
 
@@ -96,32 +128,37 @@ export default function ProductDetail() {
 							</button>
 						</div>
 					</div>
-					<div className='flex gap-3'>
-						<div className='flex justify-center items-center gap-2'>
-							<ButtonPrimary 
-								theme='dark' 
-								size='small' 
-								variant='lessRounded'
-								text={<AiOutlineMinus className='text-[20px]'/>} 								
-								action={restQuantity}
-							/>
-							<div className={styles.counter}>
-								<Counter number={quantity}/>
-							</div>
-							<ButtonPrimary 
-								theme='dark' 
-								size='small' 
-								variant='lessRounded'
-								action={addQuantity}
-								text={<AiOutlinePlus className='text-[20px]'/>} 								
-								/>
+					<div className='flex flex-col gap-3'>
+						<div>
+							<PaymentMethods methods={PAYMENTS_METHODS}/>
 						</div>
-						<ButtonPrimary
-							theme='dark' 
-							size='full' 
-							variant='lessRounded'
-							text={<span className={'flex justify-between'}>Add to cart<FiShoppingCart className='text-[20px] ml-2'/></span>}
-						/>
+						<div className='flex gap-3'>
+							<div className='flex justify-center items-center gap-2'>
+								<ButtonPrimary 
+									theme='dark' 
+									size='small' 
+									variant='lessRounded'
+									text={<AiOutlineMinus className='text-[20px]'/>} 								
+									action={restQuantity}
+								/>
+								<div className={styles.counter}>
+									<Counter number={quantity}/>
+								</div>
+								<ButtonPrimary 
+									theme='dark' 
+									size='small' 
+									variant='lessRounded'
+									action={addQuantity}
+									text={<AiOutlinePlus className='text-[20px]'/>} 								
+									/>
+							</div>
+							<ButtonPrimary
+								theme='dark' 
+								size='full' 
+								variant='lessRounded'
+								text={<span className={'flex justify-between'}>Add to cart<FiShoppingCart className='text-[20px] ml-2'/></span>}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
