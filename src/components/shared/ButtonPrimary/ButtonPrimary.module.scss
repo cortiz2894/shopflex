@@ -55,6 +55,28 @@
             }
         }
     }
+    &.active {
+        .text {
+            top: -40px;
+        }
+        &.light {
+            border: 1px solid white;
+        }
+        &.lessRounded {
+            .overlay {
+                & div {
+                    border-radius: 15px;
+                }
+            }
+        }
+        .overlay {
+            top: 0;
+            & div {
+                width: 100%;
+                border-radius: 100px;
+            }
+        }
+    }
 }
 .text {
     top: 0;

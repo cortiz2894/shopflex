@@ -100,8 +100,8 @@
 	&:hover {
 		transition: width 0.3s cubic-bezier(0.2, 0.32, 0, 0.87), height 0.3s cubic-bezier(0.2, 0.32, 0, 0.87), opacity 0.2s ease;
 		opacity: 1;
-		width: 200px;
-		height: 200px;
+		width: 20vw;
+		height: 20vw;
 		cursor: none;
 	}
 }

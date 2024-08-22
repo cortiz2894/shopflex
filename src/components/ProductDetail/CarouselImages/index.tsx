@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from './CarouselImages.module.scss'
 import classNames from 'classnames'
 import ButtonPrimary from '../../shared/ButtonPrimary/index'
-import { FiHeart, FiZoomIn } from "react-icons/fi";
+import { FiHeart, FiZoomIn, FiZoomOut } from "react-icons/fi";
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap'
 import { BsChevronCompactRight } from "react-icons/bs";
@@ -164,7 +164,8 @@ export default function CarouselImages({images}: Props) {
 								size='small' 
 								variant='lessRounded'
 								action={toggleZoom}
-								text={<FiZoomIn className='text-[20px]'/>} 
+								active={isZoomActive}
+								text={isZoomActive ? <FiZoomOut className='text-[20px]'/> : <FiZoomIn className='text-[20px]'/>} 
 								/>
 					</div>
 					<div 

@@ -20,7 +20,7 @@ const PRODUCT = {
 	price: 99,
 	description: `Emerging from the abyss, the „Reign of Blood“ Oversized Hoodie is a masterpiece. It's bold, menacing red death metal lettering sprawls across your shoulders like the blood of your enemies, a proclamation of your unwavering commitment to win every battle. Adorning the sleeves, the quote: „I call your name upon the furious winds.
 	Possessed by the spiritual strength of ancient times. In the chamber of my dark heart, a black flame burns.“ These words, like an incantation, beckon the forces of the underworld to rise. Crafted with precision, this heavy oversized hoodie boasts superior quality, combining 65% cotton and 35% polyester, with a brushed fleece interior for unparalleled comfort.`,
-	images: ['Reign-Of-Blood-Hoodie-2.webp', 'Reign-Of-Blood-3.webp', 'Reign-Of-Blood-Hoodie-2-2.webp', 'MoeHoodie.webp', 'Reign-Of-Blood-Hoodie-2-2.webp', 'MoeHoodie.webp'],
+	images: ['Reign-Of-Blood5.jpg', 'Reign-Of-Blood-Hoodie-2.webp', 'Reign-Of-Blood-3.webp', 'Reign-Of-Blood-Hoodie-2-2.webp', 'MoeHoodie.webp', 'Reign-Of-Blood-Hoodie-2-2.webp', 'MoeHoodie.webp'],
 	colors: ['b41213', '0f0f0f' ],
 	sizes: ['small', 'large', 'extra_large'],
 	stock: 15,
