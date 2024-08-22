@@ -1,18 +1,14 @@
 'use client'
-import Logo from '@/icons/Logo'
-import React, { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
-import styles from './ProductDetail.module.scss'
-import classNames from 'classnames'
-import Container from '../Container/index'
-import ButtonPrimary from '../shared/ButtonPrimary/index'
-import {FiShoppingCart} from "react-icons/fi";
-import { useGSAP } from '@gsap/react';
+import React, { useRef, useState } from 'react'
 import gsap from 'gsap'
-import Counter from '../Header/CartDrawer/Counter/index'
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import CarouselImages from './CarouselImages/index'
-import PaymentMethods from '../shared/PaymentMethods/index'
+import { useGSAP } from '@gsap/react';
+import classNames from 'classnames';
+import { FiShoppingCart } from "react-icons/fi";
+import Container from '@/components/Container/index';
+import ButtonPrimary from '@/components/shared/ButtonPrimary/index';
+import PaymentMethods from '@/components/shared/PaymentMethods/index';
+import styles from './ProductDetail.module.scss';
+import CarouselImages from './CarouselImages/index';
 
 const PRODUCT = {
 	id: 1,
@@ -62,7 +58,6 @@ const PAYMENTS_METHODS = [
 
 export default function ProductDetail() {
 	const imageContainerRef = useRef(null)
-	const [quantity, setQuantity] = useState(1)
 	const [product, setProduct] = useState(PRODUCT)
 
 	useGSAP(() => {
@@ -74,16 +69,6 @@ export default function ProductDetail() {
 			delay: 0.3,
 		})
 	})
-
-	const addQuantity = () => {
-		setQuantity(quantity + 1)
-	}
-
-	const restQuantity = () => {
-		if(quantity > 1 ) {
-			setQuantity(quantity - 1)
-		}
-	}
 
   return (
 		<Container>
@@ -99,8 +84,8 @@ export default function ProductDetail() {
 				<div className={styles.infoContainer}>
 					<div>
 						<span className='text-standar-darker text-base mb-3'>{product.collection}</span>
-						<h2 className={classNames('text-black uppercase', [styles.title])}>{product.title}</h2>
-						<p className={classNames('text-black mt-4', [styles.price])}>U$D <b>{product.price}</b></p>
+						<h2 className={classNames('text-black uppercase mt-3', [styles.title])}>{product.title}</h2>
+						<p className={classNames('text-black mt-2', [styles.price])}>$ <b>{product.price}</b></p>
 					</div>
 					<div>
 						<h3 className='text-black mb-3'>Sizes</h3>
@@ -124,40 +109,20 @@ export default function ProductDetail() {
 								<div style={{background: '#0f0f0f'}}></div>
 							</button>
 							<button className={styles.colorSelector}>
-								<div style={{background: 'green'}}></div>
+								<div style={{background: '#303642'}}></div>
 							</button>
 						</div>
 					</div>
 					<div className='flex flex-col gap-3'>
-						<div>
+						<ButtonPrimary
+							theme='dark' 
+							size='full' 
+							variant='lessRounded'
+							text={<span className={'flex justify-between'}>Add to cart<FiShoppingCart className='text-[20px] ml-2'/></span>}
+						/>
+						<div className='mt-3'>
+							<div className={classNames('mb-3', [styles.paymentText])}><p className='text-standar-lighter text-sm text-center bg-white relative px-2'>Our payment methods</p></div>
 							<PaymentMethods methods={PAYMENTS_METHODS}/>
-						</div>
-						<div className='flex gap-3'>
-							<div className='flex justify-center items-center gap-2'>
-								<ButtonPrimary 
-									theme='dark' 
-									size='small' 
-									variant='lessRounded'
-									text={<AiOutlineMinus className='text-[20px]'/>} 								
-									action={restQuantity}
-								/>
-								<div className={styles.counter}>
-									<Counter number={quantity}/>
-								</div>
-								<ButtonPrimary 
-									theme='dark' 
-									size='small' 
-									variant='lessRounded'
-									action={addQuantity}
-									text={<AiOutlinePlus className='text-[20px]'/>} 								
-									/>
-							</div>
-							<ButtonPrimary
-								theme='dark' 
-								size='full' 
-								variant='lessRounded'
-								text={<span className={'flex justify-between'}>Add to cart<FiShoppingCart className='text-[20px] ml-2'/></span>}
-							/>
 						</div>
 					</div>
 				</div>

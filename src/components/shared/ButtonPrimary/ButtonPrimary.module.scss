@@ -13,6 +13,12 @@
             color: #292929 !important;
         }
     }
+    &.dark {
+        background-color: #292929;
+        .text {
+            color: #f9f9f9 !important;
+        }
+    }
     &.lessRounded {
         border-radius: 15px;
         .overlay {
@@ -40,6 +46,9 @@
         &.light {
             border: 1px solid white;
         }
+        &.dark {
+            border: 1px solid #292929;
+        }
         &.lessRounded {
             .overlay {
                 & div {
@@ -61,6 +70,9 @@
         }
         &.light {
             border: 1px solid white;
+        }
+        &.dark {
+            border: 1px solid #292929;
         }
         &.lessRounded {
             .overlay {

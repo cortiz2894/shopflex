@@ -1,16 +1,16 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Image from 'next/image'
-import styles from './CarouselImages.module.scss'
 import classNames from 'classnames'
-import ButtonPrimary from '../../shared/ButtonPrimary/index'
-import { FiHeart, FiZoomIn, FiZoomOut } from "react-icons/fi";
-import { useGSAP } from '@gsap/react';
 import gsap from 'gsap'
+import { useGSAP } from '@gsap/react';
+import { FiHeart, FiZoomIn, FiZoomOut } from "react-icons/fi";
 import { BsChevronCompactRight } from "react-icons/bs";
 import Draggable from "gsap/Draggable";
 
+import ButtonPrimary from '@/components/shared/ButtonPrimary/index'
 import { getRemValue } from '@/utils/fontValues'
+import styles from './CarouselImages.module.scss'
 
 interface Props {
 	images: string[]

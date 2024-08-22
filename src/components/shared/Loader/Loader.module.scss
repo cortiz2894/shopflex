@@ -1,4 +1,3 @@
-/* loader */
 .loader{
   height: calc(100vh + 200px);
   width: 100%;
@@ -29,16 +28,6 @@
   justify-content: center;
   align-items: center;
   animation: opacity 0.5s ease-in-out 3s forwards;
-  // &::before {
-  //   content: '';
-  //   width: 33vw;
-  //   bottom: 100%;
-  //   height: 20vw;
-  //   background: rgb(0, 0, 0);
-  //   position: absolute;
-  //   animation: hideLogo 0.3s cubic-bezier(0.76, 0, 0.24, 1) 3.5s forwards;
-  //   z-index: 2;
-  // }
 }
 
 .progress {
