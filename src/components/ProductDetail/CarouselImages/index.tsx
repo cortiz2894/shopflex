@@ -84,12 +84,15 @@ export default function CarouselImages({images}: Props) {
 		})
 	}
 
-	const handleMouseMove = (e) => {
+	const handleMouseMove = (e:React.MouseEvent) => {
 		if(!isZoomActive) return
 
 		if (!refImageSelected.current || !loupeRef.current) return;
 
-		const rect = refImageSelected.current[selected].getBoundingClientRect();
+		const magnifyGlassElem = loupeRef.current[selected] as HTMLDivElement
+		const ImageSelectedElem = refImageSelected.current[selected] as HTMLDivElement
+
+		const rect = ImageSelectedElem.getBoundingClientRect();
 		const offsetX = e.clientX - rect.left;
 		const offsetY = e.clientY - rect.top;
 	
@@ -97,46 +100,49 @@ export default function CarouselImages({images}: Props) {
 			Math.round(offsetX / rect.width * 1000) / 1000,
 			Math.round(offsetY / rect.height * 1000) / 1000,
 		];
-	
+
 		const offset = [
-			(loupeRef.current[selected].offsetWidth * positionRatio[0]) - (loupeRef.current[selected].offsetWidth / 2),
-			(loupeRef.current[selected].offsetHeight * positionRatio[1]) - (loupeRef.current[selected].offsetHeight / 2),
+			(magnifyGlassElem.offsetWidth * positionRatio[0]) - (magnifyGlassElem.offsetWidth / 2),
+			(magnifyGlassElem.offsetHeight * positionRatio[1]) - (magnifyGlassElem.offsetHeight / 2),
 		];
-	
-		loupeRef.current[selected].style.backgroundPosition = `calc(${positionRatio[0] * 100}% - ${offset[0]}px) calc(${positionRatio[1] * 100}% - ${offset[1]}px)`;
-		loupeRef.current[selected].style.top = `${offsetY}px`;
-		loupeRef.current[selected].style.left = `${offsetX}px`;
+		
+		gsap.to(magnifyGlassElem, {
+			backgroundPosition: `calc(${positionRatio[0] * 100}% - ${offset[0]}px) calc(${positionRatio[1] * 100}% - ${offset[1]}px)`,
+			top: `${offsetY}px`,
+			left: `${offsetX}px`,
+			duration: 0
+		})
 	};
 	
-	const handleZoom = (event) => {
-		event.preventDefault();
-		let newZoomLevel = zoomLevel;
+	// const handleZoom = (event) => {
+	// 	event.preventDefault();
+	// 	let newZoomLevel = zoomLevel;
 	
-		if (event.deltaY < 0) {
-			newZoomLevel = Math.min(zoomLevel + 0.1, 1.5);
-		} else {
-			newZoomLevel = Math.max(zoomLevel - 0.1, 0.5);
-		}
+	// 	if (event.deltaY < 0) {
+	// 		newZoomLevel = Math.min(zoomLevel + 0.1, 1.5);
+	// 	} else {
+	// 		newZoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+	// 	}
 	
-		setZoomLevel(newZoomLevel);
-		if (loupeRef.current[selected]) {
-			loupeRef.current[selected].style.backgroundSize = `${newZoomLevel * 100}%`;
-		}
-	};
+	// 	setZoomLevel(newZoomLevel);
+	// 	if (loupeRef.current[selected]) {
+	// 		loupeRef.current[selected].style.backgroundSize = `${newZoomLevel * 100}%`;
+	// 	}
+	// };
 
 	const toggleZoom = () => {
 		setIsZoomActive(!isZoomActive)
 		if (!loupeRef.current) return;
 		
 		gsap.to(loupeRef.current[selected], {
-			opacity: isZoomActive ? 0 : 1
+			display: 'block',
 		})
 	}
 
 	const disableZoom = () => {
 		setIsZoomActive(false)
 		gsap.to(loupeRef.current[selected], {
-			opacity: 0
+			display: 'none',
 		})
 	}
 	
@@ -152,7 +158,7 @@ export default function CarouselImages({images}: Props) {
 								text={<FiHeart className='text-[20px]'/>} 
 								/>
 					</div>
-					<div className='absolute top-2 right-2 z-[99999]'>
+					<div className='absolute top-2 right-[calc(15%+0.75rem)] z-[99999]'>
 						<ButtonPrimary 
 								theme='light' 
 								size='small' 
@@ -168,12 +174,13 @@ export default function CarouselImages({images}: Props) {
 						<>
 							{images.map( (image, i) => 
 								<div 
-								className={styles.imageSelected}
-								ref={(el) => {
-									refImageSelected.current[i] = el;
-								}}
-								onMouseMove={handleMouseMove}
-								// onWheel={handleZoom}
+									key={i}
+									className={styles.imageSelected}
+									ref={(el) => {
+										refImageSelected.current[i] = el;
+									}}
+									onMouseMove={(e) => handleMouseMove(e)}
+									// onWheel={handleZoom}
 								>
 									<div 
 										ref={(el) => {

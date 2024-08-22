@@ -6,69 +6,15 @@ import styles from './Carousel.module.scss'
 import ProductCard from "@/components/ProductCard/index";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import classNames from "classnames";
+import type { Product } from "@/components/ProductCard/product.types";
 
 gsap.registerPlugin(Draggable);
 
-const PRODUCT_LIST = [
-  {
-    id: 1,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 't-shirt-1.png'
-  },
-  {
-    id: 2,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 'hoodie.png'
-  },
-  {
-    id: 3,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 'gorra.png'
-  },
-  {
-    id: 5,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 'shorts.png'
-  },
-	{
-    id: 1,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 't-shirt-1.png'
-  },
-  {
-    id: 2,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 'hoodie.png'
-  },
-  {
-    id: 3,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 'gorra.png'
-  },
-  {
-    id: 5,
-    title: 'Reign Of Blood 2.0 - Boardshorts',
-    price: 99,
-    description: `Our "Reign Of Blood Shorts" in black & white are the perfect addition to our already legendary perfect`,
-    image: 'shorts.png'
-  }
-];
+export interface ListProductProps {
+  products: Product[]
+}
 
-export const Carousel = () => {
+export const Carousel = ({products}:ListProductProps) => {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -127,7 +73,7 @@ export const Carousel = () => {
   return (
 		<div className={classNames("relative w-full h-[37vw]", [styles.container])}>
 			<div id="slider" className={styles.slider} ref={sliderRef}>
-				{PRODUCT_LIST.map((item, index) => {
+				{products.map((item, index) => {
 					return (
 						<ProductCard
 							ref={(el) => {productRefs.current[index] = el}}

@@ -29,6 +29,7 @@
     position: relative;
     width: 100%;
     min-width: 85%;
+		overflow: hidden;
     transition: opacity 0.2s cubic-bezier(0.2, 0.32, 0, 0.87);
     &:nth-of-type(1) { 
         opacity: 1;
@@ -83,31 +84,24 @@
     transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
 }
 
-// .loupe {
-// 	position: absolute;
-// 	z-index: 100;
-// 	top: 50%;
-// 	left: 50%;
-// 	width: 200px;
-// 	height: 200px;
-// 	transform: translate(-50%, -50%);
-// 	border-radius: 50%;
-// 	background-repeat: no-repeat;
-// 	border: 2px solid #222;
-// 	box-shadow: 0 0 10px 1px rgba(0,0,0,.2);
-// 	background-color: white;
-// 	display: none;
-// }
 .loupe {
   position: absolute;
 	z-index: 999999;
-	width: 200px;
-	height: 200px;
+	width: 10px;
+	height: 10px;
 	border-radius: 50%;
 	background-repeat: no-repeat;
-	border: 2px solid #222;
+	border: 3px solid #ffffff;
 	transform: translate(-50%, -50%);
 	box-shadow: 0 0 10px 1px rgba(0,0,0,.2);
 	background-color: white;
 	opacity: 0;
+	// transition: opacity 0.2s ease;
+	&:hover {
+		transition: width 0.3s cubic-bezier(0.2, 0.32, 0, 0.87), height 0.3s cubic-bezier(0.2, 0.32, 0, 0.87), opacity 0.2s ease;
+		opacity: 1;
+		width: 200px;
+		height: 200px;
+		cursor: none;
+	}
 }

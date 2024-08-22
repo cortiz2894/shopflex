@@ -3,9 +3,8 @@ import Footer from "@/components/Footer/index";
 import Header from "@/components/Header/index";
 import Loader from "@/components/shared/Loader/index";
 import { Inter } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./globals.css";
-import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +14,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [pageLoaded, setPageLoaded] = useState(false)
-  const pathname = usePathname();
-
   return (
     <html lang="en">
       <head>
