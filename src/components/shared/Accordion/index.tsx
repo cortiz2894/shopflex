@@ -17,7 +17,7 @@ const Accordion = ({title, content, icon}:Props) => {
   const animationRef = useRef<gsap.core.Tween | null>(null)
 
   useEffect(() => {
-    if (contentRef.current) {
+    if (!contentRef.current) return
       animationRef.current = gsap.to(
         contentRef.current,
         { 
@@ -27,10 +27,10 @@ const Accordion = ({title, content, icon}:Props) => {
           duration: 0.35
         }
       ).reverse();
-    }
   }, [])
 
   const handleClick = () => {
+    if(!animationRef.current) return
     animationRef.current.reversed(!animationRef.current.reversed())
     setActive(!active)
   }
