@@ -2,7 +2,7 @@
 import Logo from "@/icons/Logo";
 import Image from "next/image";
 import gsap from 'gsap'
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
@@ -13,6 +13,7 @@ import Counter from "./CartDrawer/Counter/index";
 import { CartStore, useCartStore } from "@/store/cartStore";
 import shallow from 'zustand/shallow';
 import Link from "../../../node_modules/next/link";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const NAVLINKS = [
     { 
@@ -164,6 +165,7 @@ type Props = {
 	pageLoaded: boolean
 }
 
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Header({pageLoaded}:Props) {
 
@@ -173,6 +175,7 @@ export default function Header({pageLoaded}:Props) {
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 		const [isCartOpen, setIsCartOpen] = useState(false);
 		const headerRef = useRef<HTMLDivElement>(null)
+		const navBarRef = useRef<HTMLDivElement>(null)
 
 		const { totals } = useCartStore((state:CartStore) => ({
 			totals : state.totals
@@ -227,6 +230,24 @@ export default function Header({pageLoaded}:Props) {
 				})	
 			}
 		}, [hoveredIndex]);
+
+		useGSAP(() => {
+			const showAnim = gsap.from(navBarRef.current , { 
+				yPercent: -200,
+				opacity: 0,
+				paused: true,
+				duration: 0.2
+			}).progress(1);
+
+			ScrollTrigger.create({
+				start: "top top",
+				end: "max",
+				
+				onUpdate: (self:any) => {
+					self.direction === -1 ? showAnim.play() : showAnim.reverse()
+				}
+			});
+		})
 			
 		const restartMenu = () => {
 			setHoveredIndex(null)
@@ -295,6 +316,7 @@ export default function Header({pageLoaded}:Props) {
           <nav 
 						className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
 						style={{boxShadow: '1px 1px 5px #9898980f'}}
+						ref={navBarRef}
 					>
             <div className="flex items-center justify-between navbar">
 							<div className="flex items-center">

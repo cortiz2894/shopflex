@@ -3,12 +3,15 @@ import React, { useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react';
 import classNames from 'classnames';
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiFileText, FiTruck } from "react-icons/fi";
 import Container from '@/components/Container/index';
 import ButtonPrimary from '@/components/shared/ButtonPrimary/index';
 import PaymentMethods from '@/components/shared/PaymentMethods/index';
 import styles from './ProductDetail.module.scss';
 import CarouselImages from './CarouselImages/index';
+import Accordion from '../shared/Accordion/index';
+import { LiaRulerCombinedSolid } from "react-icons/lia";
+import { IoReturnDownBack } from "react-icons/io5";
 
 const PRODUCT = {
 	id: 1,
@@ -74,7 +77,27 @@ export default function ProductDetail() {
 		<Container>
 			<div className='flex gap-5 pt-[64px] mt-6'>
 				<div className={styles.detailsContainer}>
-						<p className='text-black'>{product.description}</p>
+						<Accordion 
+							title={'Description'} 
+							content={product.description} 
+							icon={<FiFileText className='text-[20px] text-standar-darker'/>}
+						/>
+						<Accordion 
+							title={'Shipment'} 
+							content={'product.description product.description product.description product.description product.description product.description'}
+							icon={<FiTruck className='text-[20px] text-standar-darker'/>}
+						/>
+						<Accordion 
+							title={"What's my size?"} 
+							content={'product.description product.description product.description product.description product.description product.description'}
+							icon={<LiaRulerCombinedSolid className='text-[20px] text-standar-darker'/>}
+						/>
+						<Accordion 
+							title={"Return Policy"} 
+							content={'product.description product.description product.description product.description product.description product.description'}
+							icon={<IoReturnDownBack className='text-[20px] text-standar-darker'/>}
+						/>
+						
 				</div>
 				<div ref={imageContainerRef} 
 					className={classNames('w-1/2 relative min-h-[85vh] flex flex-col gap-4', [styles.imageContainer])}

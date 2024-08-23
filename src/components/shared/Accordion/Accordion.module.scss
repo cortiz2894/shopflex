@@ -1,0 +1,87 @@
+.plusminus {
+	position: relative;
+  width: 1.2rem;
+  height: 1.2rem;
+	cursor: pointer;
+	
+	&.active {
+		&:before {
+			transform: translatey(-50%) rotate(-90deg);
+			opacity: 0;
+		}
+		&:after {
+			transform: translatey(-50%) rotate(0);
+		}
+	}
+	
+	&:before , &:after {
+		content: "";
+		display: block;
+		background-color: #333;
+		position: absolute;		
+		top: 50%; left: 0;
+		transition: .35s cubic-bezier(0.2, 0.32, 0, 0.87);
+		width: 100%;
+		height: 3px;
+	}
+	
+	&:before {		
+		transform: translatey(-50%);
+	}
+	
+	&:after {
+		transform: translatey(-50%) rotate(90deg);
+	}
+}
+
+// .plusminus {
+//   position: relative;
+//   width: 1.2rem;
+//   height: 1.2rem;
+
+//   &:before,
+//   &:after{
+//       content: "";
+//       position: absolute;
+//       background-color: black;
+//       transition: transform 0.25s ease-out;
+//   }
+
+//   /* Vertical line */
+//   &:before{
+//       top: 0;
+//       left: 50%;
+//       width: 3px;
+//       height: 100%;
+//       margin-left: -2px;
+//   }
+
+//   /* horizontal line */
+//   &:after{
+//       top: 50%;
+//       left: 0;
+//       width: 100%;
+//       height: 3px;
+//       margin-top: -2px;
+//   }
+  
+//   &.active{
+//       cursor: pointer;
+      
+//       &:before{ transform: rotate(90deg); }
+//       &:after{ transform: rotate(180deg); }
+//   }
+// }
+
+.header {
+  cursor: pointer;
+}
+
+.content {
+  height: 0;
+  overflow: hidden;
+}
+
+.accordion {
+  box-shadow: 1px 1px 5px #9898980f;
+}
