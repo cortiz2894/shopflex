@@ -24,7 +24,7 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
   const { updateQuantity } = useCartStore();
 
   return (
-    <div className={classNames("h-[100vh] w-[31.5vw] fixed z-10 top-0",[styles.drawer], {[styles.active]: isCartOpen})}>
+    <div className={classNames("h-[100vh] w-[31.5vw] fixed top-0 z-[999999]",[styles.drawer], {[styles.active]: isCartOpen})}>
       <Curve active={isCartOpen}/>
         <div className={classNames("bg-white z-10 top-0 flex flex-col",[styles.content], {[styles.active]: isCartOpen})}>
           <div className={classNames("absolute right-5 top-5", [styles.closeButton])} onClick={() => toggleCart()}>

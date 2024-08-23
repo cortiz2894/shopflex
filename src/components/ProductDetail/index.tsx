@@ -51,12 +51,7 @@ const PAYMENTS_METHODS = [
 		id:5,
 		name: 'Apple Pay',
 		image: 'APPLEPAY-LOGO.png',
-	},
-	// {
-	// 	id:6,
-	// 	name: 'Google Pay',
-	// 	image: 'GOOGLEPAY-LOGO.png',
-	// },
+	}
 ]
 
 export default function ProductDetail() {
@@ -97,7 +92,6 @@ export default function ProductDetail() {
 							content={'product.description product.description product.description product.description product.description product.description'}
 							icon={<IoReturnDownBack className='text-[20px] text-standar-darker'/>}
 						/>
-						
 				</div>
 				<div ref={imageContainerRef} 
 					className={classNames('w-1/2 relative min-h-[85vh] flex flex-col gap-4', [styles.imageContainer])}

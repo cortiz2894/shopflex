@@ -309,103 +309,105 @@ export default function Header({pageLoaded}:Props) {
 		setIsCartOpen(!isCartOpen)
 	}
     return (
-      <header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]"
-			ref={headerRef}
-			>
-        <div className="w-full flex flex-col items-center">
-          <nav 
-						className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
-						style={{boxShadow: '1px 1px 5px #9898980f'}}
-						ref={navBarRef}
-					>
-            <div className="flex items-center justify-between navbar">
-							<div className="flex items-center">
-								<div className="text-black w-28 mr-10">
-                  <Link href={'/'}>
-									  <Logo />
-                  </Link>
-								</div>
-								<ul className="flex appear overflow-hidden">
-									{navlinks.map((link, index) => (
-										<li
-											key={index}
-											className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
-											onMouseEnter={() => hoverlink(index)}
-										>
-												<Link href={'/product'}>
-                          <span>{link.title}</span>
-                        </Link>
-										</li>
-									))}
-								</ul>
-
-							</div>
-							<div className="flex gap-2">
-								<div>
-									<ButtonPrimary text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
-								</div>
-								<div>
-									<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
-								</div>
-								<div id='cartButton' className="relative">
-									<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
-										<Counter number={totals.quantity} />
+			<>
+				<header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]"
+				ref={headerRef}
+				>
+					<div className="w-full flex flex-col items-center">
+						<nav 
+							className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
+							style={{boxShadow: '1px 1px 5px #9898980f'}}
+							ref={navBarRef}
+						>
+							<div className="flex items-center justify-between navbar">
+								<div className="flex items-center">
+									<div className="text-black w-28 mr-10">
+										<Link href={'/'}>
+											<Logo />
+										</Link>
 									</div>
-									<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
+									<ul className="flex appear overflow-hidden">
+										{navlinks.map((link, index) => (
+											<li
+												key={index}
+												className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
+												onMouseEnter={() => hoverlink(index)}
+											>
+													<Link href={'/product'}>
+														<span>{link.title}</span>
+													</Link>
+											</li>
+										))}
+									</ul>
+
+								</div>
+								<div className="flex gap-2">
+									<div>
+										<ButtonPrimary text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
+									</div>
+									<div>
+										<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
+									</div>
+									<div id='cartButton' className="relative">
+										<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
+											<Counter number={totals.quantity} />
+										</div>
+										<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
+									</div>
 								</div>
 							</div>
-							<CartDrawer isCartOpen={isCartOpen} toggleCart={toggleCart} />
-            </div>
-          </nav>
-          <div 
-            className={classNames("w-full bg-white menu-dropdown border-t border-standar-lighter z-10 flex justify-center overflow-hidden relative", {"active": showDropdown})}
-            onMouseLeave={() => {
-							setShowDropdown(false)
-							restartMenu()
-						}}
-          >
-						<div className="w-11/12 flex justify-between">
-							<div className="w-1/2 py-5">
-								<p className="text-2xl text-black mb-3">{hoveredIndex !== null && navlinks[hoveredIndex as number].title}</p>
-								<ul className="pl-2 w-auto">
-										{(hoveredIndex !== null && navlinks[hoveredIndex].dropdown) && navlinks[hoveredIndex].dropdown!.map((item:NavlinkDropdown, index:number) => (
-												<li key={index} className="dropdown-item mb-2 relative">
-														<button
-																className={classNames("font-inter text-standar-lighter hover:text-standar-lighter text-xl bg-none border-none", 
-																{
-																	'blur-text': (hoveredButtonIndex !== index && hoveredButtonIndex !== null) || (activeSubmenu !== index && activeSubmenu !== null) 
-																},
-																{'!text-standar-darker cancel-blur': activeSubmenu === index }
-																)}
-																onMouseEnter={() => setHoveredButtonIndex(index)}
-																onMouseLeave={() => setHoveredButtonIndex(null)}
-																onClick={() => handleSubmenuClick(index)}
-														>
-																{item.title}
-														</button>
-														<div className={`submenu submenu-${index} overflow-hidden lg:w-auto lg:absolute top-0 lg:left-[25%] z-50 flex flex-col items-start ml-10 lg:r-ml-20 gap-2 ${activeSubmenu === index ? 'active' : ''}`}>
-																{item.types && item.types.map((type, typeIndex) => (
-																		<span key={typeIndex} className="text-standar-darker relative">{type.title}</span>
-																))}
-														</div>
-												</li>
-										))}
-								</ul>
-							</div>
-							<div className="h-full w-[50vw] absolute right-0 image-dropdown">
-								{hoveredIndex !== null && 
-									<Image 
-										src={`/images/${navlinks[hoveredIndex as number].img}`}
-										layout='fill'
-										objectFit='cover'
-										alt='clothes'
-									/>
-								}
+						</nav>
+						<div 
+							className={classNames("w-full bg-white menu-dropdown border-t border-standar-lighter z-10 flex justify-center overflow-hidden relative", {"active": showDropdown})}
+							onMouseLeave={() => {
+								setShowDropdown(false)
+								restartMenu()
+							}}
+						>
+							<div className="w-11/12 flex justify-between">
+								<div className="w-1/2 py-5">
+									<p className="text-2xl text-black mb-3">{hoveredIndex !== null && navlinks[hoveredIndex as number].title}</p>
+									<ul className="pl-2 w-auto">
+											{(hoveredIndex !== null && navlinks[hoveredIndex].dropdown) && navlinks[hoveredIndex].dropdown!.map((item:NavlinkDropdown, index:number) => (
+													<li key={index} className="dropdown-item mb-2 relative">
+															<button
+																	className={classNames("font-inter text-standar-lighter hover:text-standar-lighter text-xl bg-none border-none", 
+																	{
+																		'blur-text': (hoveredButtonIndex !== index && hoveredButtonIndex !== null) || (activeSubmenu !== index && activeSubmenu !== null) 
+																	},
+																	{'!text-standar-darker cancel-blur': activeSubmenu === index }
+																	)}
+																	onMouseEnter={() => setHoveredButtonIndex(index)}
+																	onMouseLeave={() => setHoveredButtonIndex(null)}
+																	onClick={() => handleSubmenuClick(index)}
+															>
+																	{item.title}
+															</button>
+															<div className={`submenu submenu-${index} overflow-hidden lg:w-auto lg:absolute top-0 lg:left-[25%] z-50 flex flex-col items-start ml-10 lg:r-ml-20 gap-2 ${activeSubmenu === index ? 'active' : ''}`}>
+																	{item.types && item.types.map((type, typeIndex) => (
+																			<span key={typeIndex} className="text-standar-darker relative">{type.title}</span>
+																	))}
+															</div>
+													</li>
+											))}
+									</ul>
+								</div>
+								<div className="h-full w-[50vw] absolute right-0 image-dropdown">
+									{hoveredIndex !== null && 
+										<Image 
+											src={`/images/${navlinks[hoveredIndex as number].img}`}
+											layout='fill'
+											objectFit='cover'
+											alt='clothes'
+										/>
+									}
+								</div>
 							</div>
 						</div>
-          </div>
-          <div className={classNames("overlay", {"active": showDropdown})}></div>
-        </div>
-      </header>
+						<div className={classNames("overlay", {"active": showDropdown})}></div>
+					</div>
+				</header>
+				<CartDrawer isCartOpen={isCartOpen} toggleCart={toggleCart} />
+			</>
     );
   }

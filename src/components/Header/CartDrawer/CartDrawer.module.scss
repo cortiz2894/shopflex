@@ -2,6 +2,7 @@
 .drawer {
   right: calc(-35% - 100px);
   transition: right 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 99999999;
 }
 
 .drawer > .content{
