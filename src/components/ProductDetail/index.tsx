@@ -10,8 +10,7 @@ import PaymentMethods from '@/components/shared/PaymentMethods/index';
 import styles from './ProductDetail.module.scss';
 import CarouselImages from './CarouselImages/index';
 import Accordion from '../shared/Accordion/index';
-import { LiaRulerCombinedSolid } from "react-icons/lia";
-import { IoReturnDownBack } from "react-icons/io5";
+import { GiReturnArrow, GiClothes, GiHandTruck, GiBookCover } from "react-icons/gi";
 
 const PRODUCT = {
 	id: 1,
@@ -75,22 +74,22 @@ export default function ProductDetail() {
 						<Accordion 
 							title={'Description'} 
 							content={product.description} 
-							icon={<FiFileText className='text-[20px] text-standar-darker'/>}
+							icon={<GiBookCover className='text-[20px] text-standar-darker'/>}
 						/>
 						<Accordion 
 							title={'Shipment'} 
 							content={'product.description product.description product.description product.description product.description product.description'}
-							icon={<FiTruck className='text-[20px] text-standar-darker'/>}
+							icon={<GiHandTruck className='text-[20px] text-standar-darker'/>}
 						/>
 						<Accordion 
 							title={"What's my size?"} 
 							content={'product.description product.description product.description product.description product.description product.description'}
-							icon={<LiaRulerCombinedSolid className='text-[20px] text-standar-darker'/>}
+							icon={<GiClothes className='text-[20px] text-standar-darker'/>}
 						/>
 						<Accordion 
 							title={"Return Policy"} 
 							content={'product.description product.description product.description product.description product.description product.description'}
-							icon={<IoReturnDownBack className='text-[20px] text-standar-darker'/>}
+							icon={<GiReturnArrow className='text-[20px] text-standar-darker'/>}
 						/>
 				</div>
 				<div ref={imageContainerRef} 
