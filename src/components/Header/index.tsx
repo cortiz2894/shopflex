@@ -14,6 +14,7 @@ import { CartStore, useCartStore } from "@/store/cartStore";
 import shallow from 'zustand/shallow';
 import Link from "../../../node_modules/next/link";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import styles from './Header.module.scss'
 
 const NAVLINKS = [
     { 
@@ -223,7 +224,7 @@ export default function Header({pageLoaded}:Props) {
 					x: -20
 				},{
 					opacity: 1,
-					delay: 0.2,
+					delay: 0.1,
 					x: 0,
 					stagger: 0.15,
 					ease: "power4.inOut",
@@ -259,7 +260,6 @@ export default function Header({pageLoaded}:Props) {
       setHoveredIndex(i);
       if (navlinks[i].dropdown) {
         setShowDropdown(true);
-				
       } else {
         setShowDropdown(false);
 				restartMenu()
@@ -285,7 +285,7 @@ export default function Header({pageLoaded}:Props) {
             y: 0,
             opacity: 1,
             stagger: 0.1,
-            duration: 0.5,
+            duration: 0.3,
         });
     };
 
@@ -315,7 +315,12 @@ export default function Header({pageLoaded}:Props) {
 				>
 					<div className="w-full flex flex-col items-center">
 						<nav 
-							className={classNames("w-11/12 z-10 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative", {'w-full rounded-none bg-white': showDropdown})}
+							className={
+								classNames(
+									"w-11/12 z-10 h-16 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative items-start",
+								 {'bg-white !h-96': showDropdown},
+								 [styles.navBar]
+								 )}
 							style={{boxShadow: '1px 1px 5px #9898980f'}}
 							ref={navBarRef}
 						>
@@ -358,7 +363,7 @@ export default function Header({pageLoaded}:Props) {
 							</div>
 						</nav>
 						<div 
-							className={classNames("w-full bg-white menu-dropdown border-t border-standar-lighter z-10 flex justify-center overflow-hidden relative", {"active": showDropdown})}
+							className={classNames("w-11/12 rounded bg-transparent menu-dropdown z-10 flex justify-center overflow-hidden relative", {"active": showDropdown})}
 							onMouseLeave={() => {
 								setShowDropdown(false)
 								restartMenu()

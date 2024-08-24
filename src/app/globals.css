@@ -59,7 +59,7 @@ main {
 }
 
 nav {
-  transition: width 0.1s ease-in-out;
+  transition: width 0.1s ease-in-out, height 0.2s cubic-bezier(0.2, 0.32, 0, 0.87);
 }
 
 nav:hover::before {
@@ -88,7 +88,8 @@ nav:hover::before {
   height: 0;
   transition: all 0.2s ease-in;
   pointer-events: none;
-
+  position: absolute;
+  top: 5rem;
 }
 
 .menu-dropdown.active {
