@@ -245,7 +245,14 @@ export default function Header({pageLoaded}:Props) {
 				end: "max",
 				
 				onUpdate: (self:any) => {
-					self.direction === -1 ? showAnim.play() : showAnim.reverse()
+					if(self.direction === -1) {
+						showAnim.play() 
+					}
+					else {
+						restartMenu()
+						setShowDropdown(false);
+						showAnim.reverse()
+					} 
 				}
 			});
 		})
@@ -326,7 +333,13 @@ export default function Header({pageLoaded}:Props) {
 						>
 							<div className="flex items-center justify-between navbar">
 								<div className="flex items-center">
-									<div className="text-black w-28 mr-10">
+									<div 
+										className="text-black w-28 mr-10"
+										onMouseEnter={() => {
+											setShowDropdown(false);
+											restartMenu()
+										}}
+									>
 										<Link href={'/'}>
 											<Logo />
 										</Link>
