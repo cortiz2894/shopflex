@@ -60,8 +60,6 @@ const handleSubmenuClick = (index: number) => {
       createShowSubmenuAnimation(index);
   }			
 };
-
-
     return (
 			<>
         <div 

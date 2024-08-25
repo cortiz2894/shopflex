@@ -356,9 +356,9 @@ export default function Header({pageLoaded}:Props) {
 							hoveredIndex={hoveredIndex} 
 							showDropdown={showDropdown} 
 							setShowDropdown={setShowDropdown}
-							navlinks={navlinks}
 							hoveredButtonIndex={hoveredButtonIndex}
 							setHoveredButtonIndex={setHoveredButtonIndex}
+							navlinks={navlinks}
 						/>
 					</div>
 				</header>

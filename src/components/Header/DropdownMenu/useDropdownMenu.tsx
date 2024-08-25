@@ -1,24 +1,26 @@
 import { useState } from 'react';
 
 export const useDropdownMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 
-  const toggleDropdown = () => {
-    setIsOpen((prev) => !prev);
-  };
-
-  const closeDropdown = () => {
-    setIsOpen(false);
-  };
-
-  const openDropdown = () => {
-    setIsOpen(true);
-  };
+  const restartMenu = () => {
+    setHoveredIndex(null)
+    setHoveredButtonIndex(null)
+    setActiveSubmenu(null)
+  }
 
   return {
-    isOpen,
-    toggleDropdown,
-    closeDropdown,
-    openDropdown,
+    hoveredIndex,
+    setHoveredIndex,
+    setHoveredButtonIndex,
+    hoveredButtonIndex,
+    showDropdown,
+    setShowDropdown,
+    restartMenu,
+    activeSubmenu,
+    setActiveSubmenu
   };
 };
