@@ -181,7 +181,7 @@ export default function Header({pageLoaded}:Props) {
     const lenis = new Lenis();
     lenisRef.current = lenis;
 
-    function raf(time) {
+    function raf(time:number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
@@ -223,7 +223,7 @@ export default function Header({pageLoaded}:Props) {
 				});
 
 				lenisRef.current.start()
-				
+
 				tl.play()
 			}
 		}, [pageLoaded]);
