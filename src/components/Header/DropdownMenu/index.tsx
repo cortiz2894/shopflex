@@ -6,7 +6,7 @@ import Link from "next/link";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from './DropdownMenu.module.scss'
 import gsap from 'gsap'
-import { Navlink } from "@/interfaces/navbar.interface";
+import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 
 type Props = {
 	restartMenu: () => void
