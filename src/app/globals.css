@@ -34,6 +34,28 @@ main {
   }
 }
 
+/* Lenis */
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 /* NAV */
 .overlay {
   pointer-events: none;
@@ -54,8 +76,14 @@ main {
   opacity: 0.5;
 }
 
+.dropdown-item {
+  transform: translateX(-2em);
+  opacity: 0;
+}
+
 .appear li{
-  transform: translateY(100px);
+  opacity: 0;
+  transform: translateY(50px);
 }
 
 nav {

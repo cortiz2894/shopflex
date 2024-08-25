@@ -15,6 +15,7 @@ import shallow from 'zustand/shallow';
 import Link from "../../../node_modules/next/link";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from './Header.module.scss'
+import Lenis from 'lenis'
 
 const NAVLINKS = [
     { 
@@ -132,17 +133,6 @@ const NAVLINKS = [
 						]
 				},
 				{
-					title: 'Hoodies',
-					types: [
-							{
-									title: 'Oversize'
-							},
-							{
-									title: 'Regular'
-							}
-					]
-				},
-				{
 					title: 'Pants',
 					types: [
 							{
@@ -175,15 +165,46 @@ export default function Header({pageLoaded}:Props) {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 		const [isCartOpen, setIsCartOpen] = useState(false);
+		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
+
 		const headerRef = useRef<HTMLDivElement>(null)
 		const navBarRef = useRef<HTMLDivElement>(null)
+		const lenisRef = useRef<Lenis | null>(null);
 
 		const { totals } = useCartStore((state:CartStore) => ({
 			totals : state.totals
 		}), shallow)
 
-		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
 		let tl = gsap.timeline({ paused: true });
+
+  useEffect(() => {
+    const lenis = new Lenis();
+    lenisRef.current = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+		lenisRef.current.stop()
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  const toggleCart = () => {
+		if(!lenisRef.current) return 
+		
+    if (isCartOpen) {
+			lenisRef.current.start();
+    } else {
+      lenisRef.current.stop();
+    }
+
+    setIsCartOpen(!isCartOpen);
+  };
 		
 		useGSAP(() => {
 			if(pageLoaded) {
@@ -196,21 +217,20 @@ export default function Header({pageLoaded}:Props) {
 				.to('.appear li', {
 					y: 0,
 					stagger: 0.1,
-					duration: 0.4,
-					ease: 'sine.inOut',
+					opacity: 2,
+					duration: 0.3,
+					ease: "power4.inOut",
 				});
-	
+
+				lenisRef.current.start()
+				
 				tl.play()
 			}
 		}, [pageLoaded]);
 
 		useGSAP(() => {
-			// gsap.to('.appear li', {
-      //   y: 0,
-      //   duration: 1.2,
-      // });
-			gsap.killTweensOf(".dropdown-item");
 			if(hoveredIndex !== null) {
+				gsap.killTweensOf(".dropdown-item");
 				gsap.fromTo('.image-dropdown', 
 				{
 					opacity: 0
@@ -219,10 +239,7 @@ export default function Header({pageLoaded}:Props) {
 					opacity: 1,
 					duration: 1,
 				})
-				gsap.fromTo('.dropdown-item', {
-					opacity: 0,
-					x: -20
-				},{
+				gsap.to('.dropdown-item', {
 					opacity: 1,
 					delay: 0.1,
 					x: 0,
@@ -265,6 +282,7 @@ export default function Header({pageLoaded}:Props) {
 
     const hoverlink = (i: number) => {
       setHoveredIndex(i);
+			
       if (navlinks[i].dropdown) {
         setShowDropdown(true);
       } else {
@@ -311,10 +329,6 @@ export default function Header({pageLoaded}:Props) {
 					createShowSubmenuAnimation(index);
 			}			
 	};
-
-	const toggleCart = () => {
-		setIsCartOpen(!isCartOpen)
-	}
     return (
 			<>
 				<header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]"
@@ -348,7 +362,7 @@ export default function Header({pageLoaded}:Props) {
 										{navlinks.map((link, index) => (
 											<li
 												key={index}
-												className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2 text-sm', {'active': hoveredIndex === index})}
+												className={classNames('realtive font-inter text-standar-darker hover:!text-standar-darker px-2', {'active': hoveredIndex === index})}
 												onMouseEnter={() => hoverlink(index)}
 											>
 													<Link href={'/product'}>
