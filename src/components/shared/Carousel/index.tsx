@@ -72,8 +72,8 @@ export const Carousel = ({products}:ListProductProps) => {
 
   return (
 		<div
-      data-cursor-exclusion
       className={classNames("relative w-full h-[37vw]", [styles.container])}
+      data-cursor-exclusion
     >
 			<div id="slider" className={styles.slider} ref={sliderRef}>
 				{products.map((item, index) => {

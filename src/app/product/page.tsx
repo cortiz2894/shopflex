@@ -8,7 +8,7 @@ export const metadata = {
 export default function Product() {
 
   return (
-      <main>
+      <main data-cursor-exclusion>
         <ProductDetail />
       </main>
   );

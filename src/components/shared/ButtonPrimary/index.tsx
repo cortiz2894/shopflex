@@ -24,6 +24,7 @@ export default function ButtonPrimary({variant = 'outlined', text, size = 'large
     <button 
       className={classNames(styles.button, styles[variant], 'button', styles[size], styles[theme], {[styles.active]:active })} 
       onClick={action}
+      data-cursor-size="0px"
       {...rest}
     >
         <p className={styles.text}>{text}</p>

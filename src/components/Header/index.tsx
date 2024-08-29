@@ -295,10 +295,8 @@ export default function Header({pageLoaded}:Props) {
 		}
     return (
 			<>
-				<header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]"
-				ref={headerRef}
-				>
-					<div className="w-full flex flex-col items-center">
+				<header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]" ref={headerRef}>
+					<div className="w-full flex flex-col items-center" data-cursor-exclusion>
 						<nav 
 							className={
 								classNames(

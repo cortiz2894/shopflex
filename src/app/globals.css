@@ -20,7 +20,6 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  
   background: #f9f9f9;
 }
 
@@ -108,7 +107,6 @@ nav:hover::before {
 
 .navbar ul:hover > li {
   color: #989898;
-  cursor: pointer;
 }
 
 .menu-dropdown {
@@ -220,7 +218,7 @@ nav:before {
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 999999;
+  z-index: 99999999;
 }
 
 .loader svg{
@@ -230,5 +228,5 @@ nav:before {
 
 /* Cursor */
 .c-cursor {
-  z-index: 999998 !important;
+  z-index: 9999999 !important;
 }

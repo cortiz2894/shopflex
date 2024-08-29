@@ -28,10 +28,11 @@ export default function Hero() {
 			yPercent: 50,
 			ease: "none",
 		});
+
     if(!cardRef.current) return
 
     Draggable.create(cardRef.current, {
-      bounds: heroRef.current,
+      bounds: '.hero',
     });
 
   }, []);
@@ -40,6 +41,7 @@ export default function Hero() {
     <div 
       className="h-[80vh] w-full header-overlay overflow-hidden relative hero" 
       ref={heroRef}
+      data-cursor-exclusion
       >
       <Image 
         src={`/images/bg-shopflex.jpg`}
