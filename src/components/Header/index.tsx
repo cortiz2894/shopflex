@@ -166,6 +166,7 @@ export default function Header({pageLoaded}:Props) {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 		const [isCartOpen, setIsCartOpen] = useState(false);
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
+		const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 
 		const headerRef = useRef<HTMLDivElement>(null)
 		const navBarRef = useRef<HTMLDivElement>(null)
@@ -290,6 +291,7 @@ export default function Header({pageLoaded}:Props) {
 		const restartMenu = () => {
 			setHoveredIndex(null)
 			setHoveredButtonIndex(null)
+			setActiveSubmenu(null)
 		}
     return (
 			<>
@@ -312,8 +314,8 @@ export default function Header({pageLoaded}:Props) {
 									<div 
 										className="text-black w-28 mr-10"
 										onMouseEnter={() => {
-											setShowDropdown(false);
 											restartMenu()
+											setShowDropdown(false);
 										}}
 									>
 										<Link href={'/'}>
@@ -359,6 +361,8 @@ export default function Header({pageLoaded}:Props) {
 							hoveredButtonIndex={hoveredButtonIndex}
 							setHoveredButtonIndex={setHoveredButtonIndex}
 							navlinks={navlinks}
+							setActiveSubmenu={setActiveSubmenu}
+							activeSubmenu={activeSubmenu}
 						/>
 					</div>
 				</header>

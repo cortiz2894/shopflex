@@ -2,9 +2,6 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
-import Link from "next/link";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import styles from './DropdownMenu.module.scss'
 import gsap from 'gsap'
 import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
 
@@ -16,11 +13,11 @@ type Props = {
   showDropdown: boolean
   setHoveredButtonIndex: Dispatch<SetStateAction<number | null>>
   hoveredButtonIndex: number | null
+  setActiveSubmenu: Dispatch<SetStateAction<number | null>>
+  activeSubmenu: number | null
 }
 
-export default function DropdownMenu({restartMenu, hoveredIndex, navlinks, showDropdown, setShowDropdown, setHoveredButtonIndex, hoveredButtonIndex}:Props) {
-
-  const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+export default function DropdownMenu({restartMenu, hoveredIndex, navlinks, showDropdown, setShowDropdown, setHoveredButtonIndex, hoveredButtonIndex, activeSubmenu, setActiveSubmenu}:Props) {
 
   const createHideSubmenuAnimation = (index: number) => {
     return gsap.timeline()

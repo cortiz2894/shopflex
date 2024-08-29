@@ -227,3 +227,8 @@ nav:before {
   height: 100%;
   width: 100%;
 }
+
+/* Cursor */
+.c-cursor {
+  z-index: 999998 !important;
+}

@@ -20,19 +20,19 @@ const COLLECTIONS_MOCK = [
 	{
 		id: 1,
 		img: 'gallery-4.png',
-		name: 'Fury',
+		name: 'Fury on the Road v1',
 		trigger: 'Click to open the collection'
 	},
 	{
 		id: 2,
 		img: 'gallery-2.jpeg',
-		name: 'Fury',
+		name: 'Fury on the Road v2',
 		trigger: 'Click to open the collection'
 	},
 	{
 		id: 3,
 		img: 'gallery-3.png',
-		name: 'Fury',
+		name: 'Fury on the Road v3',
 		trigger: 'Click to open the collection'
 	}
 ]
@@ -100,7 +100,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <div className='w-full'>
+    <div className='w-full' >
         <Container>
             <SectionTitle position='center' text='Collections'/>
         </Container>
@@ -111,8 +111,11 @@ export default function Gallery() {
 								className={styles.imageContainer} 
 								key={`gallery-item-${collection.id}`}
 								ref={(el) => { collectionsRefs.current[index] = el }}
+								data-cursor-color="#000000bf"
+								data-cursor-text={'Click to Open'} 
+								data-cursor-size="150px"
 							>
-								<InfiniteText size='small' text={collection.trigger} position='bottom'/>
+								<InfiniteText size='small' text={collection.name} position='bottom'/>
 								<figcaption>
 									<Image 
 										src={`/images/${collection.img}`}

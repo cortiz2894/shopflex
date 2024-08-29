@@ -30,7 +30,7 @@ export default function ProductList({products}:ListProductProps) {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 gap-5 overflow-y-hidden pt-[7%] mt-[-6%]">
+    <div className="grid grid-cols-4 gap-5 overflow-y-hidden pt-[7%] mt-[-6%]" data-cursor-exclusion>
       {products.map((item, index) => {
         return (
           <ProductCard

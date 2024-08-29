@@ -140,11 +140,13 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           <svg className={styles.svgCurve}>
             <path ref={pathRef} d={initialPath}></path>
           </svg>
-          <div className='flex justify-between'>
+          <div className='flex justify-between'
+          >
             <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
             <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
           </div>
-          <span className={classNames('text-black my-3 block', [styles.description])}>{item.description}</span>
+          <span className={classNames('text-black my-3 block', [styles.description])}
+          >{item.description}</span>
           <div className='flex justify-between items-center gap-4'>
             
             <ButtonPrimary 
