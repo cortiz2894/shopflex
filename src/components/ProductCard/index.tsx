@@ -121,11 +121,14 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
         ref={ref}
         onMouseEnter={() => animatePath(targetPath)}
         onMouseLeave={() => animatePath(initialPath)}
+        
       >
       <Link href='/product'>
         <div 
           ref={cardRef}
           className='relative w-full pb-[100%] flex justify-center'
+          data-cursor-size="80px"
+          data-cursor-text="Ver"
         >
           <div className={styles.imageContainer}>
             <Image 

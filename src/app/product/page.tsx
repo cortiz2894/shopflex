@@ -8,7 +8,11 @@ export const metadata = {
 export default function Product() {
 
   return (
-      <main data-cursor-exclusion>
+      <main 
+        data-cursor-exclusion 
+        data-cursor-size="30px"
+        data-cursor-text=""
+      >
         <ProductDetail />
       </main>
   );

@@ -229,4 +229,5 @@ nav:before {
 /* Cursor */
 .c-cursor {
   z-index: 9999999 !important;
+  overflow: hidden;
 }
