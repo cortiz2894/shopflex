@@ -19,8 +19,6 @@ export const LinkTransition = ({children, href, ...props}: LinkTransitionProps) 
 
   const handleTransition = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
-    console.log('params', params)
-    if(params === href) return 
 
     gsap.to('.exitTransition', {
       display: 'block',
