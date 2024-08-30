@@ -212,7 +212,6 @@ nav:before {
 
 /*Page transition*/
 
-
 .loader{
   height: calc(100vh + 200px);
   width: 100%;
@@ -230,4 +229,16 @@ nav:before {
 .c-cursor {
   z-index: 9999999 !important;
   overflow: hidden;
+}
+
+.exitTransition {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: rgb(255, 255, 255);
+  transform: translateY(100vh);
+  z-index: 99999998;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }

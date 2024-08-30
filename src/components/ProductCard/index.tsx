@@ -11,8 +11,7 @@ import { FiHeart } from "react-icons/fi";
 import { Product } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
-import Link from '../../../node_modules/next/link';
-import { LinkTransition } from '@/utils/LinkTransition';
+import { LinkTransition } from '@/components/shared/LinkTransition/LinkTransition';
 
 type Props = {
   item: Product,

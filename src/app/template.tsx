@@ -1,6 +1,6 @@
 'use client'
 
-import gsap from 'gsap'
+import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 
@@ -10,26 +10,37 @@ export default function Template({children}:{children: React.ReactNode}) {
   const path = useRef<SVGPathElement>(null);
 
   const initialCurve:number = 300;
-  const duration:number = 1000;
-  let start:number | undefined;
+  const duration:number = 0.8; // Duración más corta
 
-	useGSAP(() => {
-		setPath(initialCurve)
-		requestAnimationFrame(animate)
-	}, [])
+  useGSAP(() => {
+    setPath(initialCurve);
+    
+    if (loader.current) {
+      gsap.to(loader.current, {
+        y: -(loaderHeight() as number),
+        duration: duration,
+        ease: "M0,0 C0.5,0 0.5,1 1,1", // Curva de Bézier ajustada
+        onUpdate: () => {
+          const progress = gsap.getProperty(loader.current, "progress") as number;
+          const newCurve = gsap.utils.interpolate(initialCurve, -100, progress);
+          setPath(newCurve);
+        }
+      });
+    }
+  }, []);
 
   const loaderHeight = () => {
     if(loader.current) {
       const loaderBounds = loader.current.getBoundingClientRect();
       return loaderBounds.height;
     }
-  }
+  };
 
   const setPath = (curve:number) => {
-    const width = window.innerWidth
+    const width = window.innerWidth;
     const height = loaderHeight();
 
-    if(!path.current || !height) return
+    if(!path.current || !height) return;
 
     path.current.setAttributeNS(null, "d",
     `M0 0
@@ -37,41 +48,16 @@ export default function Template({children}:{children: React.ReactNode}) {
     L${width} ${height}
     Q${width/2} ${height - curve} 0 ${height}
     L0 0`
-    )
-  }
-
-  const animate = (timestamp: number) => {
-    if (start === undefined) {
-      start = timestamp;
-    }
-  
-    const elapsed = timestamp - start;
-  
-    if (!loader.current) return;
-  
-    loader.current.style.top = easeOutQuad(elapsed, 0, -(loaderHeight() as number), duration) + "px";
-  
-    const newCurve = easeOutQuad(elapsed, initialCurve, -400, duration);
-    setPath(newCurve);
-  
-    if (elapsed < duration) {
-      requestAnimationFrame(animate);
-    }
+    );
   };
-
-  const easeOutQuad = (time:number, start:number, end:number, duration:number) => {
-    return -end * (time /= duration) * (time - 2) + start;
-  }
-
 
   return (
       <div>
-				<div ref={loader} className={'loader'}>
-					<svg>
-						{/* <path ref={path}></path> */}
-						<path ref={path} fill="white" stroke="white"></path>
-					</svg>
-				</div>
+        <div ref={loader} className={'loader'}>
+          <svg>
+            <path ref={path} fill="white" stroke="white"></path>
+          </svg>
+        </div>
         {children}
       </div>
   );

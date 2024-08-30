@@ -17,6 +17,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import styles from './Header.module.scss'
 import Lenis from 'lenis'
 import DropdownMenu from "./DropdownMenu/index";
+import { LinkTransition } from "../shared/LinkTransition/LinkTransition";
 
 const NAVLINKS = [
     { 
@@ -316,9 +317,9 @@ export default function Header({pageLoaded}:Props) {
 											setShowDropdown(false);
 										}}
 									>
-										<Link href={'/'}>
+										<LinkTransition href={'/'}>
 											<Logo />
-										</Link>
+										</LinkTransition>
 									</div>
 									<ul className="flex appear overflow-hidden">
 										{navlinks.map((link, index) => (

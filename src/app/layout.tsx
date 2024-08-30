@@ -20,10 +20,9 @@ export default function RootLayout({
   const params = useParams<{ tag: string; item: string }>()
 
   useEffect(() => {
-    console.log('cambio params, scroll top')
     setTimeout(() => {
       window.scrollTo(0, 0);
-    }, 100)
+    }, 300)
 	}, [params])
 
 
@@ -44,6 +43,7 @@ export default function RootLayout({
         <Header pageLoaded={pageLoaded}/>  
           {children}
         <Footer />
+        <div className="exitTransition"></div>
       </body>
     </html>
   );
