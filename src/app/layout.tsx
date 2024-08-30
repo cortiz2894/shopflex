@@ -3,10 +3,11 @@ import Footer from "@/components/Footer/index";
 import Header from "@/components/Header/index";
 import Loader from "@/components/shared/Loader/index";
 import { Inter } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./globals.css";
 import { Cursor } from 'react-creative-cursor';
 import 'react-creative-cursor/dist/styles.css';
+import { useParams } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [pageLoaded, setPageLoaded] = useState(false)
+  const params = useParams<{ tag: string; item: string }>()
+
+  useEffect(() => {
+    console.log('cambio params, scroll top')
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100)
+	}, [params])
+
+
   return (
     <html lang="en">
       <head>

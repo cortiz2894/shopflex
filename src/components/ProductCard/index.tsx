@@ -12,6 +12,7 @@ import { Product } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
 import Link from '../../../node_modules/next/link';
+import { LinkTransition } from '@/utils/LinkTransition';
 
 type Props = {
   item: Product,
@@ -123,7 +124,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
         onMouseLeave={() => animatePath(initialPath)}
         
       >
-      <Link href='/product'>
+      <LinkTransition href='/product'>
         <div 
           ref={cardRef}
           className='relative w-full pb-[100%] flex justify-center'
@@ -167,7 +168,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
             />
           </div>
         </div>
-      </Link>
+      </LinkTransition>
     </div>
   );
 });

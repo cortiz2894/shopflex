@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react';
 import classNames from 'classnames';
@@ -58,6 +58,7 @@ export default function ProductDetail() {
 	const [product, setProduct] = useState(PRODUCT)
 
 	useGSAP(() => {
+
 		if(!imageContainerRef.current) return
 
 		gsap.to(imageContainerRef.current, {
