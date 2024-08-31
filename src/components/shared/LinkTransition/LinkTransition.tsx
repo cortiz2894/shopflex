@@ -30,17 +30,6 @@ export const LinkTransition = ({children, href, ...props}: LinkTransitionProps) 
     await sleep(700)
 
     router.push(href)
-
-    await sleep(200)
-
-    gsap.timeline()
-    .to('.exitTransition', {
-      y:'-100vh',
-      display: 'none'
-    })
-    .to('.exitTransition', {
-      y:'100vh'
-    })
   }
 
   return (

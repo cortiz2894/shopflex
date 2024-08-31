@@ -147,8 +147,6 @@ export default function CarouselImages({images}: Props) {
 		})
 	}
 
-	console.log('images.length :', images.length - 1 === selected )
-
   return (
     <>
 			<div className={styles.image} data-cursor-size="0px">
