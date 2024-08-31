@@ -15,6 +15,15 @@ export default function Template({children}:{children: React.ReactNode}) {
   useGSAP(() => {
     setPath(initialCurve);
     
+    gsap.timeline()
+    .to('.exitTransition', {
+      y:'-100vh',
+      display: 'none'
+    })
+    .to('.exitTransition', {
+      y:'100vh'
+    })
+
     if (loader.current) {
       gsap.to(loader.current, {
         y: -(loaderHeight() as number),
