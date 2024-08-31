@@ -4,7 +4,7 @@ import Hero from "@/components/Hero/index";
 import ProductList from "@/components/ProductList/index";
 import { Carousel } from "@/components/shared/Carousel/index";
 import SectionTitle from "@/components/shared/SectionTitle/index";
-import { getProducts } from "@/services/products.js";
+import { getCategory, getProducts } from "@/services/products.js";
 
 export const metadata = {
   title: "Shopflex",
@@ -13,19 +13,24 @@ export const metadata = {
 
 export default async function Home() {
   const products = await getProducts()
+  // const dropOfTheMonth = await getCategory('drop-of-the-month')
+  const categories = await getCategory()
   return (
       <main>
         <Hero />
-          <Container>
-            <SectionTitle text='Drops of the month'/>
-            <Carousel products={products}/>
-            <SectionTitle text='Most wanted'/>
-            <ProductList products={products}/>
-          </Container>
+            {categories.map((category:any) => {
+              console.log('category map: ', category)
+              return(
+                <Container key={category.id}>
+                  <SectionTitle text={category.title}/>
+                  <Carousel products={category.products}/>
+                </Container>
+              )
+            }) }
         <Gallery />
         <Container>
-          <SectionTitle text='Most wanted'/>
-          <ProductList products={products}/>
+          <SectionTitle text='All products'/>
+          <Carousel products={products}/>
         </Container>
       </main>
   );

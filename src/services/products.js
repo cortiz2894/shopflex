@@ -1,4 +1,4 @@
-import { API_URL } from '@/utils/config.js'
+import { API_URL, formattedProductsResponse } from '@/utils/config.js'
 
 async function getProducts() {
   const res = await fetch(`${API_URL}/api/products?populate=*`)
@@ -6,24 +6,35 @@ async function getProducts() {
   if(!res.ok) {
     throw new Error('Algo salio mal')
   }
-
   const {data} = await res.json()
 
-  return data.map(({attributes, id}) => {
+  return formattedProductsResponse(data)
+}
 
-    const {title, description, slug, price} = attributes
-    const {url} = attributes.thumbnail.data.attributes
+async function getCategory(category) {
+  
+  // const res = await fetch(`${API_URL}/api/categories?filters[slug][$eq]=${category}&populate[products][populate]=*`)
+  const res = await fetch(`${API_URL}/api/categories?populate[products][populate]=*`)
 
+  if(!res.ok) {
+    throw new Error('Algo salio mal')
+  }
+  const { data } = await res.json()
+
+  return data.map((category) => {
+    const { attributes, id} = category
+
+    const productsByCategory = formattedProductsResponse(attributes.products.data)
+  
     return {
-      id, 
-      title, 
-      description, 
-      slug, 
-      price,
-      image: url
+      title: attributes.title,
+      slug: attributes.slug,
+      id: id,
+      products: productsByCategory
     }
   })
 }
+
 
 async function getProduct(identifier) {
   const res = await fetch(`${API_URL}/api/products/${identifier}?populate=*`)
@@ -36,7 +47,6 @@ async function getProduct(identifier) {
 
   const { id, attributes } = data[0]
   const { title, description, slug, price, image} = attributes
-  console.log('destructuracion: ', id, data)
 
   const images = image.data.map((im) => {
     return im.attributes.url
@@ -58,4 +68,4 @@ const getImage = (url) => {
   return `${API_URL}${url}`
 }
 
-export { getProducts, getImage, getProduct }
+export { getProducts, getImage, getProduct, getCategory }
