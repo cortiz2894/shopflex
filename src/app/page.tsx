@@ -4,28 +4,28 @@ import Hero from "@/components/Hero/index";
 import ProductList from "@/components/ProductList/index";
 import { Carousel } from "@/components/shared/Carousel/index";
 import SectionTitle from "@/components/shared/SectionTitle/index";
-import { PRODUCT_LIST , PRODUCT_LIST_CAROUSEL} from '@/utils/mocks.js'
+import { getProducts } from "@/services/products.js";
 
 export const metadata = {
   title: "Shopflex",
   description: "Shopflex basic template",
 };
 
-export default function Home() {
-
+export default async function Home() {
+  const products = await getProducts()
   return (
       <main>
         <Hero />
           <Container>
             <SectionTitle text='Drops of the month'/>
-            <Carousel products={PRODUCT_LIST_CAROUSEL}/>
+            <Carousel products={products}/>
             <SectionTitle text='Most wanted'/>
-            <ProductList products={PRODUCT_LIST}/>
+            <ProductList products={products}/>
           </Container>
         <Gallery />
         <Container>
           <SectionTitle text='Most wanted'/>
-          <ProductList products={PRODUCT_LIST}/>
+          <ProductList products={products}/>
         </Container>
       </main>
   );

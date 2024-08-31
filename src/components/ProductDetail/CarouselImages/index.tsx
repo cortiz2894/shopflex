@@ -5,12 +5,13 @@ import classNames from 'classnames'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react';
 import { FiHeart, FiZoomIn, FiZoomOut } from "react-icons/fi";
-import { BsChevronCompactRight } from "react-icons/bs";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import Draggable from "gsap/Draggable";
 
 import ButtonPrimary from '@/components/shared/ButtonPrimary/index'
 import { getRemValue } from '@/utils/fontValues'
 import styles from './CarouselImages.module.scss'
+import { getImage } from '@/services/products'
 
 interface Props {
 	images: string[]
@@ -146,6 +147,8 @@ export default function CarouselImages({images}: Props) {
 		})
 	}
 
+	console.log('images.length :', images.length - 1 === selected )
+
   return (
     <>
 			<div className={styles.image} data-cursor-size="0px">
@@ -187,10 +190,10 @@ export default function CarouselImages({images}: Props) {
 											loupeRef.current[i] = el;
 										}}
 										className={styles.loupe}
-										style={{ backgroundImage: `url(/images/${image})` }}
+										style={{ backgroundImage: `url(${getImage(image)})` }}
 									></div>
 									<Image 
-										src={`/images/${image}`}
+										src={getImage(image)}
 										layout='fill'
 										objectFit='cover'
 										alt={'Reign-Of-Blood'}
@@ -200,7 +203,7 @@ export default function CarouselImages({images}: Props) {
 							)}
 						</>
 					</div>
-					{selected < images.length -1 && (
+					{selected < (images.length - 1) && (
 							<button 
 								onClick={() => handleSelectImage(selected + 1)}
 								className={
@@ -211,15 +214,15 @@ export default function CarouselImages({images}: Props) {
 								<span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-white'}/></span>
 							</button>
 					)}
-					{selected === images.length -1 && (
+					{selected === (images.length - 1) && (
 							<button 
 								onClick={() => handleSelectImage(0)}
 								className={
-									classNames('rotate-180 absolute left-0 h-full top-0 z-10', [styles.arrow], [styles.right])
+									classNames('rotate-180 absolute left-0 h-full top-0 z-10', [styles.arrow], [styles.left])
 								}
 							>
-								<BsChevronCompactRight className={classNames('text-[3em] text-white', [styles.svgPrime])}/>
-								<span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-white'}/></span>
+								<BsChevronCompactLeft className={classNames('text-[3em] text-white', [styles.svgPrime])}/>
+								<span className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-white'}/></span>
 							</button>
 					)}
 			</div>
@@ -227,7 +230,7 @@ export default function CarouselImages({images}: Props) {
 					{images.map((image, index) => 
 					<div className={classNames(selected === index && [styles.active])} onClick={() => handleSelectImage(index)} key={index}>
 							<Image 
-									src={`/images/${image}`}
+									src={getImage(image)}
 									layout='fill'
 									objectFit='cover'
 									alt={'Reign-Of-Blood'}

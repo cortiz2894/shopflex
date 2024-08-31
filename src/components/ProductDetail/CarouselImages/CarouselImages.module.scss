@@ -54,14 +54,26 @@
 		overflow: hidden;
 		z-index: 99998;
     &:hover {
-			.svgPrime {
-					opacity: 0;
-					transform: translateX(100%);
-				}
-				.animatedButton {
-						opacity: 1;
-						transform: translateX(0%);
-				}
+      .animatedButton {
+        opacity: 1;
+        transform: translateX(0%);
+      }
+    }
+    &.left {
+      &:hover {
+        .svgPrime {
+            opacity: 0;
+            transform: translateX(100%);
+          }
+      }
+    }
+    &.right {
+      &:hover {
+        .svgPrime {
+            opacity: 0;
+            transform: translateX(100%);
+          }
+      }
     }
 }
 

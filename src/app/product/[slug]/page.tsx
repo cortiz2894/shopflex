@@ -1,11 +1,14 @@
 import ProductDetail from "@/components/ProductDetail/index";
+import { getProduct } from "@/services/products";
 
 export const metadata = {
   title: "Shopflex",
   description: "Shopflex basic template",
 };
 
-export default function Product() {
+export default async function Product({ params }) {
+  
+  const product = await getProduct(params.slug)
 
   return (
       <main 
@@ -13,7 +16,8 @@ export default function Product() {
         data-cursor-size="30px"
         data-cursor-text=""
       >
-        <ProductDetail />
+        {/* @ts-ignore */}
+        <ProductDetail product={product}/>
       </main>
   );
 }

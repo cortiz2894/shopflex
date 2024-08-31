@@ -53,9 +53,26 @@ const PAYMENTS_METHODS = [
 	}
 ]
 
-export default function ProductDetail() {
+interface ProductDetail {
+	id: number,
+	title: string,
+	drop: string,
+	price: number,
+	description: string,
+	images: string[],
+	colors?: string[],
+	sizes?: string[],
+	stock?: number,
+	collection?: string,
+}
+
+interface Props {
+	product: ProductDetail
+}
+
+export default function ProductDetail({product}: Props) {
+
 	const imageContainerRef = useRef(null)
-	const [product, setProduct] = useState(PRODUCT)
 
 	useGSAP(() => {
 

@@ -12,6 +12,7 @@ import { Product } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
 import { LinkTransition } from '@/components/shared/LinkTransition/LinkTransition';
+import { getImage } from '@/services/products';
 
 type Props = {
   item: Product,
@@ -111,10 +112,10 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           }
         })
       }
-    }
+  }
 
   CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
-
+  console.log('item: ', getImage(item.image))
   return (
     <div 
         className={classNames(`w-full relative`, [styles.card])} 
@@ -123,7 +124,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
         onMouseLeave={() => animatePath(initialPath)}
         
       >
-      <LinkTransition href='/product'>
+      <LinkTransition href={`/product/${item.slug}`}>
         <div 
           ref={cardRef}
           className='relative w-full pb-[100%] flex justify-center'
@@ -132,7 +133,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
         >
           <div className={styles.imageContainer}>
             <Image 
-              src={`/images/${item.image}`}
+              src={getImage(item.image)}
               width={500} height={500} objectFit="none"
               alt='clothes'
               ref={imgRef}
