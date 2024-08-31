@@ -145,7 +145,6 @@ export default function CarouselImages({images}: Props) {
 			display: 'none',
 		})
 	}
-	
 
   return (
     <>
