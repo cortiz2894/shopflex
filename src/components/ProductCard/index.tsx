@@ -6,7 +6,7 @@ import Image from "next/image";
 import gsap from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
 import ButtonPrimary from '../shared/ButtonPrimary';
-import {FiShoppingCart} from "react-icons/fi";
+import { FiShoppingCart } from "react-icons/fi";
 import { FiHeart } from "react-icons/fi";
 import { Product } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
@@ -74,6 +74,11 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   const addToCart = (e:any) => {
     
     e.preventDefault();
+
+    gsap.to('#navBar', {
+      yPercent: 0,
+      opacity: 1,
+    })
     e.stopPropagation();
     if (imgRef.current && !isLoading) {
         setIsLoading(true)
@@ -117,7 +122,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
   return (
     <div 
-        className={classNames(`w-full relative`, [styles.card])} 
+        className={classNames(`w-full relative before:content-['30%_off'] before:bg-[#242424]`, [styles.card])} 
         ref={ref}
         onMouseEnter={() => animatePath(targetPath)}
         onMouseLeave={() => animatePath(initialPath)}

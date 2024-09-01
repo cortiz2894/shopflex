@@ -1,10 +1,9 @@
 'use client'
 import Logo from "@/icons/Logo";
-import Image from "next/image";
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
-import { Navlink, NavlinkDropdown } from "@/interfaces/navbar.interface";
+import { Navlink } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
 import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
 import CartDrawer from "./CartDrawer";
@@ -305,6 +304,7 @@ export default function Header({pageLoaded}:Props) {
 								 {'bg-white !h-96': showDropdown},
 								 [styles.navBar]
 								 )}
+							id='navBar'
 							style={{boxShadow: '1px 1px 5px #9898980f'}}
 							ref={navBarRef}
 						>
