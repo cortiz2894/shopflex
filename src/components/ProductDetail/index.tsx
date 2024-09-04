@@ -53,7 +53,7 @@ const PAYMENTS_METHODS = [
 	}
 ]
 
-interface ProductDetail {
+export interface ProductDetailTypes {
 	id: number,
 	title: string,
 	drop: string,
@@ -63,11 +63,11 @@ interface ProductDetail {
 	colors?: string[],
 	sizes?: string[],
 	stock?: number,
-	collection?: string,
+	collection?: string
 }
 
 interface Props {
-	product: ProductDetail
+	product: ProductDetailTypes
 }
 
 export default function ProductDetail({product}: Props) {

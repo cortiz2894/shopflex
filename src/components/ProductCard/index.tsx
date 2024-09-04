@@ -120,14 +120,15 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   }
 
   CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
+
   return (
     <div 
-        className={classNames(`w-full relative before:content-['30%_off'] before:bg-[#242424]`, [styles.card])} 
-        ref={ref}
-        onMouseEnter={() => animatePath(targetPath)}
-        onMouseLeave={() => animatePath(initialPath)}
-        
-      >
+      className={classNames(`w-full relative `, [styles.card])} 
+      ref={ref}
+      onMouseEnter={() => animatePath(targetPath)}
+      onMouseLeave={() => animatePath(initialPath)}
+    >
+      {item.discount && <div className={styles.discount}>{item.discount}% OFF</div>}
       <LinkTransition href={`/product/${item.slug}`}>
         <div 
           ref={cardRef}
@@ -148,10 +149,16 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           <svg className={styles.svgCurve}>
             <path ref={pathRef} d={initialPath}></path>
           </svg>
-          <div className='flex justify-between'
-          >
+          <div className='flex justify-between relative'>
             <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
-            <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
+            {item.discount ? (
+              <>
+                <span className='uppercase text-gray-400 font-semibold line-through absolute top-[-1.5em] right-0'>$ {item.price}</span>
+                <span className='text-xl uppercase text-black font-semibold'>$ {item.price - ((item.price * item.discount) / 100)}</span>
+              </>
+            ) : (
+              <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
+            )}
           </div>
           <span className={classNames('text-black my-3 block', [styles.description])}
           >{item.description}</span>

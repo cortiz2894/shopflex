@@ -3,7 +3,7 @@ export const API_URL = process.env.API_URL || 'http://127.0.0.1:1337';
 export const formattedProductsResponse = (products) => {
   return products.map(({attributes, id}) => {
 
-    const {title, description, slug, price} = attributes
+    const {title, description, slug, price, discount} = attributes
     const {url} = attributes.thumbnail.data.attributes
 
     return {
@@ -12,7 +12,8 @@ export const formattedProductsResponse = (products) => {
       description, 
       slug, 
       price,
-      image: url
+      image: url,
+      discount
     }
   })
 }

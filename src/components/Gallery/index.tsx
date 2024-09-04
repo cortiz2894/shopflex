@@ -8,42 +8,40 @@ import styles from './Gallery.module.scss'
 
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react';
+import { getDrops } from '@/services/products';
+import { getImage } from '@/services/products'
+import { LinkTransition } from '../shared/LinkTransition/LinkTransition';
 
-type CollectionType = {
+export type CollectionType = {
 	id: number,
-	img: string,
-	name: string,
-	trigger: string
+	image: string,
+	title: string,
+	slug: string
 }
 
-const COLLECTIONS_MOCK = [
-	{
-		id: 1,
-		img: 'gallery-4.png',
-		name: 'Fury on the Road v1',
-		trigger: 'Click to open the collection'
-	},
-	{
-		id: 2,
-		img: 'gallery-2.jpeg',
-		name: 'Fury on the Road v2',
-		trigger: 'Click to open the collection'
-	},
-	{
-		id: 3,
-		img: 'gallery-3.png',
-		name: 'Fury on the Road v3',
-		trigger: 'Click to open the collection'
-	}
-]
-
 export default function Gallery() {
-	const [collections, setCollections] = useState<CollectionType[]>(COLLECTIONS_MOCK)
+	const [collections, setCollections] = useState<CollectionType[]>([])
 
 	const collectionsRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-	  
+	const getGalleryItems = async () => {
+		try {
+			const res = await getDrops()
+			setCollections(res)
+			console.log('my collections: ', res)
+		}
+		catch {}
+	}
+
+	useEffect(() => {
+		getGalleryItems()
+  }, []);
+	
   useEffect(() => {
+		animate()
+  }, [collections]);
+
+	const animate = () => {
 		const createScrollAnimation = (
 			element: HTMLDivElement | null,
 			start: string,
@@ -97,41 +95,44 @@ export default function Gallery() {
 			
 			createScrollAnimation(element, 'top center', 'bottom center', toTop, fromTop);
 		});
-  }, []);
+	}
 
   return (
     <div className='w-full' >
         <Container>
             <SectionTitle position='center' text='Collections'/>
         </Container>
-				<div className='flex gap-3 relative h-[80vh] mt-[13vh] mb-[25vh] mx-auto w-[98.5%]'>
+				<div
+					data-cursor-color="#000000bf"
+					data-cursor-text={'Click to Open'} 
+					data-cursor-size="150px"
+				 className='flex gap-3 relative h-[80vh] mt-[13vh] mb-[25vh] mx-auto w-[98.5%]'>
 					{collections.map((collection, index) => {
 						return(
 							<div 
 								className={styles.imageContainer} 
 								key={`gallery-item-${collection.id}`}
 								ref={(el) => { collectionsRefs.current[index] = el }}
-								data-cursor-color="#000000bf"
-								data-cursor-text={'Click to Open'} 
-								data-cursor-size="150px"
 							>
-								<InfiniteText size='small' text={collection.name} position='bottom'/>
-								<figcaption>
+								<LinkTransition href={`/product-list?collection=${collection.slug}`} >
+									<InfiniteText size='small' text={collection.title} position='bottom'/>
+									<figcaption>
+										<Image 
+											src={getImage(collection.image)}
+											layout='fill'
+											objectFit='cover'
+											alt={collection.title}
+											className={styles.imageCenter}
+										/>	
+									</figcaption>
+									<div className={styles.overlayBackground}></div>
 									<Image 
-										src={`/images/${collection.img}`}
+										src={getImage(collection.image)}
 										layout='fill'
 										objectFit='cover'
-										alt={collection.name}
-										className={styles.imageCenter}
-									/>	
-								</figcaption>
-								<div className={styles.overlayBackground}></div>
-								<Image 
-									src={`/images/${collection.img}`}
-									layout='fill'
-									objectFit='cover'
-									alt={collection.name}
-								/>
+										alt={collection.title}
+									/>
+								</LinkTransition>
 							</div>
 						)
 					})}

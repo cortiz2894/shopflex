@@ -12,9 +12,13 @@ async function getProducts() {
 }
 
 async function getCategory(category) {
-  
-  // const res = await fetch(`${API_URL}/api/categories?filters[slug][$eq]=${category}&populate[products][populate]=*`)
-  const res = await fetch(`${API_URL}/api/categories?populate[products][populate]=*`)
+  let url = `${API_URL}/api/categories?populate[products][populate]=*`
+
+  if(category) {
+    url = `${API_URL}/api/categories?filters[slug][$eq]=${category}&populate[products][populate]=*`
+  }
+
+  const res = await fetch(url)
 
   if(!res.ok) {
     throw new Error('Algo salio mal')
@@ -35,6 +39,44 @@ async function getCategory(category) {
   })
 }
 
+async function getDrops(drop) {
+
+  const buildUrl = (drop) => {
+    if (drop) {
+      return `${API_URL}/api/drops?filters[slug][$eq]=${drop}&populate[products][populate]=*&populate=cover`;
+    }
+    return `${API_URL}/api/drops?populate[cover][populate]=*`;
+  };
+
+  const url = buildUrl(drop);
+
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error('Algo salió mal');
+  }
+
+  const { data } = await res.json();
+
+  const formatDropData = (dropData) => {
+    const { attributes, id } = dropData;
+    const formattedData = {
+      title: attributes.title,
+      slug: attributes.slug,
+      id: id,
+      image: attributes.cover.data.attributes.url,
+    };
+
+    if (drop) {
+      formattedData.products = formattedProductsResponse(attributes.products.data);
+    }
+
+    return formattedData;
+  };
+
+  return data.map(formatDropData);
+}
+
 
 async function getProduct(identifier) {
   const res = await fetch(`${API_URL}/api/products/${identifier}?populate=*`)
@@ -46,7 +88,7 @@ async function getProduct(identifier) {
   const {data} = await res.json()
 
   const { id, attributes } = data[0]
-  const { title, description, slug, price, image} = attributes
+  const { title, description, slug, price, image, discount, drop} = attributes
 
   const images = image.data.map((im) => {
     return im.attributes.url
@@ -58,7 +100,9 @@ async function getProduct(identifier) {
     description,
     slug,
     price,
-    images
+    images,
+    discount,
+    drop
   }
 
   return dataToReturn
@@ -68,4 +112,4 @@ const getImage = (url) => {
   return `${API_URL}${url}`
 }
 
-export { getProducts, getImage, getProduct, getCategory }
+export { getProducts, getImage, getProduct, getCategory, getDrops }

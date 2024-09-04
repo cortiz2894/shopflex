@@ -19,7 +19,6 @@ export default async function Home() {
       <main>
         <Hero />
             {categories.map((category:any) => {
-              console.log('category map: ', category)
               return(
                 <Container key={category.id}>
                   <SectionTitle text={category.title}/>
