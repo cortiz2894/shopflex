@@ -28,7 +28,6 @@ export default function Gallery() {
 		try {
 			const res = await getDrops()
 			setCollections(res)
-			console.log('my collections: ', res)
 		}
 		catch {}
 	}
