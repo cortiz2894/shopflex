@@ -9,6 +9,7 @@ import { CartStore, Product, useCartStore } from '@/store/cartStore';
 import Image from 'next/image';
 import Counter from './Counter/index';
 import { AiOutlineLock } from "react-icons/ai";
+import { getImage } from '@/services/products';
 
 type CartDrawerProps = {
     isCartOpen: boolean
@@ -48,7 +49,7 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
               <div key={prod.id} className={classNames('px-3 py-4 gap-3',[styles.product])}>
                 <div className={styles.imageContainer}>
                   <Image 
-                    src={`/images/${prod.image}`}
+                    src={getImage(prod.image)}
                     width={500} height={500} objectFit="none"
                     alt='clothes'
                   />

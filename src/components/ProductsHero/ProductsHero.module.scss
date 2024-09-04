@@ -1,0 +1,9 @@
+.image {
+  object-position: 0% 25%;
+}
+
+.title {
+  font-size: clamp(2.5rem, 1.1413rem + 2.1739vw, 3.75rem);
+  line-height: clamp(3rem, 1.6413rem + 2.1739vw, 4.25rem);
+  color: white;
+}

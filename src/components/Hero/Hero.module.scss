@@ -1,0 +1,18 @@
+.hero{
+  position: relative;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  transform: translateY(20%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0% 100%);
+  will-change: transform;
+}
+
+.hero img{
+  object-fit: cover;
+  transform: scale(1.2);
+}
+
+.text {
+  transform: translateY(100%);
+}

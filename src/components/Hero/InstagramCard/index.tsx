@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useEffect, useRef } from "react";
 import styles from './InstagramCard.module.scss'
 import { AiFillHeart, AiOutlineInstagram } from "react-icons/ai";
+import { useLoaderStore } from "@/store/loaderStore";
 
 interface InstagramCardProps {
   className?: string;
@@ -18,37 +19,38 @@ export default function InstagramCard({ className, videoMp4Src, videoWebmSrc, vi
     const cardIgRef = useRef(null);
     const hoverTimeline = useRef<gsap.core.Timeline | null>(null);
     const heartContainerRef = useRef<HTMLDivElement | null>(null);
+    const isLoading = useLoaderStore((state) => state.isLoading);
 
   useEffect(() => {
     if(!cardIgRef.current) return
-    setTimeout(() => {
-        gsap.timeline()
-        .to(cardIgRef.current, {
-            top: '30vh',
-            ease: 'Power4.InOut',
-            opacity: 1,
-            duration: 0.5
-        })
-        .to(cardIgRef.current, {
-            rotation: 2,
-            x: '5vw',
-            y: '35vh',
-            scrollTrigger: {
-            trigger: triggerElement,
-            start: 'top top',
-            end: "bottom top", 
-            scrub: 0.2,
-            }
-        }, '>');
-    }, 4500);
-
+    if(!isLoading) {
+      gsap.timeline()
+      .to(cardIgRef.current, {
+          top: '30vh',
+          ease: 'Power4.InOut',
+          opacity: 1,
+          delay: 0.5,
+          duration: 0.5
+      })
+      .to(cardIgRef.current, {
+          rotation: 2,
+          x: '5vw',
+          y: '35vh',
+          scrollTrigger: {
+          trigger: triggerElement,
+          start: 'top top',
+          end: "bottom top", 
+          scrub: 0.2,
+          }
+      }, '>');
+    }
     hoverTimeline.current = gsap.timeline({ paused: true })
       .to(cardIgRef.current, {
         scale: 1.1,
         ease: "elastic.out(1,0.3)",
         duration: 0.7,
       });
-    }, []);
+    }, [isLoading]);
 
     const handleMouseEnter = () => {
         if (!hoverTimeline.current) return;

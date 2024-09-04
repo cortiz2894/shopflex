@@ -7,13 +7,14 @@ import styles from './SectionTitle.module.scss'
 
 interface Props {
     text: string,
-    position?: 'center' | 'left' | 'right'
+    position?: 'center' | 'left' | 'right',
+    size?: 'small' | 'medium' | 'large'
 }
 
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function SectionTitle({ text, position = 'left' }:Props) {
+export default function SectionTitle({ text, position = 'left', size }:Props) {
 	const lineRef = useRef<HTMLDivElement>(null)
 
 	useLayoutEffect(() => {

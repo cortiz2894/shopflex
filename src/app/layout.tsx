@@ -39,8 +39,8 @@ export default function RootLayout({
           cursorSize={30}
           animationDuration={0.75}
         />
-        <Loader isAnimationFinish={setPageLoaded}/>
-        <Header pageLoaded={pageLoaded}/>  
+        <Loader/>
+        <Header/>  
           {children}
         <Footer />
         <div className="exitTransition"></div>

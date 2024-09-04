@@ -13,8 +13,8 @@ export const metadata = {
 
 export default async function Home() {
   const products = await getProducts()
-  // const dropOfTheMonth = await getCategory('drop-of-the-month')
   const categories = await getCategory()
+  
   return (
       <main>
         <Hero />

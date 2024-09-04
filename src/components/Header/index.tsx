@@ -17,6 +17,7 @@ import styles from './Header.module.scss'
 import Lenis from 'lenis'
 import DropdownMenu from "./DropdownMenu/index";
 import { LinkTransition } from "../shared/LinkTransition/LinkTransition";
+import { useLoaderStore } from "@/store/loaderStore";
 
 const NAVLINKS = [
     { 
@@ -153,13 +154,9 @@ const NAVLINKS = [
     { title: 'Other' }
 ];
 
-type Props = {
-	pageLoaded: boolean
-}
-
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Header({pageLoaded}:Props) {
+export default function Header() {
 
     const [navlinks, setNavlinks] = useState<Navlink[]>(NAVLINKS);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -167,6 +164,7 @@ export default function Header({pageLoaded}:Props) {
 		const [isCartOpen, setIsCartOpen] = useState(false);
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
 		const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+		const isLoading = useLoaderStore((state) => state.isLoading);
 
 		const headerRef = useRef<HTMLDivElement>(null)
 		const navBarRef = useRef<HTMLDivElement>(null)
@@ -208,28 +206,29 @@ export default function Header({pageLoaded}:Props) {
   };
 		
 		useGSAP(() => {
-			if(pageLoaded) {
+			if(!isLoading) {
 				
 				if(!headerRef.current || !lenisRef.current) return
 
 				tl.to(headerRef.current, {
 					y:0,
-					ease: 'sine.inOut',
-					duration: 0.5
+					ease: 'hop',
+					duration: 0.5,
+					delay: 0.7
 				})
 				.to('.appear li', {
 					y: 0,
 					stagger: 0.1,
 					opacity: 2,
 					duration: 0.3,
-					ease: "power4.inOut",
+					ease: "hop",
 				});
 
 				lenisRef.current.start()
 
 				tl.play()
 			}
-		}, [pageLoaded]);
+		}, [isLoading]);
 
 		useGSAP(() => {
 			if(hoveredIndex !== null) {

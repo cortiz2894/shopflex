@@ -7,6 +7,9 @@ import { useEffect, useRef } from "react";
 import InfiniteText from "./InfiniteText/index";
 import InstagramCard from "./InstagramCard";
 import Draggable from "gsap/Draggable";
+import styles from "./Hero.module.scss"
+import classNames from "classnames";
+import { useLoaderStore } from "@/store/loaderStore";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +17,29 @@ export default function Hero() {
 	const imageRef = useRef(null);
 	const heroRef = useRef(null);
   const cardRef = useRef<HTMLAnchorElement | null>(null)
+  const isLoading = useLoaderStore((state) => state.isLoading);
+  const textRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if(!heroRef.current || !textRef.current || !imageRef.current) return
+    if(!isLoading) {
+      gsap.to(heroRef.current, {
+        y: 0,
+        ease: 'hop',
+        duration: 0.5,
+      })
+      gsap.to(imageRef.current, {
+        scale: 1,
+        ease: 'hop',
+        duration: 1.2,
+      })
+      gsap.to(textRef.current, {
+        y: 0,
+        ease: 'hop',
+        delay: 0.5
+      })
+    }
+  }, [isLoading])
 
   useEffect(() => {
     gsap.registerPlugin(Draggable)
@@ -29,17 +55,17 @@ export default function Hero() {
 			ease: "none",
 		});
 
-    if(!cardRef.current) return
+    if(!cardRef.current || !heroRef.current) return
 
     Draggable.create(cardRef.current, {
-      bounds: '.hero',
+      bounds: heroRef.current,
     });
 
   }, []);
 
   return (
     <div 
-      className="h-[80vh] w-full header-overlay overflow-hidden relative hero" 
+      className={classNames("h-[80vh] w-full header-overlay overflow-hidden relative hero", [styles.hero])} 
       ref={heroRef}
       data-cursor-exclusion
       >
@@ -59,7 +85,9 @@ export default function Hero() {
           triggerElement={heroRef.current}
         />
       </a>
-      <InfiniteText text="Embrace the technology - " controls={true}/>
+      <div ref={textRef} className={styles.text}>
+        <InfiniteText text="Embrace the technology - " controls={true}/>
+      </div>
     </div>
   );
 }

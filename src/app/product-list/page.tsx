@@ -2,6 +2,7 @@ import Container from "@/components/Container";
 import type { CollectionType } from "@/components/Gallery";
 import { Product } from "@/components/ProductCard/product.types";
 import ProductList from "@/components/ProductList";
+import ProductsHero from "@/components/ProductsHero/ProductsHero";
 import SectionTitle from '@/components/shared/SectionTitle/index';
 import { getCategory, getDrops, getProducts } from "@/services/products";
 
@@ -24,14 +25,15 @@ interface CollectionWithProducts extends CollectionType {
 
 export default async function ProductListPage({ searchParams }: ProductListPageProps) {
 
-  console.log('searchParams:  ', searchParams)
  const collection = searchParams.collection || null;
  let products = [];
+ let drop = null;
 
   if (collection) {
-    const drops = await getDrops(collection);
+    const drops:CollectionWithProducts[] = await getDrops(collection);
+    drop = drops.length > 0 ? drops[0] : null;
 
-    products = drops.flatMap((drop:CollectionWithProducts) => drop.products || []);
+    products = drops.flatMap((drop) => drop.products || []);
   } else {
     products = await getProducts();
   }
@@ -43,10 +45,9 @@ export default async function ProductListPage({ searchParams }: ProductListPageP
         data-cursor-exclusion 
         data-cursor-size="30px"
         data-cursor-text=""
-        className="pt-20"
        >
+        {collection && drop && <ProductsHero title={drop.title} image={drop.image}/>}
         <Container>
-          <SectionTitle text={'Products'}/>
           <ProductList products={products} />
         </Container>      
      </main>

@@ -3,12 +3,16 @@
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 9999999;
+  left: 0;
+  z-index: 999999999;
+  animation: removeBlack 5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  background: black;
 }
 
 .loader svg{
   height: 100%;
   width: 100%;
+  z-index: 999999;
 }
 
 .logo svg path{
@@ -46,6 +50,11 @@
     border: 3px solid white;
     animation-delay: 1s;
     animation: progressLoad 3s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+}
+@keyframes removeBlack {
+  to {
+      background-color: transparent;
   }
 }
 
