@@ -113,8 +113,8 @@ export default function Gallery() {
 								key={`gallery-item-${collection.id}`}
 								ref={(el) => { collectionsRefs.current[index] = el }}
 							>
+								<InfiniteText size='small' text={collection.title} position='bottom'/>
 								<LinkTransition href={`/product-list?collection=${collection.slug}`} >
-									<InfiniteText size='small' text={collection.title} position='bottom'/>
 									<figcaption>
 										<Image 
 											src={getImage(collection.image)}
