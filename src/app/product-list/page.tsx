@@ -5,6 +5,7 @@ import ProductList from "@/components/ProductList";
 import ProductsHero from "@/components/ProductsHero/ProductsHero";
 import SectionTitle from '@/components/shared/SectionTitle/index';
 import { getCategory, getDrops, getProducts } from "@/services/products";
+import { getImage } from '@/services/products'
 
 export const metadata = {
   title: "Shopflex",
@@ -46,7 +47,8 @@ export default async function ProductListPage({ searchParams }: ProductListPageP
         data-cursor-size="30px"
         data-cursor-text=""
        >
-        {collection && drop && <ProductsHero title={drop.title} image={drop.image}/>}
+        {collection && drop && <ProductsHero title={drop.title} image={getImage(drop.image)}/>}
+        {!collection && <ProductsHero title={'All Products'} image={'/images/background.jpg'}/>}
         <Container>
           <ProductList products={products} />
         </Container>      

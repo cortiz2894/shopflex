@@ -2,8 +2,29 @@
   object-position: 0% 25%;
 }
 
+.overlay {
+  background: linear-gradient(180deg, rgba(0,0,0,0.4108018207282913) 0%, rgba(0,0,0,0.727328431372549) 86%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
 .title {
   font-size: clamp(2.5rem, 1.1413rem + 2.1739vw, 3.75rem);
   line-height: clamp(3rem, 1.6413rem + 2.1739vw, 4.25rem);
   color: white;
+}
+
+.breadcrumb {
+ width: 100%;
+ display: flex;
+ margin-top: 1em;
+ gap: 1em;
+
+  li+li:before {
+    margin-right: 1em;
+  content: '/';
+ }
 }
