@@ -3,8 +3,7 @@ import type { CollectionType } from "@/components/Gallery";
 import { Product } from "@/components/ProductCard/product.types";
 import ProductList from "@/components/ProductList";
 import ProductsHero from "@/components/ProductsHero/ProductsHero";
-import SectionTitle from '@/components/shared/SectionTitle/index';
-import { getCategory, getDrops, getProducts } from "@/services/products";
+import { getDrops, getProducts } from "@/services/products";
 import { getImage } from '@/services/products'
 
 export const metadata = {
@@ -38,8 +37,6 @@ export default async function ProductListPage({ searchParams }: ProductListPageP
   } else {
     products = await getProducts();
   }
-
-  console.log('products by drop: ', products)
 
   return (
        <main
