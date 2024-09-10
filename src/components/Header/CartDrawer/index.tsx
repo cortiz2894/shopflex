@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Counter from './Counter/index';
 import { AiOutlineLock } from "react-icons/ai";
 import { getImage } from '@/services/products';
+import { FiTrash2 } from "react-icons/fi";
 
 type CartDrawerProps = {
     isCartOpen: boolean
@@ -22,8 +23,8 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
     products: state.products,
     totals: state.totals
   }))
-  const { updateQuantity } = useCartStore();
-
+  const { updateQuantity, remove } = useCartStore();
+  
   return (
     <div className={classNames("h-[100vh] w-[31.5vw] fixed top-0 z-[999999]",[styles.drawer], {[styles.active]: isCartOpen})}>
       <Curve active={isCartOpen}/>
@@ -43,10 +44,12 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
               </div>
             </div>
           </div>
-          <div className='px-6 py-3 flex flex-col gap-3 h-full overflow-y-auto'>
+          <div  className='px-6 py-3 flex flex-col gap-3 h-full overflow-y-auto'>
             {products.length === 0 && <p className='text-standar-darker flex justify-center h-full items-center'>Your Cart is Empty</p>}
             {products.map((prod:Product) => (
-              <div key={prod.id} className={classNames('px-3 py-4 gap-3',[styles.product])}>
+              <div 
+                key={prod.id} 
+                className={classNames('px-3 py-4 gap-3',[styles.product])}>
                 <div className={styles.imageContainer}>
                   <Image 
                     src={getImage(prod.image)}
@@ -54,7 +57,7 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
                     alt='clothes'
                   />
                 </div>
-                <div className='w-3/4 flex flex-col justify-around'>
+                <div className='w-3/4 flex flex-col justify-around relative'>
                   <p className='text-standar-darker font-bold mb-2 text-sm'>{prod.title}</p>
                   <p className='text-standar-darker mb-2 text-sm'>USD {prod.price}</p>
                   <div>
@@ -64,12 +67,13 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
                       <button onClick={() => updateQuantity(prod.id, true)}>+</button>
                     </div>
                   </div>
+                  <button className='text-standar-darker absolute top-0 right-0' onClick={() => remove(prod.id)}><FiTrash2 className='text-[16px] text-black' /></button>
                 </div>
               </div>
             ))}
           </div>
           {products.length > 0 && (
-            <div className='bg-black p-6'>
+            <div className='bg-black p-6' >
               <div className='flex justify-between w-full mb-2'>
                 <h3 className='text-white text-3xl'>
                   Total

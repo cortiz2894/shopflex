@@ -58,6 +58,7 @@ async function getDrops(drop) {
 
   const { data } = await res.json();
 
+  
   const formatDropData = (dropData) => {
     const { attributes, id } = dropData;
     const formattedData = {
@@ -66,7 +67,7 @@ async function getDrops(drop) {
       id: id,
       image: attributes.cover.data.attributes.url,
     };
-
+    
     if (drop) {
       formattedData.products = formattedProductsResponse(attributes.products.data);
     }
@@ -79,7 +80,7 @@ async function getDrops(drop) {
 
 
 async function getProduct(identifier) {
-  const res = await fetch(`${API_URL}/api/products/${identifier}?populate=*`)
+  const res = await fetch(`${API_URL}/api/products?filters[slug][$eq]=${identifier}&populate=*`)
 
   if(!res.ok) {
     throw new Error('Algo salio mal')
@@ -89,6 +90,9 @@ async function getProduct(identifier) {
 
   const { id, attributes } = data[0]
   const { title, description, slug, price, image, discount, drop} = attributes
+
+  console.log('attributes: ', attributes.sizes.data)
+
 
   const images = image.data.map((im) => {
     return im.attributes.url
@@ -102,7 +106,9 @@ async function getProduct(identifier) {
     price,
     images,
     discount,
-    drop
+    drop: drop.data.attributes.title,
+    sizes: attributes.sizes.data,
+    categories: attributes.categories.data
   }
 
   return dataToReturn

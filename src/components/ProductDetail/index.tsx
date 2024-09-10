@@ -85,6 +85,8 @@ export default function ProductDetail({product}: Props) {
 		})
 	})
 
+	console.log('product: ', product)
+
   return (
 		<Container>
 			<div className='flex gap-5 pt-[64px] mt-6'>

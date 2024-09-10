@@ -14,6 +14,7 @@ export interface CartStore {
   products: Product[];
   addToCart: (product: ProductBase) => void;
   updateQuantity: (productId: number, add: boolean) => void;
+  remove: (productId:number) => void
   totals: Totals;
 }
 
@@ -45,13 +46,19 @@ const updateProductQuantity = (
     return p;
   });
 };
+const removeProduct = (
+  products: Product[],
+  productId: number,
+): Product[] => {
+  return products.filter((p) => p.id !== productId);
+}
 
 const calculateTotals = (products: Product[]): Totals => {
     const totalPrice = products.reduce((total, product) => total + (product.quantity * product.price) , 0)
     const totalQuantity = products.reduce((total, product) => total + product.quantity, 0);
 
     return {
-      price: totalPrice,
+      price: Math.round(totalPrice),
       quantity: totalQuantity
     }
 };
@@ -72,6 +79,13 @@ export const useCartStore = create<CartStore>((set) => ({
   }),
   updateQuantity: (productId: number, add: boolean) => set((state: CartStore) => {
     const updatedProducts = updateProductQuantity(state.products, productId, add);
+    return {
+      products: updatedProducts,
+      totals: calculateTotals(updatedProducts),
+    };
+  }),
+  remove: (productId: number) => set((state: CartStore) => {
+    const updatedProducts = removeProduct(state.products, productId);
     return {
       products: updatedProducts,
       totals: calculateTotals(updatedProducts),
