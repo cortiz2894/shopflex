@@ -69,8 +69,8 @@ export interface ProductDetailTypes {
 	price: number,
 	description: string,
 	images: string[],
-	colors?: string[],
-	sizes?: string[],
+	colors: string[],
+	sizes: string[],
 	stock?: number,
 	collection?: string
 }
@@ -83,8 +83,12 @@ export default function ProductDetail({product}: Props) {
 
 	const imageContainerRef = useRef(null)
 	const accordionContainerRef = useRef<HTMLDivElement | null>(null)
+	
 	const [products, setProducts] = useState<Product[]>([])
 	const [loading, setLoading] = useState(true)
+
+	const [colorSelected, setColorSelected] = useState<string | null>(null)
+	const [sizeSelected, setSizeSelected] = useState<string | null>(null)
 
 	useGSAP(() => {
 
@@ -109,19 +113,15 @@ export default function ProductDetail({product}: Props) {
     });
 	})
 
-	// console.log('product: ', product)
-
 	const getRelatedProducts = async() => {
 		try {
 			const data = await getDrops(product.drop.slug);
-			console.log('prd: ', data[0].products)
 			setProducts(data[0].products)
 			setLoading(false)
 		}
 		catch {
 			console.log('err')
 		}
-
 	}
 
 	useEffect(() => {
@@ -163,35 +163,33 @@ export default function ProductDetail({product}: Props) {
 				</div>
 				<div className={styles.infoContainer}>
 					<div>
-						{/* <span className='text-standar-darker text-base mb-3'>{product.collection}</span> */}
 						<span className='text-standar-darker text-base mb-3'>{product.drop.title}</span>
 						<h2 className={classNames('text-black uppercase mt-3', [styles.title])}>{product.title}</h2>
 						<p className={classNames('text-black mt-2', [styles.price])}>$ <b>{product.price}</b></p>
 					</div>
 					<div>
 						<h3 className='text-black mb-3'>Sizes</h3>
-						<div className='flex gap-3 mb-3'>
-							<div className={styles.sizeSelector}>
-								<p className='text-standar-darker'>S</p>
-							</div>
-							<div className={styles.sizeSelector}>
-								<p className='text-standar-darker'>M</p>
-							</div>
-							<div className={styles.sizeSelector}>
-								<p className='text-standar-darker'>L</p>
-							</div>
+						<div className='flex gap-3 mb-3' data-cursor-size="0px">
+							{product.sizes.map((size, i) => 
+								<button 
+									key={`size-selector-${i}`}
+									onClick={() => setSizeSelected(size)} 
+									className={classNames([styles.sizeSelector], {[styles.active] : size === sizeSelected})}
+								>
+									<p className='text-standar-darker'>{size}</p>
+								</button>
+							)}
 						</div>
-						<h3 className='text-black  mb-3'>Colors</h3>
-						<div className='flex gap-3 w-full h-10'>
-							<button className={classNames(styles.colorSelector, [styles.active])}>
-								<div style={{background: '#b41213'}}></div>
-							</button>
-							<button className={styles.colorSelector}>
-								<div style={{background: '#0f0f0f'}}></div>
-							</button>
-							<button className={styles.colorSelector}>
-								<div style={{background: '#303642'}}></div>
-							</button>
+						<h3 className='text-black mb-3'>Colors</h3>
+						<div className='flex gap-3 w-full h-10' data-cursor-size="0px">
+							{product.colors.map((color, i) => 
+									<button 
+										key={`color-selector-${i}`}
+										onClick={() => setColorSelected(color)} 
+										className={classNames(styles.colorSelector, {[styles.active] : colorSelected === color }, [styles[color]])}>
+										<div></div>
+									</button>	
+							)}
 						</div>
 					</div>
 					<div className='flex flex-col gap-3'>
@@ -208,10 +206,12 @@ export default function ProductDetail({product}: Props) {
 					</div>
 				</div>
 			</div>
-			{!loading && (<>
-			<SectionTitle text='Related products'/>
-			<Carousel products={products}/>
-			</>)}
+			{!loading && (
+				<div className='pt-10'>
+					<SectionTitle text='Related products' size='small'/>
+					<Carousel products={products}/>
+				</div>
+			)}
 		</Container>  
   )
 }

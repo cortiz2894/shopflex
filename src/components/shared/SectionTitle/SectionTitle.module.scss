@@ -1,8 +1,15 @@
 .title {
-    font-size: clamp(2.5rem, 1.1413rem + 2.1739vw, 3.75rem);;
-    line-height: clamp(3rem, 1.6413rem + 2.1739vw, 4.25rem);;
     background: #f9f9f9;
-    padding-right: 1rem;
+    padding-right: 1rem;    
+    &.medium {
+    
+        font-size: clamp(2.5rem, 1.1413rem + 2.1739vw, 3.75rem);;
+        line-height: clamp(3rem, 1.6413rem + 2.1739vw, 4.25rem);;
+    }
+
+    &.small {
+        font-size: clamp(1.875rem, 0.8602rem + 1.6269vw, 2.8125rem);
+    }
 }
 
 .left {

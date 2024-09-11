@@ -14,7 +14,7 @@ interface Props {
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function SectionTitle({ text, position = 'left', size }:Props) {
+export default function SectionTitle({ text, position = 'left', size = 'medium' }:Props) {
 	const lineRef = useRef<HTMLDivElement>(null)
 
 	useLayoutEffect(() => {
@@ -32,8 +32,8 @@ export default function SectionTitle({ text, position = 'left', size }:Props) {
     }, []);
 
   return (
-        <div className={classNames("relative flex items-center mt-[2rem] mb-[5rem]", [styles[position]])}>
-            <h2 className={classNames("text-standar-darker", [styles.title])}>{text}</h2>
+        <div className={classNames("relative flex items-center mt-[2rem] mb-[5rem]", [styles[position],])}>
+            <h2 className={classNames("text-standar-darker", [styles.title], [styles[size]])}>{text}</h2>
             <div ref={lineRef} className={styles.line}></div>
         </div>
   );

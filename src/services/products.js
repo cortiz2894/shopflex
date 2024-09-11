@@ -89,10 +89,9 @@ async function getProduct(identifier) {
   const {data} = await res.json()
 
   const { id, attributes } = data[0]
-  const { title, description, slug, price, image, discount, drop} = attributes
+  const { title, description, slug, price, image, discount, drop, sizes, categories, colors } = attributes
 
-  console.log('attributes: ', attributes.sizes.data)
-
+  console.log('attributes: ', attributes)
 
   const images = image.data.map((im) => {
     return im.attributes.url
@@ -110,10 +109,10 @@ async function getProduct(identifier) {
       title : drop.data.attributes.title,
       slug: drop.data.attributes.slug
     },
-    sizes: attributes.sizes.data,
-    categories: attributes.categories.data
+    sizes: sizes.data.map((size) => size.attributes.title),
+    categories: categories.data,
+    colors: colors?.data.map((color) => color.attributes.title) ?? [],
   }
-
   return dataToReturn
 }
 

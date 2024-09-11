@@ -6,6 +6,14 @@
     border: 1px solid #292929;
     justify-content: center;
     display: flex;
+    &.disabled {
+        background-color: #adadad !important;
+        border-color: #adadad;
+        pointer-events: none;
+        * {
+            color: white !important;
+        }
+    }
     &.light {
         background-color: #f9f9f9;
         .text {

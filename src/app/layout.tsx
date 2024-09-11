@@ -36,7 +36,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Cursor 
           isGelly={true} 
-          cursorSize={30}
+          cursorSize={0}
           animationDuration={0.75}
         />
         <Loader/>

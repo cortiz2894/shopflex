@@ -3,14 +3,16 @@
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
+import { useParams } from 'next/navigation';
 
 export default function Template({children}:{children: React.ReactNode}) {
 
   const loader = useRef<HTMLDivElement>(null);
   const path = useRef<SVGPathElement>(null);
+  const params = useParams()
 
   const initialCurve:number = 300;
-  const duration:number = 0.8; // Duración más corta
+  const duration:number = 0.8; 
 
   useGSAP(() => {
     setPath(initialCurve);
@@ -34,7 +36,8 @@ export default function Template({children}:{children: React.ReactNode}) {
         }
       });
     }
-  }, []);
+
+  }, [params]);
 
   const loaderHeight = () => {
     if(loader.current) {
