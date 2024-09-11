@@ -1,9 +1,5 @@
-import { Product as ProductBase } from '@/components/ProductCard/product.types';
+import { Product, ProductStore } from '@/components/ProductCard/product.types';
 import { create } from 'zustand';
-
-export interface Product extends ProductBase {
-  quantity: number;
-}
 
 export interface Totals {
   price: number,
@@ -11,14 +7,14 @@ export interface Totals {
 }
 
 export interface CartStore {
-  products: Product[];
-  addToCart: (product: ProductBase) => void;
+  products: ProductStore[];
+  addToCart: (product: ProductStore) => void;
   updateQuantity: (productId: number, add: boolean) => void;
   remove: (productId:number) => void
   totals: Totals;
 }
 
-const addProductToCart = (products: Product[], product: ProductBase): Product[] => {
+const addProductToCart = (products: ProductStore[], product: ProductStore): ProductStore[] => {
   const existingProduct = products.find(p => p.id === product.id);
 
   if (existingProduct) {
@@ -34,11 +30,11 @@ const addProductToCart = (products: Product[], product: ProductBase): Product[] 
 };
 
 const updateProductQuantity = (
-  products: Product[],
+  products: ProductStore[],
   productId: number,
   increment: boolean
-): Product[] => {
-  return products.map((p: Product) => {
+): ProductStore[] => {
+  return products.map((p: ProductStore) => {
     if (p.id === productId) {
       const newQuantity = increment ? p.quantity + 1 : p.quantity - 1;
       return { ...p, quantity: Math.max(newQuantity, 1) };
@@ -47,13 +43,13 @@ const updateProductQuantity = (
   });
 };
 const removeProduct = (
-  products: Product[],
+  products: ProductStore[],
   productId: number,
-): Product[] => {
+): ProductStore[] => {
   return products.filter((p) => p.id !== productId);
 }
 
-const calculateTotals = (products: Product[]): Totals => {
+const calculateTotals = (products: ProductStore[]): Totals => {
     const totalPrice = products.reduce((total, product) => total + (product.quantity * product.price) , 0)
     const totalQuantity = products.reduce((total, product) => total + product.quantity, 0);
 
@@ -63,14 +59,13 @@ const calculateTotals = (products: Product[]): Totals => {
     }
 };
 
-
 export const useCartStore = create<CartStore>((set) => ({
   products: [],
   totals: {
     price: 0,
     quantity: 0
   },
-  addToCart: (product: ProductBase) => set((state: CartStore) => {
+  addToCart: (product: ProductStore) => set((state: CartStore) => {
     const updatedProducts = addProductToCart(state.products, product);
     return {
       products: updatedProducts,

@@ -8,7 +8,7 @@ import { CustomEase } from 'gsap/CustomEase';
 import ButtonPrimary from '../shared/ButtonPrimary';
 import { FiShoppingCart } from "react-icons/fi";
 import { FiHeart } from "react-icons/fi";
-import { Product } from './product.types';
+import { Product, ProductStore } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
 import { LinkTransition } from '@/components/shared/LinkTransition/LinkTransition';
@@ -112,7 +112,16 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           ease: "M0,0 C0.76,0 0.24,1 1,1",
           onComplete: () => {
             document.body.removeChild(clonedImg);
-            addProductToStore(item)
+
+            const itemToStore:ProductStore = {
+              ...item,
+              color: 'Black',
+              size: 'L',
+              discount: 0,
+              quantity: 1
+            }
+            
+            addProductToStore(itemToStore)
             setIsLoading(false)
           }
         })

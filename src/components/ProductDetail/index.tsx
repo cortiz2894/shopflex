@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react';
 import classNames from 'classnames';
-import { FiShoppingCart, FiFileText, FiTruck } from "react-icons/fi";
+import { FiShoppingCart } from "react-icons/fi";
 import Container from '@/components/Container/index';
 import ButtonPrimary from '@/components/shared/ButtonPrimary/index';
 import PaymentMethods from '@/components/shared/PaymentMethods/index';
@@ -14,20 +14,9 @@ import { GiReturnArrow, GiClothes, GiHandTruck, GiBookCover } from "react-icons/
 import SectionTitle from '../shared/SectionTitle';
 import { Carousel } from '../shared/Carousel';
 import { getDrops } from '@/services/products';
-import { Product } from '../ProductCard/product.types';
-
-const PRODUCT = {
-	id: 1,
-	title: 'Reign Of Blood 2.0 - Boardshorts',
-	price: 99,
-	description: `Emerging from the abyss, the „Reign of Blood“ Oversized Hoodie is a masterpiece. It's bold, menacing red death metal lettering sprawls across your shoulders like the blood of your enemies, a proclamation of your unwavering commitment to win every battle. Adorning the sleeves, the quote: „I call your name upon the furious winds.
-	Possessed by the spiritual strength of ancient times. In the chamber of my dark heart, a black flame burns.“ These words, like an incantation, beckon the forces of the underworld to rise. Crafted with precision, this heavy oversized hoodie boasts superior quality, combining 65% cotton and 35% polyester, with a brushed fleece interior for unparalleled comfort.`,
-	images: ['Reign-Of-Blood5.jpg', 'Reign-Of-Blood-Hoodie-2.webp', 'Reign-Of-Blood-3.webp', 'Reign-Of-Blood-Hoodie-2-2.webp', 'MoeHoodie.webp', 'Reign-Of-Blood-Hoodie-2-2.webp', 'MoeHoodie.webp'],
-	colors: ['b41213', '0f0f0f' ],
-	sizes: ['small', 'large', 'extra_large'],
-	stock: 15,
-	collection: 'Reign Of Blood v1'
-}
+import { CartStore, useCartStore } from '@/store/cartStore';
+import type { Product, ProductDetail, ProductStore } from '@/components/ProductCard/product.types';
+import toast from 'react-hot-toast';
 
 const PAYMENTS_METHODS = [
 	{
@@ -57,26 +46,8 @@ const PAYMENTS_METHODS = [
 	}
 ]
 
-interface Drop {
-	title: string,
-	slug: string,
-}
-
-export interface ProductDetailTypes {
-	id: number,
-	title: string,
-	drop: Drop,
-	price: number,
-	description: string,
-	images: string[],
-	colors: string[],
-	sizes: string[],
-	stock?: number,
-	collection?: string
-}
-
 interface Props {
-	product: ProductDetailTypes
+	product: ProductDetail
 }
 
 export default function ProductDetail({product}: Props) {
@@ -89,6 +60,9 @@ export default function ProductDetail({product}: Props) {
 
 	const [colorSelected, setColorSelected] = useState<string | null>(null)
 	const [sizeSelected, setSizeSelected] = useState<string | null>(null)
+
+	const addProductToStore = useCartStore((state:CartStore) => state.addToCart)
+
 
 	useGSAP(() => {
 
@@ -127,6 +101,33 @@ export default function ProductDetail({product}: Props) {
 	useEffect(() => {
 		getRelatedProducts()
 	}, [])
+
+	const addProductToCart = () => {
+		if(!sizeSelected) toast.error('You need to pick a size')
+
+		if(!colorSelected) toast.error('You need to pick a color')
+
+		if(!colorSelected || !sizeSelected) return
+
+		const productToAdd: ProductStore = {
+			id: product.id,
+			title: product.title,
+			description: product.description, 
+			price: product.price, 
+			image: product.thumbnail, 
+			slug: 'product.slug',
+			discount: 0,
+			size: sizeSelected,
+			color: colorSelected,
+			quantity: 1
+		}
+		
+		toast.success(`${product.title} Successfully added`, {
+			position: 'top-right',
+			icon: '🔥',
+		})
+		addProductToStore(productToAdd as ProductStore)
+	}
 
   return (
 		<Container>
@@ -195,6 +196,7 @@ export default function ProductDetail({product}: Props) {
 					<div className='flex flex-col gap-3'>
 						<ButtonPrimary
 							theme='dark' 
+							action={() => addProductToCart()}
 							size='full' 
 							variant='lessRounded'
 							text={<span className={'flex justify-between'}>Add to cart<FiShoppingCart className='text-[20px] ml-2'/></span>}

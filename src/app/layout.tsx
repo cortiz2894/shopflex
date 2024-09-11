@@ -5,9 +5,9 @@ import Loader from "@/components/shared/Loader/index";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
 import "./globals.css";
-import 'react-creative-cursor/dist/styles.css';
 import { useParams } from "next/navigation";
 import Cursor from "@/components/shared/Cursor";
+import toast, { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +39,17 @@ export default function RootLayout({
           {children}
         <Footer />
         <Cursor />
+        <Toaster
+          position="top-right"
+          containerStyle={{
+            top: 100,
+            right: '4%'
+          }}
+          toastOptions={{
+            // Define default options
+            className: 'z-[9999]'
+          }}
+        />
         <div className="exitTransition"></div>
       </body>
     </html>

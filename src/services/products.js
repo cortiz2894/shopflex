@@ -104,6 +104,7 @@ async function getProduct(identifier) {
     slug,
     price,
     images,
+    thumbnail: attributes.thumbnail.data.attributes.url,
     discount,
     drop: {
       title : drop.data.attributes.title,
