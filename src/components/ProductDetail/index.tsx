@@ -11,6 +11,10 @@ import styles from './ProductDetail.module.scss';
 import CarouselImages from './CarouselImages/index';
 import Accordion from '../shared/Accordion/index';
 import { GiReturnArrow, GiClothes, GiHandTruck, GiBookCover } from "react-icons/gi";
+import SectionTitle from '../shared/SectionTitle';
+import { Carousel } from '../shared/Carousel';
+import { getDrops } from '@/services/products';
+import { Product } from '../ProductCard/product.types';
 
 const PRODUCT = {
 	id: 1,
@@ -53,10 +57,15 @@ const PAYMENTS_METHODS = [
 	}
 ]
 
+interface Drop {
+	title: string,
+	slug: string,
+}
+
 export interface ProductDetailTypes {
 	id: number,
 	title: string,
-	drop: string,
+	drop: Drop,
 	price: number,
 	description: string,
 	images: string[],
@@ -73,24 +82,58 @@ interface Props {
 export default function ProductDetail({product}: Props) {
 
 	const imageContainerRef = useRef(null)
+	const accordionContainerRef = useRef<HTMLDivElement | null>(null)
+	const [products, setProducts] = useState<Product[]>([])
+	const [loading, setLoading] = useState(true)
 
 	useGSAP(() => {
 
-		if(!imageContainerRef.current) return
+		if(!imageContainerRef.current || !accordionContainerRef.current) return
 
 		gsap.to(imageContainerRef.current, {
 			y: 0,
 			opacity: 1,
 			delay: 0.3,
+			ease: 'hop'
 		})
+
+		const accordionElements = gsap.utils.toArray(accordionContainerRef.current.children);
+
+    gsap.from(accordionElements, {
+      opacity: 0,
+      y: 50,
+			delay: 0.4,
+      stagger: 0.2, 
+      duration: 0.5,
+      ease: 'hop',
+    });
 	})
 
-	console.log('product: ', product)
+	// console.log('product: ', product)
+
+	const getRelatedProducts = async() => {
+		try {
+			const data = await getDrops(product.drop.slug);
+			console.log('prd: ', data[0].products)
+			setProducts(data[0].products)
+			setLoading(false)
+		}
+		catch {
+			console.log('err')
+		}
+
+	}
+
+	useEffect(() => {
+		getRelatedProducts()
+	}, [])
 
   return (
 		<Container>
-			<div className='flex gap-5 pt-[64px] mt-6'>
-				<div className={styles.detailsContainer}>
+			<div 
+			className={classNames('flex gap-5 pt-[64px] mt-6')} 
+			>
+				<div className={styles.detailsContainer} ref={accordionContainerRef}>
 						<Accordion 
 							title={'Description'} 
 							content={product.description} 
@@ -112,14 +155,16 @@ export default function ProductDetail({product}: Props) {
 							icon={<GiReturnArrow className='text-[20px] text-standar-darker'/>}
 						/>
 				</div>
-				<div ref={imageContainerRef} 
-					className={classNames('w-1/2 relative min-h-[85vh] flex flex-col gap-4', [styles.imageContainer])}
+				<div 
+					className={classNames('w-1/2 relative min-h-[85vh] flex flex-col gap-4', [styles.imageContainer] , [styles.containerAnimated])}
+					ref={imageContainerRef} 
 				>
 					<CarouselImages images={product.images} />
 				</div>
 				<div className={styles.infoContainer}>
 					<div>
-						<span className='text-standar-darker text-base mb-3'>{product.collection}</span>
+						{/* <span className='text-standar-darker text-base mb-3'>{product.collection}</span> */}
+						<span className='text-standar-darker text-base mb-3'>{product.drop.title}</span>
 						<h2 className={classNames('text-black uppercase mt-3', [styles.title])}>{product.title}</h2>
 						<p className={classNames('text-black mt-2', [styles.price])}>$ <b>{product.price}</b></p>
 					</div>
@@ -163,6 +208,10 @@ export default function ProductDetail({product}: Props) {
 					</div>
 				</div>
 			</div>
-		</Container>
+			{!loading && (<>
+			<SectionTitle text='Related products'/>
+			<Carousel products={products}/>
+			</>)}
+		</Container>  
   )
 }

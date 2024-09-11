@@ -1,7 +1,6 @@
 import Container from "@/components/Container/index";
 import Gallery from "@/components/Gallery/index";
 import Hero from "@/components/Hero/index";
-import ProductList from "@/components/ProductList/index";
 import { Carousel } from "@/components/shared/Carousel/index";
 import SectionTitle from "@/components/shared/SectionTitle/index";
 import { getCategory, getProducts } from "@/services/products.js";

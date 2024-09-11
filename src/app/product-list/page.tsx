@@ -19,7 +19,7 @@ interface ProductListPageProps {
   searchParams: SearchParams;
 }
 
-interface CollectionWithProducts extends CollectionType {
+export interface CollectionWithProducts extends CollectionType {
   products: Product[]
 }
 

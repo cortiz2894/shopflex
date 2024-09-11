@@ -106,7 +106,10 @@ async function getProduct(identifier) {
     price,
     images,
     discount,
-    drop: drop.data.attributes.title,
+    drop: {
+      title : drop.data.attributes.title,
+      slug: drop.data.attributes.slug
+    },
     sizes: attributes.sizes.data,
     categories: attributes.categories.data
   }
