@@ -39,11 +39,7 @@ export default async function ProductListPage({ searchParams }: ProductListPageP
   }
 
   return (
-       <main
-        data-cursor-exclusion 
-        data-cursor-size="30px"
-        data-cursor-text=""
-       >
+       <main>
         {collection && drop && <ProductsHero title={drop.title} image={getImage(drop.image)}/>}
         {!collection && <ProductsHero title={'All Products'} image={'/images/background.jpg'}/>}
         <Container>

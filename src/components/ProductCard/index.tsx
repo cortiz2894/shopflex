@@ -125,6 +125,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
     <div 
       className={classNames(`w-full relative `, [styles.card])} 
       ref={ref}
+
       onMouseEnter={() => animatePath(targetPath)}
       onMouseLeave={() => animatePath(initialPath)}
     >
@@ -133,8 +134,6 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
         <div 
           ref={cardRef}
           className='relative w-full pb-[100%] flex justify-center'
-          data-cursor-size="80px"
-          data-cursor-text="Ver"
         >
           <div className={styles.imageContainer}>
             <Image 
@@ -142,6 +141,8 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
               width={500} height={500} objectFit="none"
               alt='clothes'
               ref={imgRef}
+              data-cursor="Ver"
+              data-size="small"
             />
           </div>
         </div>

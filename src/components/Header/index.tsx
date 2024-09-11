@@ -295,7 +295,7 @@ export default function Header() {
     return (
 			<>
 				<header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]" ref={headerRef}>
-					<div className="w-full flex flex-col items-center" data-cursor-exclusion>
+					<div className="w-full flex flex-col items-center">
 						<nav 
 							className={
 								classNames(

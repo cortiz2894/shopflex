@@ -12,11 +12,7 @@ export default async function Product({ params }:PageProps) {
   const product = await getProduct(params.slug)
 
   return (
-      <main 
-        data-cursor-exclusion 
-        data-cursor-size="30px"
-        data-cursor-text=""
-      >
+      <main >
         {/* @ts-ignore */}
         <ProductDetail product={product}/>
       </main>

@@ -102,9 +102,6 @@ export default function Gallery() {
             <SectionTitle position='center' text='Collections'/>
         </Container>
 				<div
-					data-cursor-color="#000000bf"
-					data-cursor-text={'Click to Open'} 
-					data-cursor-size="150px"
 				 className='flex gap-3 relative h-[80vh] mt-[13vh] mb-[25vh] mx-auto w-[98.5%]'>
 					{collections.map((collection, index) => {
 						return(
@@ -122,6 +119,8 @@ export default function Gallery() {
 											objectFit='cover'
 											alt={collection.title}
 											className={styles.imageCenter}
+											data-cursor="Click to open"
+											data-size="medium"
 										/>	
 									</figcaption>
 									<div className={styles.overlayBackground}></div>

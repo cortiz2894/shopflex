@@ -149,7 +149,7 @@ export default function CarouselImages({images}: Props) {
 
   return (
     <>
-			<div className={styles.image} data-cursor-size="0px">
+			<div className={styles.image}>
 					<div className='absolute top-2 left-2 z-[99999]'>
 						<ButtonPrimary 
 								theme='light' 

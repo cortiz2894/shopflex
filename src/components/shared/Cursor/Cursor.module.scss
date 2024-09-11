@@ -1,0 +1,49 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  z-index: 9999999;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 0.15s ease;
+
+  @media (hover: none) {
+    display: none;
+  }
+}
+.small {
+  width: 6em;
+  height: 6em;
+}
+
+.medium {
+  width: 10em;
+  height: 10em;
+}
+
+.large {
+  width: 12em;
+  height: 12em;
+}
+
+.inner {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9em;
+  border-radius: 100%;
+  -webkit-backdrop-filter: blur(10px) brightness(1.2);
+  backdrop-filter: blur(10px) brightness(1.2);
+  background-color: #242424a0;
+  color: #fff;
+
+  &[data-variant='light'] {
+    background-color: #fff;
+    color: #242424;
+  }
+}

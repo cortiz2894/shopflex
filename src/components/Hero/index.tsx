@@ -66,9 +66,7 @@ export default function Hero() {
   return (
     <div 
       className={classNames("h-[80vh] w-full header-overlay overflow-hidden relative hero", [styles.hero])} 
-      ref={heroRef}
-      data-cursor-exclusion
-      >
+      ref={heroRef}>
       <Image 
         src={`/images/bg-shopflex.jpg`}
         layout='fill'

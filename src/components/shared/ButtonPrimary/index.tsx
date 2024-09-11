@@ -32,7 +32,6 @@ export default function ButtonPrimary({variant = 'outlined', text, size = 'large
         {[styles.active]:active }
         )} 
       onClick={action}
-      data-cursor-size="0px"
       // disabled={disabled}
       {...rest}
     >

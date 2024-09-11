@@ -169,7 +169,7 @@ export default function ProductDetail({product}: Props) {
 					</div>
 					<div>
 						<h3 className='text-black mb-3'>Sizes</h3>
-						<div className='flex gap-3 mb-3' data-cursor-size="0px">
+						<div className='flex gap-3 mb-3'>
 							{product.sizes.map((size, i) => 
 								<button 
 									key={`size-selector-${i}`}
@@ -181,7 +181,7 @@ export default function ProductDetail({product}: Props) {
 							)}
 						</div>
 						<h3 className='text-black mb-3'>Colors</h3>
-						<div className='flex gap-3 w-full h-10' data-cursor-size="0px">
+						<div className='flex gap-3 w-full h-10'>
 							{product.colors.map((color, i) => 
 									<button 
 										key={`color-selector-${i}`}
