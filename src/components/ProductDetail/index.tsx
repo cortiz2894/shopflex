@@ -103,12 +103,23 @@ export default function ProductDetail({product}: Props) {
 	}, [])
 
 	const addProductToCart = () => {
-		if(!sizeSelected) toast.error('You need to pick a size')
+		gsap.to('#navBar', {
+      yPercent: 0,
+      opacity: 1,
+    })
 
-		if(!colorSelected) toast.error('You need to pick a color')
-
-		if(!colorSelected || !sizeSelected) return
-
+		if(!sizeSelected || !colorSelected) {
+			toast.error(
+				<span>
+					<ul>
+						{!sizeSelected && <li>You need to pick a <b>size</b></li>}
+						{!colorSelected && <li>You need to pick a <b>color</b></li>}
+					</ul>
+				</span>
+			)
+			return
+		}
+		
 		const productToAdd: ProductStore = {
 			id: product.id,
 			title: product.title,

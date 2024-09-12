@@ -46,7 +46,6 @@ export default function RootLayout({
             right: '4%'
           }}
           toastOptions={{
-            // Define default options
             className: 'z-[9999]'
           }}
         />
