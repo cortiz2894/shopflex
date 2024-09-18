@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import styles from './CartDrawer.module.scss'
 import classNames from "classnames";
 import { IoCloseOutline } from "react-icons/io5";

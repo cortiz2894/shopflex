@@ -17,6 +17,7 @@ import { getDrops } from '@/services/products';
 import { CartStore, useCartStore } from '@/store/cartStore';
 import type { Product, ProductDetail, ProductStore } from '@/components/ProductCard/product.types';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 const PAYMENTS_METHODS = [
 	{
@@ -148,22 +149,29 @@ export default function ProductDetail({product}: Props) {
 				<div className={styles.detailsContainer} ref={accordionContainerRef}>
 						<Accordion 
 							title={'Description'} 
-							content={product.description} 
+							content={<p>{product.description}</p>} 
 							icon={<GiBookCover className='text-[20px] text-standar-darker'/>}
 						/>
 						<Accordion 
 							title={'Shipment'} 
-							content={'product.description product.description product.description product.description product.description product.description'}
+							content={<p>product.description product.description product.description product.description product.description product.description</p>}
 							icon={<GiHandTruck className='text-[20px] text-standar-darker'/>}
 						/>
 						<Accordion 
 							title={"What's my size?"} 
-							content={'product.description product.description product.description product.description product.description product.description'}
+							content={
+							<Image 
+								width={500}
+								height={500}
+								objectFit="none"
+								alt='size'
+								src='/images/sizes.webp' />
+							}
 							icon={<GiClothes className='text-[20px] text-standar-darker'/>}
 						/>
 						<Accordion 
 							title={"Return Policy"} 
-							content={'product.description product.description product.description product.description product.description product.description'}
+							content={<p>product.description product.description product.description product.description product.description product.description</p>}
 							icon={<GiReturnArrow className='text-[20px] text-standar-darker'/>}
 						/>
 				</div>

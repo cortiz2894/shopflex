@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import styles from './Accordion.module.scss'
 import gsap from 'gsap'
 
 interface Props {
   title: string,
-  content: string,
+  content: ReactNode,
   icon?: React.ReactNode
 }
 
