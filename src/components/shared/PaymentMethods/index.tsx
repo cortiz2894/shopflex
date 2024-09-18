@@ -1,5 +1,3 @@
-import styles from './PaymentMethods.module.scss'
-import classNames from "classnames";
 import Image from 'next/image'
 
 interface PaymentMethodType {
