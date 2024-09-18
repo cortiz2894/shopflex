@@ -13,11 +13,13 @@ import { AiOutlineLock } from "react-icons/ai";
 import { getImage } from '@/services/products';
 import { FiTrash2 } from "react-icons/fi";
 import gsap from 'gsap';
+import { FreeShipping } from './FreeShipping';
 
 type CartDrawerProps = {
     isCartOpen: boolean
     toggleCart: () => void
 }
+
 
 export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
   const { products, totals } = useCartStore((state:CartStore) => ({
@@ -57,12 +59,7 @@ export default function CartDrawer({isCartOpen, toggleCart}:CartDrawerProps) {
             <span className='text-standar-darker px-2'><b>{totals.quantity}</b>{` ${totals.quantity <= 1 ? 'item' : 'items'}`}</span>
           </div>
           <div className='px-6 py-3 border-t border-b border-[#cdcdcd]'>
-            <div className={styles.freeShippingContainer}>
-              <span className='text-sm text-center text-standar-darker'>You’re only <b>USD53.00</b> away from FREE shipping!</span>
-              <div className='w-full rounded-3xl bg-[#cdcdcd] relative h-5 mt-3'>
-                <div className='absolute h-full bg-black rounded-3xl w-1/2'></div>
-              </div>
-            </div>
+            <FreeShipping totalPrice={totals.price} />
           </div>
           <div 
             className={classNames('px-6 py-3 flex flex-col overflow-y-auto overflow-x-hidden', [styles.containerProds])}

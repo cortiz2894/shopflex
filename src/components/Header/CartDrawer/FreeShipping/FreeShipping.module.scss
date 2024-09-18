@@ -1,0 +1,8 @@
+.freeShippingContainer {
+  padding: 1em 0;
+}
+
+.progress {
+  transition: width 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+  max-width: 100%;
+}
