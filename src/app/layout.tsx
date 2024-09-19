@@ -45,7 +45,7 @@ export default function RootLayout({
             right: '4%'
           }}
           toastOptions={{
-            className: 'z-[9999]'
+            className: 'z-[999999]'
           }}
         />
         <ProductVaul />

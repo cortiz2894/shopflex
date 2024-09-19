@@ -9,24 +9,24 @@
   left: 0;
   -webkit-backdrop-filter: blur(0px);
   backdrop-filter: blur(0px);
-  z-index: 999999;
+  z-index: 9990;
 }
 
 .vaul {
   width: 100%;
   position: fixed;
-  height: 95vh;
+  height: 90vh;
   bottom: 0;
   opacity: 0;
   background-color: #f9f9f9;
   left: 0;
-  transform: translateY(95vh);
+  transform: translateY(90vh);
   border-top-left-radius: 0.75em;
   border-top-right-radius: 0.75em;
   padding: 1em;
   padding-top: 1.7em;
   box-shadow: 0px 1px 2em #00000030;
-  z-index: 999999 !important;
+  z-index: 9991 !important;
 
   &::before {
     content: "";

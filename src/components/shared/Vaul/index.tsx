@@ -73,7 +73,7 @@ export const Vaul = ({ content, show }: VaulProps) => {
       pointerEvents: 'none',
     })
     gsap.to(vaulRef.current, {
-      y: '95vh', 
+      y: '90vh', 
       ease: 'M0,0 C0.5,0 0.5,1 1,1',
       duration: 0.2
     })

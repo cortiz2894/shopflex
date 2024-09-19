@@ -79,57 +79,57 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
 
     setSlug(item.slug)
 
-    gsap.to('#navBar', {
-      yPercent: 0,
-      opacity: 1,
-    })
+    // gsap.to('#navBar', {
+    //   yPercent: 0,
+    //   opacity: 1,
+    // })
     e.stopPropagation();
-    if (imgRef.current && !isLoading) {
-        setIsLoading(true)
-        const rect = imgRef.current.getBoundingClientRect();
-        const clonedImg = imgRef.current.cloneNode() as HTMLElement;
-        //@ts-ignore
-        const rectCartButton = document.getElementById('cartButton').getBoundingClientRect()
-        Object.assign(clonedImg.style, {
-          position: 'fixed',
-          top: `${rect.top}px`,
-          left: `${rect.left}px`,
-          width: `${rect.width}px`,
-          height: `${rect.height}px`,
-          zIndex: '99999999',
-          opacity: 1
-        });
+    // if (imgRef.current && !isLoading) {
+    //     setIsLoading(true)
+    //     const rect = imgRef.current.getBoundingClientRect();
+    //     const clonedImg = imgRef.current.cloneNode() as HTMLElement;
+    //     //@ts-ignore
+    //     const rectCartButton = document.getElementById('cartButton').getBoundingClientRect()
+    //     Object.assign(clonedImg.style, {
+    //       position: 'fixed',
+    //       top: `${rect.top}px`,
+    //       left: `${rect.left}px`,
+    //       width: `${rect.width}px`,
+    //       height: `${rect.height}px`,
+    //       zIndex: '99999999',
+    //       opacity: 1
+    //     });
 
-        gsap.timeline()
-        .to(imgRef.current, 0.2, { y: '-12', ease: 'Power1.easeNone' })
-        .to(imgRef.current, 0.1, { y: '0', ease: 'Power1.easeOut',
-          onComplete: () => {
-            document.body.appendChild(clonedImg);
-          }
-         })
-        .to(clonedImg, {
-          top:rectCartButton.y - ((rect.height * 0.85) / 2),
-          opacity: 0.2,
-          left: rectCartButton.x - ((rect.height * 0.85) / 2),
-          scale: 0.1,
-          duration: 0.7,
-          ease: "M0,0 C0.76,0 0.24,1 1,1",
-          onComplete: () => {
-            document.body.removeChild(clonedImg);
+    //     gsap.timeline()
+    //     .to(imgRef.current, 0.2, { y: '-12', ease: 'Power1.easeNone' })
+    //     .to(imgRef.current, 0.1, { y: '0', ease: 'Power1.easeOut',
+    //       onComplete: () => {
+    //         document.body.appendChild(clonedImg);
+    //       }
+    //      })
+    //     .to(clonedImg, {
+    //       top:rectCartButton.y - ((rect.height * 0.85) / 2),
+    //       opacity: 0.2,
+    //       left: rectCartButton.x - ((rect.height * 0.85) / 2),
+    //       scale: 0.1,
+    //       duration: 0.7,
+    //       ease: "M0,0 C0.76,0 0.24,1 1,1",
+    //       onComplete: () => {
+    //         document.body.removeChild(clonedImg);
 
-            const itemToStore:ProductStore = {
-              ...item,
-              color: 'Black',
-              size: 'L',
-              discount: 0,
-              quantity: 1
-            }
+    //         const itemToStore:ProductStore = {
+    //           ...item,
+    //           color: 'Black',
+    //           size: 'L',
+    //           discount: 0,
+    //           quantity: 1
+    //         }
             
-            addProductToStore(itemToStore)
-            setIsLoading(false)
-          }
-        })
-      }
+    //         addProductToStore(itemToStore)
+    //         setIsLoading(false)
+    //       }
+    //     })
+    // }
   }
 
   CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
