@@ -8,6 +8,8 @@ import "./globals.css";
 import { useParams } from "next/navigation";
 import Cursor from "@/components/shared/Cursor";
 import toast, { Toaster } from 'react-hot-toast';
+import { useQuickAddStore } from "@/store/quickAddStore";
+import { Vaul } from "@/components/shared/Vaul";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +27,7 @@ export default function RootLayout({
     }, 300)
 	}, [params])
 
+  const { slug } = useQuickAddStore();
 
   return (
     <html lang="en">
@@ -48,6 +51,10 @@ export default function RootLayout({
           toastOptions={{
             className: 'z-[9999]'
           }}
+        />
+        <Vaul 
+            content={<p className="text-black">Vaul Product</p>} 
+            show={slug}
         />
         <div className="exitTransition"></div>
       </body>

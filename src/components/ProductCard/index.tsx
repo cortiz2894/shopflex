@@ -13,6 +13,7 @@ import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
 import { LinkTransition } from '@/components/shared/LinkTransition/LinkTransition';
 import { getImage } from '@/services/products';
+import { useQuickAddStore } from '@/store/quickAddStore';
 
 type Props = {
   item: Product,
@@ -45,6 +46,7 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   const [isLoading, setIsLoading] = useState(false)
 
   const addProductToStore = useCartStore((state:CartStore) => state.addToCart)
+  const { setSlug } = useQuickAddStore();
 
 
   const getWidthCard = () => {
@@ -74,6 +76,8 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   const addToCart = (e:any) => {
     
     e.preventDefault();
+
+    setSlug(item.slug)
 
     gsap.to('#navBar', {
       yPercent: 0,

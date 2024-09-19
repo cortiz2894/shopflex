@@ -13,7 +13,7 @@ export const metadata = {
 export default async function Home() {
   const products = await getProducts()
   const categories = await getCategory()
-  
+
   return (
       <main>
         <Hero />
@@ -29,6 +29,7 @@ export default async function Home() {
         <Container>
           <SectionTitle text='All products'/>
           <Carousel products={products}/>
+          
         </Container>
       </main>
   );

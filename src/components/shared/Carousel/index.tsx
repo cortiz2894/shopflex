@@ -70,29 +70,32 @@ export const Carousel = ({products}:ListProductProps) => {
     position.current = newPosition;
   };
 
-  return (
-		<div
-      className={classNames("relative w-full h-[37vw]", [styles.container])}>
-			<div id="slider" className={styles.slider} ref={sliderRef}>
-				{products.map((item, index) => {
-					return (
-						<ProductCard
-							ref={(el) => {productRefs.current[index] = el}}
-							key={`item-${item.id}`}
-							item={item}
-						/>
-					);
-				})}
-			</div>
-			<button onClick={() => moveSlider(1)} className={classNames('absolute', [styles.arrow], [styles.left])}>
-				<BsChevronCompactLeft className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
-				<span className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-black'}/></span>
-			</button>
-			<button onClick={() => moveSlider(-1)} className={classNames('absolute', [styles.arrow], [styles.right])}>
-				<BsChevronCompactRight className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
-				<span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-black'}/></span>
-			</button>
 
-		</div> 
+
+  return (
+    <>
+      <div
+        className={classNames("relative w-full h-[37vw]", [styles.container])}>
+        <div id="slider" className={styles.slider} ref={sliderRef}>
+          {products.map((item, index) => {
+            return (
+              <ProductCard
+                ref={(el) => {productRefs.current[index] = el}}
+                key={`item-${item.id}`}
+                item={item}
+              />
+            );
+          })}
+        </div>
+        <button onClick={() => moveSlider(1)} className={classNames('absolute', [styles.arrow], [styles.left])}>
+          <BsChevronCompactLeft className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
+          <span className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-black'}/></span>
+        </button>
+        <button onClick={() => moveSlider(-1)} className={classNames('absolute', [styles.arrow], [styles.right])}>
+          <BsChevronCompactRight className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
+          <span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-black'}/></span>
+        </button>
+      </div> 
+    </>
   );
 };
