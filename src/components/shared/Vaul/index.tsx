@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import gsap from 'gsap';
 import Draggable from "gsap/Draggable";
 
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import styles from './Vaul.module.scss';
 
 gsap.registerPlugin(Draggable);
@@ -21,6 +21,7 @@ export const Vaul = ({ content, show }: VaulProps) => {
 
   const vaulRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+
 
   useGSAP(() => {
       Draggable.create(vaulRef.current, {
@@ -50,6 +51,7 @@ export const Vaul = ({ content, show }: VaulProps) => {
   const playAnimation = () => {
     gsap.to(vaulRef.current, {
       y: 0,
+      opacity: 1,
       ease: 'M0,0 C0.5,0 0.5,1 1,1',
       duration: 0.2,
     })
@@ -71,7 +73,7 @@ export const Vaul = ({ content, show }: VaulProps) => {
       pointerEvents: 'none',
     })
     gsap.to(vaulRef.current, {
-      y: '80vh', 
+      y: '95vh', 
       ease: 'M0,0 C0.5,0 0.5,1 1,1',
       duration: 0.2
     })

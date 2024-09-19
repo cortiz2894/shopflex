@@ -3,13 +3,12 @@ import Footer from "@/components/Footer/index";
 import Header from "@/components/Header/index";
 import Loader from "@/components/shared/Loader/index";
 import { Inter } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./globals.css";
 import { useParams } from "next/navigation";
 import Cursor from "@/components/shared/Cursor";
 import toast, { Toaster } from 'react-hot-toast';
-import { useQuickAddStore } from "@/store/quickAddStore";
-import { Vaul } from "@/components/shared/Vaul";
+import { ProductVaul } from "@/components/ProductVaul";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +17,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [pageLoaded, setPageLoaded] = useState(false)
   const params = useParams<{ tag: string; item: string }>()
 
   useEffect(() => {
@@ -26,8 +24,6 @@ export default function RootLayout({
       window.scrollTo(0, 0);
     }, 300)
 	}, [params])
-
-  const { slug } = useQuickAddStore();
 
   return (
     <html lang="en">
@@ -52,10 +48,7 @@ export default function RootLayout({
             className: 'z-[9999]'
           }}
         />
-        <Vaul 
-            content={<p className="text-black">Vaul Product</p>} 
-            show={slug}
-        />
+        <ProductVaul />
         <div className="exitTransition"></div>
       </body>
     </html>

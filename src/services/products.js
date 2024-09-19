@@ -91,8 +91,6 @@ async function getProduct(identifier) {
   const { id, attributes } = data[0]
   const { title, description, slug, price, image, discount, drop, sizes, categories, colors } = attributes
 
-  console.log('attributes: ', attributes)
-
   const images = image.data.map((im) => {
     return im.attributes.url
   })

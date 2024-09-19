@@ -48,10 +48,11 @@ const PAYMENTS_METHODS = [
 ]
 
 interface Props {
-	product: ProductDetail
+	product: ProductDetail,
+	isLite?: boolean 
 }
 
-export default function ProductDetail({product}: Props) {
+export default function ProductDetail({product, isLite}: Props) {
 
 	const imageContainerRef = useRef(null)
 	const accordionContainerRef = useRef<HTMLDivElement | null>(null)
@@ -144,7 +145,7 @@ export default function ProductDetail({product}: Props) {
   return (
 		<Container>
 			<div 
-			className={classNames('flex gap-5 pt-[64px] mt-6')} 
+			className={classNames('flex gap-5 ', {'pt-[64px] mt-6': !isLite})} 
 			>
 				<div className={styles.detailsContainer} ref={accordionContainerRef}>
 						<Accordion 
@@ -227,7 +228,7 @@ export default function ProductDetail({product}: Props) {
 					</div>
 				</div>
 			</div>
-			{!loading && (
+			{!loading && !isLite && (
 				<div className='pt-10'>
 					<SectionTitle text='Related products' size='small'/>
 					<Carousel products={products}/>
