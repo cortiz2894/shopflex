@@ -328,7 +328,7 @@ export default function Header() {
 												onMouseEnter={() => hoverlink(index)}
 											>
 													<Link href={'/product'}>
-														<span>{link.title}</span>
+														<span className={styles.navLink}>{link.title}</span>
 													</Link>
 											</li>
 										))}

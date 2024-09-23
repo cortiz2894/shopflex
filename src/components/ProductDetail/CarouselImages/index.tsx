@@ -216,7 +216,7 @@ export default function CarouselImages({images}: Props) {
 							<button 
 								onClick={() => handleSelectImage(0)}
 								className={
-									classNames('rotate-180 absolute left-0 h-full top-0 z-10', [styles.arrow], [styles.left])
+									classNames('absolute left-0 h-full top-0 z-10', [styles.arrow], [styles.left])
 								}
 							>
 								<BsChevronCompactLeft className={classNames('text-[3em] text-white', [styles.svgPrime])}/>
