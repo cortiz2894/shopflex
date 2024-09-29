@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Navlink } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
-import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
+import { FiSearch, FiUser, FiShoppingCart, FiMenu } from "react-icons/fi";
 import CartDrawer from "./CartDrawer";
 import ButtonPrimary from "@/components/shared/ButtonPrimary";
 import Counter from "./CartDrawer/Counter/index";
@@ -18,6 +18,7 @@ import Lenis from 'lenis'
 import DropdownMenu from "./DropdownMenu/index";
 import { LinkTransition } from "../shared/LinkTransition/LinkTransition";
 import { useLoaderStore } from "@/store/loaderStore";
+import useDeviceType from "@/hooks/useDeviceType";
 
 const NAVLINKS = [
     { 
@@ -159,6 +160,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Header() {
 
     const [navlinks, setNavlinks] = useState<Navlink[]>(NAVLINKS);
+		const isMobile = useDeviceType();
+
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 		const [isCartOpen, setIsCartOpen] = useState(false);
@@ -169,6 +172,7 @@ export default function Header() {
 		const headerRef = useRef<HTMLDivElement>(null)
 		const navBarRef = useRef<HTMLDivElement>(null)
 		const lenisRef = useRef<Lenis | null>(null);
+		const mobileMenuRef = useRef<HTMLDivElement | null>(null)
 
 		const { totals } = useCartStore((state:CartStore) => ({
 			totals : state.totals
@@ -292,6 +296,11 @@ export default function Header() {
 			setHoveredButtonIndex(null)
 			setActiveSubmenu(null)
 		}
+
+		const openMobileMenu = () => {
+
+		}
+
     return (
 			<>
 				<header className={classNames("fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]", [styles.header])} ref={headerRef}>
@@ -299,18 +308,20 @@ export default function Header() {
 						<nav 
 							className={
 								classNames(
-									"md:w-11/12 md:rounded md:mt-4 w-full z-10 h-16 px-6 py-3 overflow-hidden flex justify-center relative items-start",
+									"md:w-11/12 md:rounded md:mt-4 w-full z-10 h-16 px-3 md:px-6 py-3 overflow-hidden flex justify-center relative items-start",
 								 {'bg-white !h-96': showDropdown},
 								 [styles.navBar]
 								 )}
 							id='navBar'
-							style={{boxShadow: '1px 1px 5px #9898980f'}}
 							ref={navBarRef}
 						>
-							<div className="flex items-center justify-between navbar">
+							<div className={classNames("flex items-center justify-between w-full", styles.navbar)}>
+								<div className="md:hidden">
+									<ButtonPrimary text={<FiMenu className='text-[20px]'/>} variant='outlined' size='small'/>
+								</div>
 								<div className="flex items-center">
 									<div 
-										className="text-black w-28 mr-10"
+										className="text-black w-28 md:mr-10"
 										onMouseEnter={() => {
 											restartMenu()
 											setShowDropdown(false);
@@ -333,7 +344,6 @@ export default function Header() {
 											</li>
 										))}
 									</ul>
-
 								</div>
 								<div className="flex gap-2">
 									<div className="md:block hidden">
@@ -346,7 +356,7 @@ export default function Header() {
 										<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
 											<Counter number={totals.quantity} />
 										</div>
-										<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
+										<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant={isMobile ? 'outlined' :'default'} size='small'/>
 									</div>
 								</div>
 							</div>
@@ -364,6 +374,23 @@ export default function Header() {
 						/>
 					</div>
 				</header>
+				<div 
+					className={classNames('p-3',[styles.mobileNav])}
+					ref={mobileMenuRef}
+				>
+					<ul>
+						{navlinks.map((link, index) => (
+							<li
+								key={index}
+								className={classNames('realtive font-inter text-standar-darker')}
+							>
+								<Link href={'/product'}>
+									<span className={styles.mobileLink}>{link.title}</span>
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
 				<CartDrawer isCartOpen={isCartOpen} toggleCart={toggleCart} />
 			</>
     );
