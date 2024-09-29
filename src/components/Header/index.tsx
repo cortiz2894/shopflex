@@ -294,12 +294,12 @@ export default function Header() {
 		}
     return (
 			<>
-				<header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]" ref={headerRef}>
+				<header className={classNames("fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]", [styles.header])} ref={headerRef}>
 					<div className="w-full flex flex-col items-center">
 						<nav 
 							className={
 								classNames(
-									"w-11/12 z-10 h-16 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative items-start",
+									"md:w-11/12 md:rounded md:mt-4 w-full z-10 h-16 px-6 py-3 overflow-hidden flex justify-center relative items-start",
 								 {'bg-white !h-96': showDropdown},
 								 [styles.navBar]
 								 )}
@@ -320,7 +320,7 @@ export default function Header() {
 											<Logo />
 										</LinkTransition>
 									</div>
-									<ul className="flex appear overflow-hidden">
+									<ul className="appear overflow-hidden md:flex hidden">
 										{navlinks.map((link, index) => (
 											<li
 												key={index}
@@ -336,10 +336,10 @@ export default function Header() {
 
 								</div>
 								<div className="flex gap-2">
-									<div>
+									<div className="md:block hidden">
 										<ButtonPrimary text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
 									</div>
-									<div>
+									<div className="md:block hidden">
 										<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
 									</div>
 									<div id='cartButton' className="relative">
