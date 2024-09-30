@@ -1,0 +1,43 @@
+.mobileNav {
+  width: 100%;
+  height: calc(100vh - 64px);
+  top: 64px;
+  position: fixed;
+  background-color: white;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  color: #292929;
+  transition: background-color 0.3s ease-out;
+
+  &.activeSlide {
+    background-color: rgb(177, 177, 177);
+  }
+}
+
+.openItemSlide {
+  width: 100%;
+  height: calc(100vh - 64px);
+  top: 64px;
+  position: fixed;
+  background-color: white;
+  right: -100%;
+  transition: right 0.3s ease-out;
+  z-index: 1;
+  
+  &.active {
+    right: 0;
+  }
+}
+
+.mobileLink {
+  font-size: 2em;
+  color: #292929;
+}
+.containerLinks {
+  transition: all 0.3s ease-out;
+  &.linkActiveSlide {
+    transform: scale(0.95);
+    filter: blur(3px);
+  }
+}

@@ -19,6 +19,7 @@ import DropdownMenu from "./DropdownMenu/index";
 import { LinkTransition } from "../shared/LinkTransition/LinkTransition";
 import { useLoaderStore } from "@/store/loaderStore";
 import useDeviceType from "@/hooks/useDeviceType";
+import MobileMenu from "./MenuMobile";
 
 const NAVLINKS = [
     { 
@@ -167,12 +168,12 @@ export default function Header() {
 		const [isCartOpen, setIsCartOpen] = useState(false);
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
 		const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+		const [mobileMenu, setMobileMenu] = useState<boolean>(false)
 		const isLoading = useLoaderStore((state) => state.isLoading);
 
 		const headerRef = useRef<HTMLDivElement>(null)
 		const navBarRef = useRef<HTMLDivElement>(null)
 		const lenisRef = useRef<Lenis | null>(null);
-		const mobileMenuRef = useRef<HTMLDivElement | null>(null)
 
 		const { totals } = useCartStore((state:CartStore) => ({
 			totals : state.totals
@@ -297,8 +298,16 @@ export default function Header() {
 			setActiveSubmenu(null)
 		}
 
-		const openMobileMenu = () => {
+		const handleMobileMenu = () => {
+			if(!lenisRef.current) return
 
+			if(mobileMenu) {
+				setMobileMenu(false)
+				lenisRef.current.start()
+			} else {
+				lenisRef.current.stop()
+				setMobileMenu(true)
+			}
 		}
 
     return (
@@ -315,9 +324,9 @@ export default function Header() {
 							id='navBar'
 							ref={navBarRef}
 						>
-							<div className={classNames("flex items-center justify-between w-full", styles.navbar)}>
+							<div className={classNames("flex items-center justify-between w-full", styles.navbar, {[styles.activeMobile]: mobileMenu})}>
 								<div className="md:hidden">
-									<ButtonPrimary text={<FiMenu className='text-[20px]'/>} variant='outlined' size='small'/>
+									<ButtonPrimary onClick={handleMobileMenu} text={<FiMenu className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
 								<div className="flex items-center">
 									<div 
@@ -356,7 +365,7 @@ export default function Header() {
 										<div className='text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]'>
 											<Counter number={totals.quantity} />
 										</div>
-										<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant={isMobile ? 'outlined' :'default'} size='small'/>
+										<ButtonPrimary action={toggleCart} text={<FiShoppingCart className='text-[20px]'/>} variant='default' size='small'/>
 									</div>
 								</div>
 							</div>
@@ -374,23 +383,7 @@ export default function Header() {
 						/>
 					</div>
 				</header>
-				<div 
-					className={classNames('p-3',[styles.mobileNav])}
-					ref={mobileMenuRef}
-				>
-					<ul>
-						{navlinks.map((link, index) => (
-							<li
-								key={index}
-								className={classNames('realtive font-inter text-standar-darker')}
-							>
-								<Link href={'/product'}>
-									<span className={styles.mobileLink}>{link.title}</span>
-								</Link>
-							</li>
-						))}
-					</ul>
-				</div>
+				<MobileMenu navlinks={navlinks} active={mobileMenu} />
 				<CartDrawer isCartOpen={isCartOpen} toggleCart={toggleCart} />
 			</>
     );
