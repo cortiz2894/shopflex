@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { Navlink } from "@/interfaces/navbar.interface";
 import { useGSAP } from '@gsap/react';
-import { FiSearch, FiUser, FiShoppingCart } from "react-icons/fi";
+import { FiSearch, FiUser, FiShoppingCart, FiMenu } from "react-icons/fi";
 import CartDrawer from "./CartDrawer";
 import ButtonPrimary from "@/components/shared/ButtonPrimary";
 import Counter from "./CartDrawer/Counter/index";
@@ -18,6 +18,8 @@ import Lenis from 'lenis'
 import DropdownMenu from "./DropdownMenu/index";
 import { LinkTransition } from "../shared/LinkTransition/LinkTransition";
 import { useLoaderStore } from "@/store/loaderStore";
+import useDeviceType from "@/hooks/useDeviceType";
+import MobileMenu from "./MenuMobile";
 
 const NAVLINKS = [
     { 
@@ -159,11 +161,14 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Header() {
 
     const [navlinks, setNavlinks] = useState<Navlink[]>(NAVLINKS);
+		const isMobile = useDeviceType();
+
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 		const [isCartOpen, setIsCartOpen] = useState(false);
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
 		const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+		const [mobileMenu, setMobileMenu] = useState<boolean>(false)
 		const isLoading = useLoaderStore((state) => state.isLoading);
 
 		const headerRef = useRef<HTMLDivElement>(null)
@@ -292,25 +297,40 @@ export default function Header() {
 			setHoveredButtonIndex(null)
 			setActiveSubmenu(null)
 		}
+
+		const handleMobileMenu = () => {
+			if(!lenisRef.current) return
+
+			if(mobileMenu) {
+				setMobileMenu(false)
+				lenisRef.current.start()
+			} else {
+				lenisRef.current.stop()
+				setMobileMenu(true)
+			}
+		}
+
     return (
 			<>
-				<header className="fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]" ref={headerRef}>
+				<header className={classNames("fixed left-0 top-0 translate-y-[-150%] w-full z-[999999]", [styles.header])} ref={headerRef}>
 					<div className="w-full flex flex-col items-center">
 						<nav 
 							className={
 								classNames(
-									"w-11/12 z-10 h-16 rounded mt-4 px-6 py-3 overflow-hidden flex justify-center relative items-start",
+									"md:w-11/12 md:rounded md:mt-4 w-full z-10 h-16 px-3 md:px-6 py-3 overflow-hidden flex justify-center relative items-start",
 								 {'bg-white !h-96': showDropdown},
 								 [styles.navBar]
 								 )}
 							id='navBar'
-							style={{boxShadow: '1px 1px 5px #9898980f'}}
 							ref={navBarRef}
 						>
-							<div className="flex items-center justify-between navbar">
+							<div className={classNames("flex items-center justify-between w-full", styles.navbar, {[styles.activeMobile]: mobileMenu})}>
+								<div className="md:hidden">
+									<ButtonPrimary onClick={handleMobileMenu} text={<FiMenu className='text-[20px]'/>} variant='default' size='small'/>
+								</div>
 								<div className="flex items-center">
 									<div 
-										className="text-black w-28 mr-10"
+										className="text-black w-28 md:mr-10"
 										onMouseEnter={() => {
 											restartMenu()
 											setShowDropdown(false);
@@ -320,7 +340,7 @@ export default function Header() {
 											<Logo />
 										</LinkTransition>
 									</div>
-									<ul className="flex appear overflow-hidden">
+									<ul className="appear overflow-hidden md:flex hidden">
 										{navlinks.map((link, index) => (
 											<li
 												key={index}
@@ -328,18 +348,17 @@ export default function Header() {
 												onMouseEnter={() => hoverlink(index)}
 											>
 													<Link href={'/product'}>
-														<span>{link.title}</span>
+														<span className={styles.navLink}>{link.title}</span>
 													</Link>
 											</li>
 										))}
 									</ul>
-
 								</div>
 								<div className="flex gap-2">
-									<div>
+									<div className="md:block hidden">
 										<ButtonPrimary text={<FiSearch className='text-[20px]'/>} variant='default' size='small'/>
 									</div>
-									<div>
+									<div className="md:block hidden">
 										<ButtonPrimary text={<FiUser className='text-[20px]'/>} variant='default' size='small'/>
 									</div>
 									<div id='cartButton' className="relative">
@@ -364,6 +383,7 @@ export default function Header() {
 						/>
 					</div>
 				</header>
+				<MobileMenu navlinks={navlinks} active={mobileMenu} />
 				<CartDrawer isCartOpen={isCartOpen} toggleCart={toggleCart} />
 			</>
     );

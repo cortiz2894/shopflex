@@ -15,8 +15,8 @@
 .vaul {
   width: 100%;
   position: fixed;
-  height: 90vh;
-  bottom: 0;
+  height: 130vh;
+  bottom: -40vh;
   opacity: 0;
   background-color: #f9f9f9;
   left: 0;
@@ -35,8 +35,15 @@
     width: 15%;
     height: 0.5em;
     border-radius: 1em;
-    background-color: rgb(233 233 233);
     left: 50%;
-    transform: translateX(-50%);
+    background-color: rgb(233 233 233);
+    animation: vaulHandlerMove 2s infinite;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   }
+}
+
+@keyframes vaulHandlerMove {
+	0% {transform: translate(-50%, 0em)  }
+	50% { transform: translate(-50%, 0.5em) }
+  100% { transform: translate(-50%, 0em) }
 }

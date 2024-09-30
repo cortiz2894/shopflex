@@ -4,6 +4,8 @@ import Header from "@/components/Header/index";
 import Loader from "@/components/shared/Loader/index";
 import { Inter } from "next/font/google";
 import { useEffect } from "react";
+import '@/styles/globals.scss'
+// replace with the glabolas.scss
 import "./globals.css";
 import { useParams } from "next/navigation";
 import Cursor from "@/components/shared/Cursor";

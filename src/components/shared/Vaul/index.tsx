@@ -25,10 +25,6 @@ export const Vaul = ({ content, show }: VaulProps) => {
 
   useGSAP(() => {
       Draggable.create(vaulRef.current, {
-        bounds: {
-          minY: window.innerHeight * 0.002,
-          maxY: window.innerHeight * 0.8,
-        },
         type: "y",
         onRelease: function () {
           if (this.y > window.innerHeight / 2) {
