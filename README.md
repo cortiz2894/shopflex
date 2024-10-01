@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Git flow:
+
+The idea behind the git flow is that we depart from develop to start a new development, we test it and if it's everything all right we merge it
+
+the idea is to use:
+
+Main --> We merge develop on it when is fully usable and Stable
+Develop --> Every branch starts from development and every merge request is aginst it
+Feature branch --> i reecomend use prefix (feat | fix | chore | merge )/name-of-feature
+
+## Linters/Prettiers
+
+i suggets to use an stadard prettier and linter with auto format on save to keep the same the stuff on the code.
+i will add these
