@@ -16,7 +16,7 @@
   width: 100%;
   position: fixed;
   height: 130vh;
-  bottom: -40vh;
+  bottom: calc( -30vh - (80px + 1em));
   opacity: 0;
   background-color: #f9f9f9;
   left: 0;
