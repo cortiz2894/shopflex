@@ -1,5 +1,6 @@
 import { API_URL, formattedProductsResponse } from '@/utils/config.js';
 
+// TODO: implement try/catch and error handler for better error handler
 async function getProducts() {
   const res = await fetch(`${API_URL}/api/products?populate=*`);
 
@@ -11,7 +12,7 @@ async function getProducts() {
   return formattedProductsResponse(data);
 }
 
-async function getCategory(category?: any) {
+async function getCategory(category?: string) {
   let url = `${API_URL}/api/categories?populate[products][populate]=*`;
 
   if (category) {
@@ -23,6 +24,7 @@ async function getCategory(category?: any) {
   if (!res.ok) {
     throw new Error('Algo salio mal');
   }
+
   const { data } = await res.json();
 
   return data.map((category: any) => {
