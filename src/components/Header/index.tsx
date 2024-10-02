@@ -20,6 +20,7 @@ import { LinkTransition } from "../shared/LinkTransition/LinkTransition";
 import { useLoaderStore } from "@/store/loaderStore";
 import useDeviceType from "@/hooks/useDeviceType";
 import MobileMenu from "./MenuMobile";
+import { IoCloseOutline } from "react-icons/io5";
 
 const NAVLINKS = [
     { 
@@ -326,7 +327,7 @@ export default function Header() {
 						>
 							<div className={classNames("flex items-center justify-between w-full", styles.navbar, {[styles.activeMobile]: mobileMenu})}>
 								<div className="md:hidden">
-									<ButtonPrimary onClick={handleMobileMenu} text={<FiMenu className='text-[20px]'/>} variant='default' size='small'/>
+									<ButtonPrimary onClick={handleMobileMenu} text={mobileMenu ? <IoCloseOutline className='text-[20px]'/>: <FiMenu className='text-[20px]'/>} variant='default' size='small'/>
 								</div>
 								<div className="flex items-center">
 									<div 

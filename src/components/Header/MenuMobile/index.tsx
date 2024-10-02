@@ -19,7 +19,7 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<HTMLLIElement[]>([]);
 
-  const [openSlide, setOpenSlide] = useState(false)
+  const [openSlide, setOpenSlide] = useState<string>('')
 
   const addToRefs = (el: HTMLLIElement) => {
     if (el && !menuItemsRef.current.includes(el)) {
@@ -56,6 +56,12 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
     }
   }, [active]);
 
+  const selectNavlink = (selected:string) => {
+    setOpenSlide(selected)
+  }
+  
+  const selectedNavlink = navlinks.find((link) => link.title === openSlide);
+
   return (
     <>
       <div
@@ -68,25 +74,26 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
               key={index}
               ref={addToRefs}
               className={classNames('relative font-inter text-standar-darker flex w-full justify-between items-center')}
-              onClick={() => {
-                setOpenSlide(true)
-              }}
+              onClick={() => selectNavlink(link.title)}
             >
               <span className={styles.mobileLink}>{link.title}</span>
-              <FiChevronRight className='text-[28px] text-standar-darker'/>
+              {link.dropdown && <FiChevronRight className='text-[28px] text-standar-darker'/>}
             </li>
           ))}
         </ul>
         <div className={classNames(styles.openItemSlide, {[styles.active]: openSlide}, 'p-3')}>
-          <div className='flex w-full items-center gap-2 pb-4' onClick={() => setOpenSlide(false)}>
+          <div className='flex w-full items-center gap-2 pb-4' onClick={() => setOpenSlide('')}>
             <FiChevronLeft className='text-[28px] text-standar-darker'/>
-            <span className={styles.mobileLink}>Selected Link</span>
+            <span className={styles.mobileLink}>{openSlide}</span>
           </div>
           <ul className='flex flex-col gap-3'>
-            <li className='text-standar-darker text-xl'>Shirts</li>
-            <li className='text-standar-darker text-xl'>Pants</li>
-            <li className='text-standar-darker text-xl'>Accessories</li>
-            <li className='text-standar-darker text-xl'>Other</li>
+          {selectedNavlink && selectedNavlink.dropdown && (
+            selectedNavlink.dropdown.map((dropdownItem, index) => (
+              <li key={index} className='text-standar-darker text-xl'>
+                {dropdownItem.title}
+              </li>
+            ))
+            )}
           </ul>
         </div>
       </div>
