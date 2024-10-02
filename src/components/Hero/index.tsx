@@ -37,7 +37,7 @@ export default function Hero() {
         duration: 1.2,
       })
       gsap.to(textRef.current, {
-        y: isMobile ? '50vh' : 0,
+        y: isMobile ? '60vh' : 0,
         ease: 'hop',
         delay: 0.5
       })
@@ -89,11 +89,11 @@ export default function Hero() {
         </a>
       )}
       <div ref={textRef} className={styles.text}>
-        <div className="relative md:h-auto h-[150px]">
+        <div className="relative md:h-auto h-[13vh]">
           <InfiniteText text="Embrace the technology - " controls={true}/>
         </div>
         {isMobile && (
-          <div className="relative md:h-auto h-[150px]">
+          <div className="relative md:h-auto h-[13vh]">
             <InfiniteText text="Embrace the technology - " controls={true} direction='right'/>
           </div>
         )}
