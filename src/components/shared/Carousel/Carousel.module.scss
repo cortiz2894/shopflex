@@ -5,6 +5,11 @@
 
     & > div{
         width: calc(90vw / 4 - 0.9499em);
+
+        @include md-down {
+            width: 100%;
+            max-width: 85vw;
+        }
     }
     .slide{
       &:not(:first-child){
@@ -67,6 +72,13 @@
 }
     
 .container {
+
+    @include md-down {
+        width: calc(100% + 10%);
+        margin-left: -5%;
+        padding: 0% 5%;
+    }
+    
     &:hover {
         .arrow {
             opacity: 1;

@@ -68,7 +68,7 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
         className={classNames('p-3', [styles.mobileNav], {[styles.activeSlide]: openSlide})}
         ref={mobileMenuRef}
       >
-        <ul className={classNames('flex flex-col gap-3 w-full', [styles.containerLinks], {[styles.linkActiveSlide]: openSlide})}>
+        <ul className={classNames('flex flex-col gap-5 w-full', [styles.containerLinks], {[styles.linkActiveSlide]: openSlide})}>
           {navlinks.map((link, index) => (
             <li
               key={index}

@@ -75,7 +75,7 @@ export const Carousel = ({products}:ListProductProps) => {
   return (
     <>
       <div
-        className={classNames("relative w-full h-[37vw]", [styles.container])}>
+        className={classNames("relative w-full md:h-[37vw] h-[75vh] overflow-y-hidden md:overflow-y-visible", [styles.container])}>
         <div id="slider" className={styles.slider} ref={sliderRef}>
           {products.map((item, index) => {
             return (
