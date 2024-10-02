@@ -10,6 +10,7 @@ import Draggable from "gsap/Draggable";
 import styles from "./Hero.module.scss"
 import classNames from "classnames";
 import { useLoaderStore } from "@/store/loaderStore";
+import useDeviceType from "@/hooks/useDeviceType";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,8 @@ export default function Hero() {
   const cardRef = useRef<HTMLAnchorElement | null>(null)
   const isLoading = useLoaderStore((state) => state.isLoading);
   const textRef = useRef<HTMLDivElement | null>(null)
+
+  const isMobile = useDeviceType();
 
   useEffect(() => {
     if(!heroRef.current || !textRef.current || !imageRef.current) return
@@ -34,7 +37,7 @@ export default function Hero() {
         duration: 1.2,
       })
       gsap.to(textRef.current, {
-        y: 0,
+        y: isMobile ? '50vh' : 0,
         ease: 'hop',
         delay: 0.5
       })
@@ -75,16 +78,25 @@ export default function Hero() {
         className=''
         ref={imageRef}
       />
-      <a href='https://google.com' target={'_blank'} ref={cardRef} className='absolute z-[99999]'>
-        <InstagramCard 
-          videoMp4Src="/videos/instagram_reel.mp4" 
-          videoWebmSrc="/videos/instagram_reel.webm" 
-          videoPoster="/images/instagram_reel.png" 
-          triggerElement={heroRef.current}
-        />
-      </a>
+      {!isMobile && (
+        <a href='https://google.com' target={'_blank'} ref={cardRef} className='absolute z-[99999]'>
+          <InstagramCard 
+            videoMp4Src="/videos/instagram_reel.mp4" 
+            videoWebmSrc="/videos/instagram_reel.webm" 
+            videoPoster="/images/instagram_reel.png" 
+            triggerElement={heroRef.current}
+          />
+        </a>
+      )}
       <div ref={textRef} className={styles.text}>
-        <InfiniteText text="Embrace the technology - " controls={true}/>
+        <div className="relative md:h-auto h-[150px]">
+          <InfiniteText text="Embrace the technology - " controls={true}/>
+        </div>
+        {isMobile && (
+          <div className="relative md:h-auto h-[150px]">
+            <InfiniteText text="Embrace the technology - " controls={true} direction='right'/>
+          </div>
+        )}
       </div>
     </div>
   );

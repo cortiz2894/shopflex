@@ -1,7 +1,6 @@
 .sliderContainer{
     z-index: 5;
     position: absolute;
-    // width: 100vw;
     &.small {
         p {
             font-size: clamp(4.0625rem, 0.6799rem + 5.423vw, 7.1875rem);
@@ -10,6 +9,9 @@
     }
     &.hero {
         top: calc(100vh - 17em);
+        @include md-down {
+            top: auto;
+        }
     }
     &.bottom {
         bottom: 0;
@@ -25,16 +27,16 @@
     position: relative;
     margin: 0px;
     color: white;
-    // font-family: "Bebas Neue", sans-serif;
-    // font-family: "Inter", sans-serif;
     font-size: clamp(11.25rem, 7.8674rem + 5.423vw, 14.375rem);
     line-height: clamp(13.125rem, 9.7424rem + 5.423vw, 16.25rem);
     font-weight: 500;
     text-transform: capitalize;
     padding-right: 50px;
-    // background-color: #242424;
 
-   
+    @include md-down {
+        font-size: 5em;
+        line-height: 2em;
+    }
 }
 
 .slider p:nth-of-type(2){
