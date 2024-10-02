@@ -12,7 +12,7 @@ type Props = {
     disabled?: boolean
 }
 
-export default function ButtonPrimary({variant = 'outlined', text, size = 'large', theme = 'light', action, active = false, disabled = false, ...rest} :Props): JSX.Element {
+export function ButtonPrimary({variant = 'outlined', text, size = 'large', theme = 'light', action, active = false, disabled = false, ...rest} :Props): JSX.Element {
 
 //   const scrollToElement = () => {
 //     const element = document.getElementById(text);
@@ -43,3 +43,5 @@ export default function ButtonPrimary({variant = 'outlined', text, size = 'large
     </button>
   );
 }
+
+export default ButtonPrimary;
