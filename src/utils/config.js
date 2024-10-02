@@ -4,6 +4,7 @@ export const API_URL = process.env.NODE_ENV === 'production'
 
 // process.env.API_URL || 'http://127.0.0.1:1337';
 
+// TODO: Remove this from here
 export const formattedProductsResponse = (products) => {
   return products.map(({attributes, id}) => {
 
