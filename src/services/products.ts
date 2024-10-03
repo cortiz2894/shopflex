@@ -45,7 +45,7 @@ async function getCategory(category?: string): Promise<Category> {
   });
 }
 
-async function getDrops(drop?: string): Promise<any> {
+async function getDrops(drop?: string): Promise<Drops[]> {
   let url = `${API_URL}/api/drops?populate[cover][populate]=*`;
 
   if (drop) {
