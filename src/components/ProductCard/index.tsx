@@ -8,7 +8,7 @@ import { CustomEase } from 'gsap/CustomEase';
 import ButtonPrimary from '../shared/ButtonPrimary';
 import { FiShoppingCart } from "react-icons/fi";
 import { FiHeart } from "react-icons/fi";
-import { Product, ProductStore } from './product.types';
+import { Product } from '@/interfaces/products.interface';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
 import { LinkTransition } from '@/components/shared/LinkTransition/LinkTransition';

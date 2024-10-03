@@ -14,7 +14,7 @@ import styles from './ProductDetail.module.scss';
 import CarouselImages from './CarouselImages/index';
 import { getDrops } from '@/services/products';
 import { CartStore, useCartStore } from '@/store/cartStore';
-import type { Product, ProductDetail, ProductStore } from '@/components/ProductCard/product.types';
+import type { Product, ProductDetail, ProductStore } from '@/interfaces/products.interface';
 
 const PAYMENTS_METHODS = [
   {

@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import type { CollectionType } from "@/components/Gallery";
-import { Product } from "@/components/ProductCard/product.types";
+import { Product } from "@/interfaces/products.interface";
 import ProductList from "@/components/ProductList";
 import ProductsHero from "@/components/ProductsHero/ProductsHero";
 import { getDrops, getProducts } from "@/services/products";

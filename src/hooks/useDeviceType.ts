@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
+import { isWindowDefined } from '@/utils/window';
 
 const useDeviceType = () => {
   const [isMobile, setIsMobile] = useState(() => {
-    if (!window) {
+    if (!isWindowDefined()) {
       return;
     }
     return window.innerWidth <= 768;
   });
 
   useEffect(() => {
-    if (!window) {
+    if (!isWindowDefined()) {
       return;
     }
     const mediaQuery = window.matchMedia('(max-width: 768px)');

@@ -1,18 +1,22 @@
-import { API_URL, formattedProductsResponse } from '@/utils/config.js';
+import { API_URL } from '@/utils/config.js';
+import { formattedProductsResponse } from '@/utils/transformers/products.transformer';
+
+import { Category, StrapiCategory } from '@/interfaces/categories.interface';
+import { Drops, StrapiDrop } from '@/interfaces/drops.interface';
+import { Product, ProductDetail, StrapiProduct } from '@/interfaces/products.interface';
 
 // TODO: implement try/catch and error handler for better error handler
-async function getProducts() {
+async function getProducts(): Promise<Product[]> {
   const res = await fetch(`${API_URL}/api/products?populate=*`);
 
   if (!res.ok) {
     throw new Error('Algo salio mal');
   }
   const { data } = await res.json();
-
-  return formattedProductsResponse(data);
+  return formattedProductsResponse(data as StrapiProduct[]);
 }
 
-async function getCategory(category?: string) {
+async function getCategory(category?: string): Promise<Category> {
   let url = `${API_URL}/api/categories?populate[products][populate]=*`;
 
   if (category) {
@@ -27,7 +31,7 @@ async function getCategory(category?: string) {
 
   const { data } = await res.json();
 
-  return data.map((category: any) => {
+  return data.map((category: StrapiCategory) => {
     const { attributes, id } = category;
 
     const productsByCategory = formattedProductsResponse(attributes.products.data);
@@ -42,14 +46,11 @@ async function getCategory(category?: string) {
 }
 
 async function getDrops(drop?: string): Promise<any> {
-  const buildUrl = (drop?: string): string => {
-    if (drop) {
-      return `${API_URL}/api/drops?filters[slug][$eq]=${drop}&populate[products][populate]=*&populate=cover`;
-    }
-    return `${API_URL}/api/drops?populate[cover][populate]=*`;
-  };
+  let url = `${API_URL}/api/drops?populate[cover][populate]=*`;
 
-  const url = buildUrl(drop);
+  if (drop) {
+    url = `${API_URL}/api/drops?filters[slug][$eq]=${drop}&populate[products][populate]=*&populate=cover`;
+  }
 
   const res = await fetch(url);
 
@@ -59,9 +60,9 @@ async function getDrops(drop?: string): Promise<any> {
 
   const { data } = await res.json();
 
-  const formatDropData = (dropData: any) => {
+  const formatDropData = (dropData: StrapiDrop) => {
     const { attributes, id } = dropData;
-    const formattedData = {
+    const formattedData: Drops = {
       title: attributes.title,
       slug: attributes.slug,
       id: id,
@@ -79,7 +80,7 @@ async function getDrops(drop?: string): Promise<any> {
   return data.map(formatDropData);
 }
 
-async function getProduct(identifier: any) {
+async function getProduct(identifier: string): Promise<ProductDetail> {
   const res = await fetch(`${API_URL}/api/products?filters[slug][$eq]=${identifier}&populate=*`);
 
   if (!res.ok) {
@@ -91,7 +92,7 @@ async function getProduct(identifier: any) {
   const { id, attributes } = data[0];
   const { title, description, slug, price, image, discount, drop, sizes, categories, colors } = attributes;
 
-  const images = image.data.map((im: any) => {
+  const images = image.data.map((im: { attributes: { url: string } }) => {
     return im.attributes.url;
   });
 
@@ -111,7 +112,10 @@ async function getProduct(identifier: any) {
     sizes: sizes.data.map((size: any) => size.attributes.title),
     categories: categories.data,
     colors: colors?.data.map((color: any) => color.attributes.title) ?? [],
+    // TYPE FIXING
+    image: '',
   };
+
   return dataToReturn;
 }
 
