@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import Draggable from "gsap/Draggable";
 import styles from './Carousel.module.scss'
@@ -20,6 +20,7 @@ export const Carousel = ({products}:ListProductProps) => {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isMobile = useDeviceType()
+  const [productHeight, setProductHeight] = useState(0)
 
   const position = useRef(0);
   const swipeAnimationRef = useRef<HTMLDivElement | null>(null)
@@ -58,6 +59,25 @@ export const Carousel = ({products}:ListProductProps) => {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+
+    const getHeightProduct = () => {
+      if(!productRefs.current) return 
+
+      const itemHeight = productRefs.current[0]?.clientHeight ?? 0
+
+      setProductHeight(itemHeight)
+    }
+
+    getHeightProduct()
+
+    window.addEventListener('resize', getHeightProduct)
+
+    return () => {
+      window.removeEventListener('resize', getHeightProduct)
+    }
+  }, [])
+
 	const moveSlider = (direction: number) => {
 		if(!sliderRef.current) return 
     const sliderWidth = (sliderRef.current as HTMLDivElement).clientWidth;
@@ -69,6 +89,7 @@ export const Carousel = ({products}:ListProductProps) => {
     const emValue = parseFloat(fontSize);
 
 		const itemWidth = productRefs.current[0]?.clientWidth ?? 0
+
 		// Esto es para calcular el valor del gap y que se mueva los px
     let newPosition = position.current + direction * (itemWidth + emValue * 1.25); 
     newPosition = Math.max(minPosition, Math.min(maxPosition, newPosition));
@@ -80,7 +101,11 @@ export const Carousel = ({products}:ListProductProps) => {
   return (
     <>
       <div
-        className={classNames("relative w-full md:h-[37vw] h-[75vh]", [styles.container])}>
+        className={classNames(`relative w-full`, [styles.container])}
+        style={{
+          height: `${productHeight}px`
+        }}
+      >
         <div id="slider" className={styles.slider} ref={sliderRef}>
           {products.map((item, index) => {
             return (

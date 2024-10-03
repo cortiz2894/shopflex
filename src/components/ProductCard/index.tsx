@@ -167,17 +167,17 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
             <path ref={pathRef} d={initialPath}></path>
           </svg>
           <div className='flex justify-between relative'>
-            <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
+            <p className='text-lg md:text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
             {item.discount ? (
               <>
                 <span className='uppercase text-gray-400 font-semibold line-through absolute top-[-1.5em] right-0'>$ {item.price}</span>
-                <span className='text-xl uppercase text-black font-semibold'>$ {item.price - ((item.price * item.discount) / 100)}</span>
+                <span className='text-xl uppercase text-black font-semibold whitespace-nowrap'>$ {item.price - ((item.price * item.discount) / 100)}</span>
               </>
             ) : (
-              <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
+              <span className='text-xl uppercase text-black font-semibold whitespace-nowrap'>$ {item.price}</span>
             )}
           </div>
-          <span className={classNames('text-black my-3 block', [styles.description])}
+          <span className={classNames('text-black block text-sm md:my-3 mt-3 mb-0', [styles.description])}
           >{item.description}</span>
           <div className='justify-between items-center gap-4 hidden md:flex'>
             

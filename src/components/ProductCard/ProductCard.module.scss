@@ -78,6 +78,14 @@
 .description {
     transition-delay: 0.1s;
     transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-height: 1.5em;
+    min-height: calc(1.5em* 3);
+    max-height: calc(1.5em* 3);
 }
 
 .content {
