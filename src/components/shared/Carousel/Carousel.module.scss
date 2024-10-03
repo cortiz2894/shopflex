@@ -141,8 +141,60 @@
     animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+.dotSwipe {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 100%;
+    background-color: #242424;
+    position: absolute;
+    left: 1em;
+    top: -.5em;
+    animation: dotTransform 3s infinite;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes dotTransform {
+    0% {
+        left: 1em;
+        width: .7em;
+        border-radius: 100%;
+    }
+    25% {
+        left: - .5em;
+        width: 2em;
+        border-radius: 5px;
+    }
+    50% {
+        left: 1em;
+        width: .7em;
+        border-radius: 100%;
+
+    }
+    75% {
+        left: 1em;
+        border-radius: 5px;
+
+        width: 2em;
+    }
+    100% {
+        left: 1em;
+        width: .7em;
+        border-radius: 100%;
+
+    }
+}
+
 @keyframes swipeHand {
-	0% {left: 30%;}
-	50% { left: 80%;}
-  100% { left: 30%;}
+	0% { 
+        left: 30%;
+        transform: rotate(-5deg);
+    }
+	50% { 
+        left: 80%;
+        transform: rotate(5deg);
+    }
+    100% { 
+        left: 30%;
+        transform: rotate(-5deg);
+    }
 }

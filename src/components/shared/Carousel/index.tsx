@@ -8,7 +8,7 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import classNames from "classnames";
 import type { Product } from "@/components/ProductCard/product.types";
 import useDeviceType from "@/hooks/useDeviceType";
-import { MdSwipe } from "react-icons/md";
+import { PiHandPointingFill } from "react-icons/pi";
 
 gsap.registerPlugin(Draggable);
 
@@ -130,7 +130,8 @@ export const Carousel = ({products}:ListProductProps) => {
           </>
         ) : (
           <div className={classNames("pointer-events-none md:pointer-events-auto", [styles.swipeRecommend])} ref={swipeAnimationRef}>
-            <MdSwipe className="text-[3em] text-standar-darker"/>
+            <div className={styles.dotSwipe}></div>
+            <PiHandPointingFill className="text-[3em] text-standar-darker"/>
           </div>
         )}
       </div> 
