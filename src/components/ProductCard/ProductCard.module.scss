@@ -53,6 +53,14 @@
             .imageContainer {
                 top: 0%;
             }
+            .content {
+                & > div > span, p {
+                    color: #242424;
+                }
+            }
+            .description {
+                color: #242424;
+            }
         }
     }
 }
