@@ -7,6 +7,8 @@ import ProductCard from "@/components/ProductCard/index";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import classNames from "classnames";
 import type { Product } from "@/components/ProductCard/product.types";
+import useDeviceType from "@/hooks/useDeviceType";
+import { MdSwipe } from "react-icons/md";
 
 gsap.registerPlugin(Draggable);
 
@@ -17,8 +19,10 @@ export interface ListProductProps {
 export const Carousel = ({products}:ListProductProps) => {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const productRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const isMobile = useDeviceType()
 
   const position = useRef(0);
+  const swipeAnimationRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
 		if(!sliderRef.current) return
@@ -45,6 +49,9 @@ export const Carousel = ({products}:ListProductProps) => {
         },
 				onDrag: function() {
           position.current = this.x;
+          if(swipeAnimationRef.current) {
+            gsap.to(swipeAnimationRef.current, {opacity: 0})
+          }
         }
       });
     });
@@ -70,12 +77,10 @@ export const Carousel = ({products}:ListProductProps) => {
     position.current = newPosition;
   };
 
-
-
   return (
     <>
       <div
-        className={classNames("relative w-full md:h-[37vw] h-[75vh] overflow-y-hidden md:overflow-y-visible", [styles.container])}>
+        className={classNames("relative w-full md:h-[37vw] h-[75vh]", [styles.container])}>
         <div id="slider" className={styles.slider} ref={sliderRef}>
           {products.map((item, index) => {
             return (
@@ -87,14 +92,22 @@ export const Carousel = ({products}:ListProductProps) => {
             );
           })}
         </div>
-        <button onClick={() => moveSlider(1)} className={classNames('absolute', [styles.arrow], [styles.left])}>
-          <BsChevronCompactLeft className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
-          <span className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-black'}/></span>
-        </button>
-        <button onClick={() => moveSlider(-1)} className={classNames('absolute', [styles.arrow], [styles.right])}>
-          <BsChevronCompactRight className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
-          <span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-black'}/></span>
-        </button>
+        {!isMobile ? (
+          <>
+            <button onClick={() => moveSlider(1)} className={classNames('absolute', [styles.arrow], [styles.left])}>
+              <BsChevronCompactLeft className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
+              <span className={styles.animatedButton}><BsChevronCompactLeft className={'text-[3em] text-black'}/></span>
+            </button>
+            <button onClick={() => moveSlider(-1)} className={classNames('absolute', [styles.arrow], [styles.right])}>
+              <BsChevronCompactRight className={classNames('text-[3em] text-[#8f8e8e]', [styles.svgPrime])}/>
+              <span className={styles.animatedButton}><BsChevronCompactRight className={'text-[3em] text-black'}/></span>
+            </button>
+          </>
+        ) : (
+          <div className={classNames("pointer-events-none md:pointer-events-auto", [styles.swipeRecommend])} ref={swipeAnimationRef}>
+            <MdSwipe className="text-[3em] text-standar-darker"/>
+          </div>
+        )}
       </div> 
     </>
   );

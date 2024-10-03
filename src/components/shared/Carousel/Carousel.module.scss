@@ -7,8 +7,7 @@
         width: calc(90vw / 4 - 0.9499em);
 
         @include md-down {
-            width: 100%;
-            max-width: 85vw;
+            width: 85vw;
         }
     }
     .slide{
@@ -130,4 +129,21 @@
     justify-content: center;
     align-items: center;
     transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
+}
+
+.swipeRecommend {
+    position: absolute;
+    opacity: 0.3;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9;
+    animation: swipeHand 3s infinite;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes swipeHand {
+	0% {left: 20%;}
+	50% { left: 60%;}
+  100% { left: 20%;}
 }

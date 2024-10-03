@@ -35,10 +35,6 @@ export default function CarouselImages({images}: Props) {
           minX: -(refImageSelected.current[0] as HTMLDivElement).clientWidth * (images.length - 1),
           maxX: 0,
         },
-			inertia: true,
-			onClick: function () {
-				console.log("clicked");
-			},
 			onDrag: function () {
 				if (!refSelectedImageContainer.current) return;
 
