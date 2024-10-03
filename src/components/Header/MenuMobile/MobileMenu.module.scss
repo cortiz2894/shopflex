@@ -4,7 +4,7 @@
   top: 64px;
   position: fixed;
   background-color: white;
-  z-index: 1;
+  z-index: 999999;
   opacity: 0;
   pointer-events: none;
   color: #292929;
@@ -23,7 +23,7 @@
   background-color: white;
   right: -100%;
   transition: right 0.3s ease-out;
-  z-index: 999999;
+  z-index: 999998;
   
   &.active {
     right: 0;
