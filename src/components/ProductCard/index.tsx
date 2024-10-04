@@ -14,6 +14,7 @@ import { CartStore, useCartStore } from '@/store/cartStore';
 import { LinkTransition } from '@/components/shared/LinkTransition/LinkTransition';
 import { getImage } from '@/services/products';
 import { useQuickAddStore } from '@/store/quickAddStore';
+import useDeviceType from '@/hooks/useDeviceType';
 
 type Props = {
   item: Product,
@@ -38,16 +39,18 @@ const ButtonRender = ({isLoading}:{isLoading:boolean}) => {
 
 const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default'}, ref) => {
 
+  const isMobile = useDeviceType()
+
   const pathRef = useRef<SVGPathElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+
   const [initialPath, setInitialPath] = useState('');
   const [targetPath, setTargetPath] = useState('');
   const [isLoading, setIsLoading] = useState(false)
 
   const addProductToStore = useCartStore((state:CartStore) => state.addToCart)
   const { setSlug } = useQuickAddStore();
-
 
   const getWidthCard = () => {
     if (cardRef.current) {
@@ -160,23 +163,23 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           </div>
         </div>
         <div className={classNames('bottom-0 px-6 py-6 relative', [styles.content])}>
-          <svg className={styles.svgCurve}>
+          <svg className={classNames([styles.svgCurve], 'hidden md:block')}>
             <path ref={pathRef} d={initialPath}></path>
           </svg>
           <div className='flex justify-between relative'>
-            <p className='text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
+            <p className='text-lg md:text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
             {item.discount ? (
               <>
                 <span className='uppercase text-gray-400 font-semibold line-through absolute top-[-1.5em] right-0'>$ {item.price}</span>
-                <span className='text-xl uppercase text-black font-semibold'>$ {item.price - ((item.price * item.discount) / 100)}</span>
+                <span className='text-xl uppercase text-black font-semibold whitespace-nowrap'>$ {item.price - ((item.price * item.discount) / 100)}</span>
               </>
             ) : (
-              <span className='text-xl uppercase text-black font-semibold'>$ {item.price}</span>
+              <span className='text-xl uppercase text-black font-semibold whitespace-nowrap'>$ {item.price}</span>
             )}
           </div>
-          <span className={classNames('text-black my-3 block', [styles.description])}
+          <span className={classNames('text-black block text-sm md:my-3 mt-3 mb-0', [styles.description])}
           >{item.description}</span>
-          <div className='flex justify-between items-center gap-4'>
+          <div className='justify-between items-center gap-4 hidden md:flex'>
             
             <ButtonPrimary 
               theme='light' 

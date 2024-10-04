@@ -16,7 +16,7 @@ async function getProducts(): Promise<Product[]> {
   return formattedProductsResponse(data as StrapiProduct[]);
 }
 
-async function getCategory(category?: string): Promise<Category> {
+async function getCategory(category?: string): Promise<Category[]> {
   let url = `${API_URL}/api/categories?populate[products][populate]=*`;
 
   if (category) {

@@ -31,10 +31,10 @@ export function SectionTitle({ text, position = 'left', size = 'medium' }: Props
   }, []);
 
   return (
-    <div className={classNames('relative flex items-center mt-[2rem] mb-[5rem]', [styles[position]])}>
-      <h2 className={classNames('text-standar-darker', [styles.title], [styles[size]])}>{text}</h2>
-      <div ref={lineRef} className={styles.line}></div>
-    </div>
+        <div className={classNames("relative flex items-center md:mt-[2rem] md:mb-[5rem] mb-4 mt-4", [styles[position],])}>
+            <h2 className={classNames("text-standar-darker", [styles.title], [styles[size]])}>{text}</h2>
+            <div ref={lineRef} className={styles.line}></div>
+        </div>
   );
 }
 
