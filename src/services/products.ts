@@ -1,4 +1,4 @@
-import { API_URL } from '@/utils/config.js';
+import { API_URL } from '@/utils/config';
 import { formattedProductsResponse } from '@/utils/transformers/products.transformer';
 
 import { Category, StrapiCategory } from '@/interfaces/categories.interface';
