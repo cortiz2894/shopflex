@@ -29,7 +29,6 @@ export default async function Home() {
         <Container>
           <SectionTitle text='All products'/>
           <Carousel products={products}/>
-          
         </Container>
       </main>
   );
