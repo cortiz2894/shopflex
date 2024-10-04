@@ -12,7 +12,7 @@ interface VideoPlayerProps {
   loop?: boolean;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({
+export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   mp4Src,
   webmSrc,
   poster,
