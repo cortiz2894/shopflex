@@ -15,4 +15,11 @@
 
 .text {
   transform: translateY(100%);
+  width: 100%;
+  height: auto;
+  z-index: 2;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  @include md-down {
+    mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+  }
 }

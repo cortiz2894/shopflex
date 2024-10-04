@@ -5,6 +5,10 @@
 
     & > div{
         width: calc(90vw / 4 - 0.9499em);
+
+        @include md-down {
+            width: 65vw;
+        }
     }
     .slide{
       &:not(:first-child){
@@ -67,6 +71,13 @@
 }
     
 .container {
+
+    @include md-down {
+        width: calc(100% + 10%);
+        margin-left: -5%;
+        padding: 0% 5%;
+    }
+    
     &:hover {
         .arrow {
             opacity: 1;
@@ -118,4 +129,72 @@
     justify-content: center;
     align-items: center;
     transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
+}
+
+.swipeRecommend {
+    position: absolute;
+    opacity: 0.3;
+    left: 80%;
+    bottom: 20%;
+    z-index: 9;
+    animation: swipeHand 3s infinite;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.dotSwipe {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 100%;
+    background-color: #242424;
+    position: absolute;
+    left: 1em;
+    top: -.5em;
+    animation: dotTransform 3s infinite;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes dotTransform {
+    0% {
+        left: 1em;
+        width: .7em;
+        border-radius: 100%;
+    }
+    25% {
+        left: - .5em;
+        width: 2em;
+        border-radius: 5px;
+    }
+    50% {
+        left: 1em;
+        width: .7em;
+        border-radius: 100%;
+
+    }
+    75% {
+        left: 1em;
+        border-radius: 5px;
+
+        width: 2em;
+    }
+    100% {
+        left: 1em;
+        width: .7em;
+        border-radius: 100%;
+
+    }
+}
+
+@keyframes swipeHand {
+	0% { 
+        left: 30%;
+        transform: rotate(-5deg);
+    }
+	50% { 
+        left: 80%;
+        transform: rotate(5deg);
+    }
+    100% { 
+        left: 30%;
+        transform: rotate(-5deg);
+    }
 }
