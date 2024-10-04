@@ -1,4 +1,4 @@
-.loader{
+.loader {
   height: calc(100vh + 200px);
   width: 100%;
   position: fixed;
@@ -9,13 +9,13 @@
   background: black;
 }
 
-.loader svg{
+.loader svg {
   height: 100%;
   width: 100%;
   z-index: 999999;
 }
 
-.logo svg path{
+.logo svg path {
   stroke: white;
   stroke-width: 1px;
 }
@@ -42,7 +42,7 @@
   justify-content: center;
   align-items: center;
   animation: progressLoad 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -54,14 +54,13 @@
 }
 @keyframes removeBlack {
   to {
-      background-color: transparent;
+    background-color: transparent;
   }
 }
 
-
 @keyframes progressLoad {
   to {
-      width: 30vw;
+    width: 30vw;
   }
 }
 

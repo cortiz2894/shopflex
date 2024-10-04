@@ -1,193 +1,196 @@
 .card {
-    position: relative;
-    border-radius: 25px;
-    border: 1px solid #cdcdcd;
-    transition: border-color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
-    opacity: 0;
-    transform: translateY(50px);
+  position: relative;
+  border-radius: 25px;
+  border: 1px solid #cdcdcd;
+  transition: border-color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  opacity: 0;
+  transform: translateY(50px);
 
+  &:hover {
+    border-color: #292929;
+    .imageContainer {
+      top: -20%;
+      transform: scale(1.1);
+    }
+    .content {
+      &:before {
+        height: 56%;
+      }
+      & > div > span,
+      p {
+        color: #fff;
+      }
+    }
+    .description {
+      color: #fff;
+    }
+    .svgCurve {
+      bottom: 55%;
+    }
+  }
+
+  @include md-down {
+    border-color: #292929;
+    .imageContainer {
+      top: 0%;
+      transform: scale(1.05);
+    }
+    .content {
+      &:before {
+        // height: 56%;
+        display: none;
+      }
+      & > div > span,
+      p {
+        color: #242424;
+      }
+    }
+    .description {
+      color: #242424;
+    }
+    .svgCurve {
+      bottom: 55%;
+    }
     &:hover {
-        border-color: #292929;
-        .imageContainer {
-            top: -20%;
-            transform: scale(1.1);
+      .imageContainer {
+        top: 0%;
+      }
+      .content {
+        & > div > span,
+        p {
+          color: #242424;
         }
-        .content {
-            &:before {
-                height: 56%;
-            }
-            & > div > span, p {
-                color: #fff;
-            }
-        }
-        .description {
-            color: #fff;
-        }
-        .svgCurve {
-            bottom: 55%;
-        }
+      }
+      .description {
+        color: #242424;
+      }
     }
-
-    @include md-down {
-         border-color: #292929;
-        .imageContainer {
-            top: 0%;
-            transform: scale(1.05);
-        }
-        .content {
-            &:before {
-                // height: 56%;
-                display: none;
-            }
-            & > div > span, p {
-                color: #242424;
-            }
-        }
-        .description {
-            color: #242424;
-        }
-        .svgCurve {
-            bottom: 55%;
-        }
-        &:hover {
-            .imageContainer {
-                top: 0%;
-            }
-            .content {
-                & > div > span, p {
-                    color: #242424;
-                }
-            }
-            .description {
-                color: #242424;
-            }
-        }
-    }
+  }
 }
 .discount {
-    background-color: #242424;
-    position: absolute;
-    font-weight: 600;
-    border-top-left-radius: 10px;
-    padding: 10px;
-    border-bottom-right-radius: 10px;
-    font-size: 0.8em;
-    text-transform: uppercase;
+  background-color: #242424;
+  position: absolute;
+  font-weight: 600;
+  border-top-left-radius: 10px;
+  padding: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: 0.8em;
+  text-transform: uppercase;
 }
 
 .description {
-    transition-delay: 0.1s;
-    transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-height: 1.5em;
-    min-height: calc(1.5em* 3);
-    max-height: calc(1.5em* 3);
+  transition-delay: 0.1s;
+  transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-height: 1.5em;
+  min-height: calc(1.5em * 3);
+  max-height: calc(1.5em * 3);
 }
 
 .content {
-    display: block;
+  display: block;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding-top: 37%;
+  overflow: hidden;
+  margin-top: -37%;
+  & > div > span,
+  p {
+    transition-delay: 0.1s;
+    transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  &::before {
+    z-index: -1;
+    content: '';
+    width: 100%;
+    position: absolute;
+    left: 0px;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-    padding-top: 37%;
-    overflow: hidden;
-    margin-top: -37%;
-    & > div > span, p {
-        transition-delay: 0.1s;
-        transition: color 0.3s cubic-bezier(0.76, 0, 0.24, 1);
-    }
-   
-    &::before {
-        z-index: -1;
-        content: '';
-        width: 100%;
-        position: absolute;
-        left: 0px;
-        border-bottom-left-radius: 25px;
-        border-bottom-right-radius: 25px;
-        bottom: 0;
-        background: black;
-        height: 0%;
-        transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
-    }
+    bottom: 0;
+    background: black;
+    height: 0%;
+    transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  }
 }
 .imageContainer {
-    width: calc(100% - 45px);
-    height: 100%;
+  width: calc(100% - 45px);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  &::before {
+    content: '';
+    width: 70%;
+    height: 9%;
     position: absolute;
-    top: 0;
-    transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
-    &::before {
-        content: '';
-        width: 70%;
-        height: 9%;
-        position: absolute;
-        background: #000000;
-        border-radius: 50%;
-        filter: blur(24px);
-        opacity: 0.4;
-        z-index: -1;
-        right: calc(50% - 35%);
-        bottom: 10%;
-    }
+    background: #000000;
+    border-radius: 50%;
+    filter: blur(24px);
+    opacity: 0.4;
+    z-index: -1;
+    right: calc(50% - 35%);
+    bottom: 10%;
+  }
 }
 
 .svgCurve {
-    position: absolute;
-    bottom: -40%;
-    left: 0px;
-    width: 100%;
-    pointer-events: none;
-    fill: rgb(0, 0, 0);
-    stroke: none;
-    z-index: -1;
-    transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  position: absolute;
+  bottom: -40%;
+  left: 0px;
+  width: 100%;
+  pointer-events: none;
+  fill: rgb(0, 0, 0);
+  stroke: none;
+  z-index: -1;
+  transition: all 0.3s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .progress {
-    position: absolute;
-    width: 0%;
-    height: calc(100% + 20px) !important;
-    border-radius: 0px !important;    
-    background-color: white !important;
-    left: -10px !important;
-    top: -10px !important;
-    z-index: auto;
-    animation: progressAnimation 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  position: absolute;
+  width: 0%;
+  height: calc(100% + 20px) !important;
+  border-radius: 0px !important;
+  background-color: white !important;
+  left: -10px !important;
+  top: -10px !important;
+  z-index: auto;
+  animation: progressAnimation 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
 @keyframes progressAnimation {
-    0% {
-      width: 0%;
-    }
-    100% {
-      width: calc(100% + 20px);
-    }
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: calc(100% + 20px);
+  }
 }
 
 .buyText {
-    display: flex;
-    position: relative;
-    animation: textAppear 0.3s ease forwards;
-    top: 50px;
-
+  display: flex;
+  position: relative;
+  animation: textAppear 0.3s ease forwards;
+  top: 50px;
 }
 
 @keyframes textAppear {
-    0% {
-        top: 50px;
-    }
-    100% {
-        top: 0px;
-    }
+  0% {
+    top: 50px;
+  }
+  100% {
+    top: 0px;
+  }
 }
 
 .addText {
-    position: relative;
-    z-index: 10;
-    color: white;
-    mix-blend-mode: difference;
+  position: relative;
+  z-index: 10;
+  color: white;
+  mix-blend-mode: difference;
 }

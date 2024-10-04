@@ -1,40 +1,40 @@
 .instagramCard {
-    width: 260px;
-    position: absolute;
-    padding: 1.5em 1.5em 5.5em;
-    border: 1px solid #363636;
+  width: 260px;
+  position: absolute;
+  padding: 1.5em 1.5em 5.5em;
+  border: 1px solid #363636;
+  border-radius: 0.5rem;
+  background-color: rgba(39, 39, 39, 0.32);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  z-index: 6;
+  left: 10vw;
+  transform: rotate(-10deg);
+  top: -80vh;
+  opacity: 0;
+
+  & > .videoContainer {
+    width: 100%;
+    aspect-ratio: 1;
     border-radius: 0.5rem;
-    background-color: rgba(39, 39, 39, 0.32);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    z-index: 6;
-    left: 10vw;
-    transform: rotate(-10deg) ;
-    top: -80vh;
-    opacity: 0;
-    
-    & > .videoContainer {
-        width: 100%;
-        aspect-ratio: 1;
-        border-radius: 0.5rem;
-        object-fit: cover;
-        overflow: hidden;
+    object-fit: cover;
+    overflow: hidden;
+  }
+  figcaption {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5em;
+    flex-direction: column;
+    span {
+      font-size: 1.2rem;
     }
-    figcaption {
-        margin-top: 1rem;
-        display: flex;
-        gap: 0.5em;
-        flex-direction: column;
-        span{
-            font-size: 1.2rem;
-        }
-    }
+  }
 }
 
 .brandLogo {
-    position: absolute;
-    bottom: 0.6em;
-    right: 0.6em;
-    font-size: 32px !important;
-    color: white;
+  position: absolute;
+  bottom: 0.6em;
+  right: 0.6em;
+  font-size: 32px !important;
+  color: white;
 }

@@ -1,23 +1,28 @@
-'use client'
+'use client';
 
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
-import styles from './InfiniteText.module.scss'
-import classNames from "classnames";
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react';
+import styles from './InfiniteText.module.scss';
+import classNames from 'classnames';
 
 gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
-  text: string,
-  size?: 'small' | 'medium',
-  position?: 'hero' | 'bottom',
-  controls?: boolean,
-  direction?: 'left' | 'right'
-}
+  text: string;
+  size?: 'small' | 'medium';
+  position?: 'hero' | 'bottom';
+  controls?: boolean;
+  direction?: 'left' | 'right';
+};
 
-export default function InfiniteText({ text, size = 'medium', position = 'hero', controls = false, direction = 'left' }: Props) {
-
+export default function InfiniteText({
+  text,
+  size = 'medium',
+  position = 'hero',
+  controls = false,
+  direction = 'left',
+}: Props) {
   const firstText = useRef(null);
   const secondText = useRef(null);
   const slider = useRef(null);
@@ -35,9 +40,9 @@ export default function InfiniteText({ text, size = 'medium', position = 'hero',
           scrub: 0.5,
           start: 0,
           end: window.innerHeight,
-          onUpdate: e => scrollDirection = direction === 'left' ? e.direction * -1 : e.direction * 1  // Ajuste de la dirección basado en el scroll
+          onUpdate: (e) => (scrollDirection = direction === 'left' ? e.direction * -1 : e.direction * 1), // Ajuste de la dirección basado en el scroll
         },
-        x: direction === 'left' ? "-500px" : "500px",  // Movimiento inicial
+        x: direction === 'left' ? '-500px' : '500px', // Movimiento inicial
       });
     }
 

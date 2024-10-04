@@ -1,9 +1,9 @@
-'use client'
-import Logo from "@/icons/Logo";
-import { useEffect, useRef, useState } from "react";
-import styles from './Loader.module.scss'
-import classNames from "classnames";
-import { useLoaderStore } from "@/store/loaderStore";
+'use client';
+import Logo from '@/icons/Logo';
+import { useEffect, useRef, useState } from 'react';
+import styles from './Loader.module.scss';
+import classNames from 'classnames';
+import { useLoaderStore } from '@/store/loaderStore';
 
 type Props = {
   onAnimationEnd?: () => void;
@@ -47,12 +47,12 @@ export default function Loader({ onAnimationEnd }: Props) {
 
     path.current.setAttributeNS(
       null,
-      "d",
+      'd',
       `M0 0
       L${width} 0
       L${width} ${height}
       Q${width / 2} ${height - curve} 0 ${height}
-      L0 0`
+      L0 0`,
     );
   };
 
@@ -65,7 +65,7 @@ export default function Loader({ onAnimationEnd }: Props) {
 
     if (!loader.current) return;
 
-    loader.current.style.top = easeOutQuad(elapsed, 0, -(loaderHeight() as number), duration) + "px";
+    loader.current.style.top = easeOutQuad(elapsed, 0, -(loaderHeight() as number), duration) + 'px';
 
     const newCurve = easeOutQuad(elapsed, initialCurve, -200, duration);
     setPath(newCurve);
@@ -73,7 +73,7 @@ export default function Loader({ onAnimationEnd }: Props) {
     if (elapsed < duration) {
       requestAnimationFrame(animate);
     }
-    if (elapsed < (duration - 50)) {
+    if (elapsed < duration - 50) {
       setLoading(false);
     }
   };

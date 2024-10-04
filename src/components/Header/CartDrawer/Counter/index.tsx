@@ -1,12 +1,12 @@
-'use client'
+'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 interface Props {
-    number:number 
+  number: number;
 }
 
-const Counter = ({ number, ...rest }:Props) => {
+const Counter = ({ number, ...rest }: Props) => {
   const [currentNumber, setCurrentNumber] = useState(number);
   const numberRef = useRef<HTMLDivElement>(null);
 
@@ -15,7 +15,7 @@ const Counter = ({ number, ...rest }:Props) => {
       const tl = gsap.timeline({
         onComplete: () => {
           setCurrentNumber(number);
-        }
+        },
       });
 
       tl.to(numberRef.current, {
@@ -25,7 +25,7 @@ const Counter = ({ number, ...rest }:Props) => {
         onComplete: () => {
           gsap.set(numberRef.current, { y: 10, opacity: 0 });
           gsap.to(numberRef.current, { y: 0, opacity: 1, duration: 0.2 });
-        }
+        },
       });
     }
   }, [number, currentNumber]);

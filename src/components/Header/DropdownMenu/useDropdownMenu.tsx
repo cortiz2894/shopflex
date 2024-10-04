@@ -7,10 +7,10 @@ export const useDropdownMenu = () => {
   const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 
   const restartMenu = () => {
-    setHoveredIndex(null)
-    setHoveredButtonIndex(null)
-    setActiveSubmenu(null)
-  }
+    setHoveredIndex(null);
+    setHoveredButtonIndex(null);
+    setActiveSubmenu(null);
+  };
 
   return {
     hoveredIndex,
@@ -21,6 +21,6 @@ export const useDropdownMenu = () => {
     setShowDropdown,
     restartMenu,
     activeSubmenu,
-    setActiveSubmenu
+    setActiveSubmenu,
   };
 };

@@ -1,36 +1,38 @@
 .plusminus {
-	position: relative;
+  position: relative;
   width: 1.2rem;
   height: 1.2rem;
-	
-	&.active {
-		&:before {
-			transform: translatey(-50%) rotate(-90deg);
-			opacity: 0;
-		}
-		&:after {
-			transform: translatey(-50%) rotate(0);
-		}
-	}
-	
-	&:before , &:after {
-		content: "";
-		display: block;
-		background-color: #333;
-		position: absolute;		
-		top: 50%; left: 0;
-		transition: .35s cubic-bezier(0.2, 0.32, 0, 0.87);
-		width: 100%;
-		height: 3px;
-	}
-	
-	&:before {		
-		transform: translatey(-50%);
-	}
-	
-	&:after {
-		transform: translatey(-50%) rotate(90deg);
-	}
+
+  &.active {
+    &:before {
+      transform: translatey(-50%) rotate(-90deg);
+      opacity: 0;
+    }
+    &:after {
+      transform: translatey(-50%) rotate(0);
+    }
+  }
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    background-color: #333;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transition: 0.35s cubic-bezier(0.2, 0.32, 0, 0.87);
+    width: 100%;
+    height: 3px;
+  }
+
+  &:before {
+    transform: translatey(-50%);
+  }
+
+  &:after {
+    transform: translatey(-50%) rotate(90deg);
+  }
 }
 
 // .plusminus {
@@ -63,10 +65,10 @@
 //       height: 3px;
 //       margin-top: -2px;
 //   }
-  
+
 //   &.active{
 //       cursor: pointer;
-      
+
 //       &:before{ transform: rotate(90deg); }
 //       &:after{ transform: rotate(180deg); }
 //   }

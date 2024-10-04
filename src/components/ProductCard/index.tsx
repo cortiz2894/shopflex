@@ -1,13 +1,13 @@
-'use client'
+'use client';
 import { useEffect, useRef, useState, forwardRef } from 'react';
-import styles from './ProductCard.module.scss'
-import classNames from "classnames";
-import Image from "next/image";
+import styles from './ProductCard.module.scss';
+import classNames from 'classnames';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
 import ButtonPrimary from '../shared/ButtonPrimary';
-import { FiShoppingCart } from "react-icons/fi";
-import { FiHeart } from "react-icons/fi";
+import { FiShoppingCart } from 'react-icons/fi';
+import { FiHeart } from 'react-icons/fi';
 import { Product, ProductStore } from './product.types';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { CartStore, useCartStore } from '@/store/cartStore';
@@ -17,29 +17,28 @@ import { useQuickAddStore } from '@/store/quickAddStore';
 import useDeviceType from '@/hooks/useDeviceType';
 
 type Props = {
-  item: Product,
-  variant?: 'default'
-}
+  item: Product;
+  variant?: 'default';
+};
 
 gsap.registerPlugin(CustomEase, MotionPathPlugin);
 
-const ButtonRender = ({isLoading}:{isLoading:boolean}) => {
+const ButtonRender = ({ isLoading }: { isLoading: boolean }) => {
+  return isLoading ? (
+    <div>
+      <span className={styles.addText}>Agregando...</span>
+      <div className={styles.progress}></div>
+    </div>
+  ) : (
+    <span className={styles.buyText}>
+      Add to cart
+      <FiShoppingCart className="text-[20px] ml-2" />
+    </span>
+  );
+};
 
-  return(
-    isLoading ? (
-      <div>
-        <span className={styles.addText}>Agregando...</span>
-        <div className={styles.progress}></div>
-      </div>
-    ) : (
-      <span className={styles.buyText}>Add to cart<FiShoppingCart className='text-[20px] ml-2'/></span>
-    )
-  )
-}
-
-const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default'}, ref) => {
-
-  const isMobile = useDeviceType()
+const ProductCard = forwardRef<HTMLDivElement, Props>(({ item, variant = 'default' }, ref) => {
+  const isMobile = useDeviceType();
 
   const pathRef = useRef<SVGPathElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -47,9 +46,9 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
 
   const [initialPath, setInitialPath] = useState('');
   const [targetPath, setTargetPath] = useState('');
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
-  const addProductToStore = useCartStore((state:CartStore) => state.addToCart)
+  const addProductToStore = useCartStore((state: CartStore) => state.addToCart);
   const { setSlug } = useQuickAddStore();
 
   const getWidthCard = () => {
@@ -58,29 +57,28 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
       setInitialPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} 100 0 100`);
       setTargetPath(`M0 100 L0 200 L${width} 200 L${width} 100 Q${width / 2} 0 0 100`);
     }
-  }
-  
+  };
+
   useEffect(() => {
-    getWidthCard()
-    window.addEventListener('resize', getWidthCard)
+    getWidthCard();
+    window.addEventListener('resize', getWidthCard);
     return () => {
-      window.removeEventListener('resize', getWidthCard)
+      window.removeEventListener('resize', getWidthCard);
     };
   }, []);
-  
-  const animatePath = (path:string) => {
+
+  const animatePath = (path: string) => {
     gsap.to(pathRef.current, {
       attr: { d: path },
       duration: 0.5,
-      ease: 'customEase'
+      ease: 'customEase',
     });
   };
 
-  const addToCart = (e:any) => {
-    
+  const addToCart = (e: any) => {
     e.preventDefault();
 
-    setSlug(item.slug)
+    setSlug(item.slug);
 
     // gsap.to('#navBar', {
     //   yPercent: 0,
@@ -127,35 +125,33 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
     //           discount: 0,
     //           quantity: 1
     //         }
-            
+
     //         addProductToStore(itemToStore)
     //         setIsLoading(false)
     //       }
     //     })
     // }
-  }
+  };
 
-  CustomEase.create("customEase", "M0,0 C0.76,0 0.24,1 1,1");
+  CustomEase.create('customEase', 'M0,0 C0.76,0 0.24,1 1,1');
 
   return (
-    <div 
-      className={classNames(`w-full relative `, [styles.card])} 
+    <div
+      className={classNames(`w-full relative `, [styles.card])}
       ref={ref}
-
       onMouseEnter={() => animatePath(targetPath)}
       onMouseLeave={() => animatePath(initialPath)}
     >
       {item.discount && <div className={styles.discount}>{item.discount}% OFF</div>}
       <LinkTransition href={`/product/${item.slug}`}>
-        <div 
-          ref={cardRef}
-          className='relative w-full pb-[100%] flex justify-center'
-        >
+        <div ref={cardRef} className="relative w-full pb-[100%] flex justify-center">
           <div className={styles.imageContainer}>
-            <Image 
+            <Image
               src={getImage(item.image)}
-              width={500} height={500} objectFit="none"
-              alt='clothes'
+              width={500}
+              height={500}
+              objectFit="none"
+              alt="clothes"
               ref={imgRef}
               data-cursor="Ver"
               data-size="small"
@@ -166,33 +162,39 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
           <svg className={classNames([styles.svgCurve], 'hidden md:block')}>
             <path ref={pathRef} d={initialPath}></path>
           </svg>
-          <div className='flex justify-between relative'>
-            <p className='text-lg md:text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden'>{item.title}</p>
+          <div className="flex justify-between relative">
+            <p className="text-lg md:text-2xl text-black max-w-[70%] text-ellipsis whitespace-nowrap overflow-hidden">
+              {item.title}
+            </p>
             {item.discount ? (
               <>
-                <span className='uppercase text-gray-400 font-semibold line-through absolute top-[-1.5em] right-0'>$ {item.price}</span>
-                <span className='text-xl uppercase text-black font-semibold whitespace-nowrap'>$ {item.price - ((item.price * item.discount) / 100)}</span>
+                <span className="uppercase text-gray-400 font-semibold line-through absolute top-[-1.5em] right-0">
+                  $ {item.price}
+                </span>
+                <span className="text-xl uppercase text-black font-semibold whitespace-nowrap">
+                  $ {item.price - (item.price * item.discount) / 100}
+                </span>
               </>
             ) : (
-              <span className='text-xl uppercase text-black font-semibold whitespace-nowrap'>$ {item.price}</span>
+              <span className="text-xl uppercase text-black font-semibold whitespace-nowrap">$ {item.price}</span>
             )}
           </div>
-          <span className={classNames('text-black block text-sm md:my-3 mt-3 mb-0', [styles.description])}
-          >{item.description}</span>
-          <div className='justify-between items-center gap-4 hidden md:flex'>
-            
-            <ButtonPrimary 
-              theme='light' 
-              size='small' 
-              variant='lessRounded'
-              text={<FiHeart className='text-[20px]'/>} 
+          <span className={classNames('text-black block text-sm md:my-3 mt-3 mb-0', [styles.description])}>
+            {item.description}
+          </span>
+          <div className="justify-between items-center gap-4 hidden md:flex">
+            <ButtonPrimary
+              theme="light"
+              size="small"
+              variant="lessRounded"
+              text={<FiHeart className="text-[20px]" />}
             />
-            <ButtonPrimary 
-              action={addToCart} 
-              theme='light' 
-              variant='lessRounded' 
-              size='full'
-              text={<ButtonRender isLoading={isLoading} />} 
+            <ButtonPrimary
+              action={addToCart}
+              theme="light"
+              variant="lessRounded"
+              size="full"
+              text={<ButtonRender isLoading={isLoading} />}
             />
           </div>
         </div>
@@ -201,4 +203,4 @@ const ProductCard = forwardRef<HTMLDivElement, Props>(({item, variant = 'default
   );
 });
 
-export default ProductCard
+export default ProductCard;

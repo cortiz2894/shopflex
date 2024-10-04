@@ -1,200 +1,195 @@
-.slider{
-    position: absolute;
-    display: flex;
-    gap: 1.25rem;
+.slider {
+  position: absolute;
+  display: flex;
+  gap: 1.25rem;
 
-    & > div{
-        width: calc(90vw / 4 - 0.9499em);
+  & > div {
+    width: calc(90vw / 4 - 0.9499em);
 
-        @include md-down {
-            width: 65vw;
-        }
+    @include md-down {
+      width: 65vw;
     }
-    .slide{
-      &:not(:first-child){
-        margin-left: 6vw;
-      }
-      .preview{
-        height: 350px;
-        width: 350px;
-        background: #c4c4c4;
-        overflow: hidden;
-        img{
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-        }
+  }
+  .slide {
+    &:not(:first-child) {
+      margin-left: 6vw;
+    }
+    .preview {
+      height: 350px;
+      width: 350px;
+      background: #c4c4c4;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
     }
+  }
 }
 
 .arrow {
-    top: calc(50% - 1.5em);
-    z-index: 9991;
-    border: 1px solid #e1e1e1;
-    padding: 0.75em;
-    border-radius: 8px;
-    background: #0000000a;
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    overflow: hidden;
-    box-shadow: 1px 1px 5px #9898980f;
-    opacity: 0.35;
-    transform: scale(0.8);
-    transition-property: left, right, opacity, border-color, border-radius, transform;
-    transition-timing-function: cubic-bezier(0.2, 0.32, 0, 0.87);
-    transition-duration: 0.3s;
+  top: calc(50% - 1.5em);
+  z-index: 9991;
+  border: 1px solid #e1e1e1;
+  padding: 0.75em;
+  border-radius: 8px;
+  background: #0000000a;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  box-shadow: 1px 1px 5px #9898980f;
+  opacity: 0.35;
+  transform: scale(0.8);
+  transition-property: left, right, opacity, border-color, border-radius, transform;
+  transition-timing-function: cubic-bezier(0.2, 0.32, 0, 0.87);
+  transition-duration: 0.3s;
 
-   
-    
-    &.left {
-        left: 0;
-        .svgPrime {
-            transform: translateX(0%);
-            transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
-        }
-        .animatedButton {
-            transform: translate(150%, -50%);
-        }
+  &.left {
+    left: 0;
+    .svgPrime {
+      transform: translateX(0%);
+      transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
     }
-    &.right {
-        right: 0;
-        .svgPrime {
-            transform: translateX(0%);
-            transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
-        }
-        .animatedButton {
-            transform: translate(-150%, -50%);
-        }
+    .animatedButton {
+      transform: translate(150%, -50%);
     }
+  }
+  &.right {
+    right: 0;
+    .svgPrime {
+      transform: translateX(0%);
+      transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
+    }
+    .animatedButton {
+      transform: translate(-150%, -50%);
+    }
+  }
 }
-    
-.container {
 
-    @include md-down {
-        width: calc(100% + 10%);
-        margin-left: -5%;
-        padding: 0% 5%;
-    }
-    
-    &:hover {
-        .arrow {
-            opacity: 1;
-            transform: scale(1);
-            &.left {
-                left: -3.5em;
-                &:active {
-                    transform: scale(0.95);
-                    transition-duration: 0.1s;
-                }
-                &:hover {
-                    .svgPrime {
-                        transform: translateX(-150%);
-                    }
-                    .animatedButton {
-                        transform: translate(-17%, -50%);
-                    }
-                }
-            }
-           &.right {
-                right: -3.5em;
-                &:active {
-                    transform: scale(0.8);
-                    transition-duration: 0.1s;
-                }
-                &:hover {
-                    .svgPrime {
-                        transform: translateX(150%);
-                    }
-                    .animatedButton {
-                        transform: translate(-17%, -50%);
-                    }
-                }
-            }
-            &:hover {
-                border-color: black;
-                border-radius: 50%;
-            }
+.container {
+  @include md-down {
+    width: calc(100% + 10%);
+    margin-left: -5%;
+    padding: 0% 5%;
+  }
+
+  &:hover {
+    .arrow {
+      opacity: 1;
+      transform: scale(1);
+      &.left {
+        left: -3.5em;
+        &:active {
+          transform: scale(0.95);
+          transition-duration: 0.1s;
         }
+        &:hover {
+          .svgPrime {
+            transform: translateX(-150%);
+          }
+          .animatedButton {
+            transform: translate(-17%, -50%);
+          }
+        }
+      }
+      &.right {
+        right: -3.5em;
+        &:active {
+          transform: scale(0.8);
+          transition-duration: 0.1s;
+        }
+        &:hover {
+          .svgPrime {
+            transform: translateX(150%);
+          }
+          .animatedButton {
+            transform: translate(-17%, -50%);
+          }
+        }
+      }
+      &:hover {
+        border-color: black;
+        border-radius: 50%;
+      }
     }
+  }
 }
 
 .animatedButton {
-    width: 100%;
-    position: absolute;
-    height: 100%;
-    top: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s 0s cubic-bezier(0.2, 0.32, 0, 0.87);
 }
 
 .swipeRecommend {
-    position: absolute;
-    opacity: 0.3;
-    left: 80%;
-    bottom: 20%;
-    z-index: 9;
-    animation: swipeHand 3s infinite;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: absolute;
+  opacity: 0.3;
+  left: 80%;
+  bottom: 20%;
+  z-index: 9;
+  animation: swipeHand 3s infinite;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .dotSwipe {
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: 100%;
-    background-color: #242424;
-    position: absolute;
-    left: 1em;
-    top: -.5em;
-    animation: dotTransform 3s infinite;
-    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 100%;
+  background-color: #242424;
+  position: absolute;
+  left: 1em;
+  top: -0.5em;
+  animation: dotTransform 3s infinite;
+  animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @keyframes dotTransform {
-    0% {
-        left: 1em;
-        width: .7em;
-        border-radius: 100%;
-    }
-    25% {
-        left: - .5em;
-        width: 2em;
-        border-radius: 5px;
-    }
-    50% {
-        left: 1em;
-        width: .7em;
-        border-radius: 100%;
+  0% {
+    left: 1em;
+    width: 0.7em;
+    border-radius: 100%;
+  }
+  25% {
+    left: -0.5em;
+    width: 2em;
+    border-radius: 5px;
+  }
+  50% {
+    left: 1em;
+    width: 0.7em;
+    border-radius: 100%;
+  }
+  75% {
+    left: 1em;
+    border-radius: 5px;
 
-    }
-    75% {
-        left: 1em;
-        border-radius: 5px;
-
-        width: 2em;
-    }
-    100% {
-        left: 1em;
-        width: .7em;
-        border-radius: 100%;
-
-    }
+    width: 2em;
+  }
+  100% {
+    left: 1em;
+    width: 0.7em;
+    border-radius: 100%;
+  }
 }
 
 @keyframes swipeHand {
-	0% { 
-        left: 30%;
-        transform: rotate(-5deg);
-    }
-	50% { 
-        left: 80%;
-        transform: rotate(5deg);
-    }
-    100% { 
-        left: 30%;
-        transform: rotate(-5deg);
-    }
+  0% {
+    left: 30%;
+    transform: rotate(-5deg);
+  }
+  50% {
+    left: 80%;
+    transform: rotate(5deg);
+  }
+  100% {
+    left: 30%;
+    transform: rotate(-5deg);
+  }
 }

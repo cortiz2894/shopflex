@@ -35,7 +35,8 @@ main {
 
 /* Lenis */
 
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
@@ -80,13 +81,15 @@ html.lenis, html.lenis body {
   opacity: 0;
 }
 
-.appear li{
+.appear li {
   opacity: 0;
   transform: translateY(50px);
 }
 
 nav {
-  transition: width 0.1s ease-in-out, height 0.2s cubic-bezier(0.2, 0.32, 0, 0.87);
+  transition:
+    width 0.1s ease-in-out,
+    height 0.2s cubic-bezier(0.2, 0.32, 0, 0.87);
 }
 
 .menu-dropdown {
@@ -108,8 +111,8 @@ nav {
 
 .dropdown-item button {
   transition-property: all;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
-  transition-duration: .15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
   cursor: pointer;
 }
 
@@ -131,16 +134,16 @@ nav {
 }
 
 .hover-button {
-    user-select: none;
-    position: absolute;
-    z-index: 1;
-    top: 70%;
-    left: 0.5rem;
+  user-select: none;
+  position: absolute;
+  z-index: 1;
+  top: 70%;
+  left: 0.5rem;
 }
 
 /* CURVE MENU */
 
-.svgCurve{
+.svgCurve {
   position: absolute;
   top: 0;
   left: -99px;
@@ -157,8 +160,8 @@ nav {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, rgba(0,0,0,0.5452556022408963) 17%, rgba(0,0,0,0.1110819327731093) 62%);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5452556022408963) 17%, rgba(0, 0, 0, 0.1110819327731093) 62%);
   z-index: 1;
   top: 0;
   left: 0;
@@ -166,7 +169,7 @@ nav {
 
 /*Page transition*/
 
-.loader{
+.loader {
   height: calc(100vh + 200px);
   width: 100%;
   position: fixed;
@@ -174,7 +177,7 @@ nav {
   z-index: 99999999;
 }
 
-.loader svg{
+.loader svg {
   height: 100%;
   width: 100%;
 }
