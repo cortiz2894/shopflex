@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react';
-import { isWindowDefined } from '@/utils/window';
 
+// NOTE: don't fix this error, will break the loader
 const useDeviceType = () => {
   const [isMobile, setIsMobile] = useState(() => {
-    if (!isWindowDefined()) {
-      return;
-    }
     return window.innerWidth <= 768;
   });
 
   useEffect(() => {
-    if (!isWindowDefined()) {
-      return;
-    }
     const mediaQuery = window.matchMedia('(max-width: 768px)');
 
     const handleResize = (e: MediaQueryListEvent) => {
