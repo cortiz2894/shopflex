@@ -6,6 +6,8 @@ import styles from './MobileMenu.module.scss';
 import { Navlink } from '@/interfaces/navbar.interface';
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { CustomEase } from 'gsap/CustomEase';
+import Image from 'next/image';
+import { useGSAP } from '@gsap/react';
 
 interface MobileMenuProps {
   navlinks: Navlink[]
@@ -18,6 +20,8 @@ CustomEase.create("customEase", "0.25, 0.46, 0.45, 0.94");
 const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<HTMLLIElement[]>([]);
+  const openItemSlideRef = useRef<HTMLDivElement | null>(null);
+  const openItemContentRef = useRef<HTMLUListElement | null>(null);
 
   const [openSlide, setOpenSlide] = useState<string>('')
 
@@ -62,10 +66,44 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
   
   const selectedNavlink = navlinks.find((link) => link.title === openSlide);
 
+  useGSAP(() => {
+    if(!openItemSlideRef.current || !openItemContentRef.current) return
+
+    if(openSlide !== '') {
+      gsap.to(openItemSlideRef.current, {
+        right: 0,
+        duration: 0.3
+      })
+      gsap.to(openItemContentRef.current, {
+        delay: 0.3,
+        opacity: 1,
+        y: 0
+      })
+    }
+
+  }, [openSlide])
+
+  const closeAnimationDropdown = () => {
+    if(!openItemSlideRef.current || !openItemContentRef.current) return
+
+    gsap.to(openItemSlideRef.current, {
+      right: '-100%',
+      duration: 0.2
+    })
+    gsap.to(openItemContentRef.current, {
+      // delay: 0.3,
+      opacity: 0,
+      y: 25,
+      onComplete: () => {
+        setOpenSlide('')
+      }
+    })
+  }
+
   return (
     <>
       <div
-        className={classNames('p-3', [styles.mobileNav], {[styles.activeSlide]: openSlide})}
+        className={classNames('p-3 pt-8', [styles.mobileNav], {[styles.activeSlide]: openSlide})}
         ref={mobileMenuRef}
       >
         <ul className={classNames('flex flex-col gap-5 w-full', [styles.containerLinks], {[styles.linkActiveSlide]: openSlide})}>
@@ -81,20 +119,27 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
             </li>
           ))}
         </ul>
-        <div className={classNames(styles.openItemSlide, {[styles.active]: openSlide}, 'p-3')}>
-          <div className='flex w-full items-center gap-2 pb-4' onClick={() => setOpenSlide('')}>
+        <div ref={openItemSlideRef} className={classNames(styles.openItemSlide, {[styles.active]: openSlide}, 'p-3 pt-8')}>
+          <div className='flex w-full items-center gap-2 pb-4' onClick={closeAnimationDropdown}>
             <FiChevronLeft className='text-[28px] text-standar-darker'/>
             <span className={styles.mobileLink}>{openSlide}</span>
           </div>
-          <ul className='flex flex-col gap-3'>
-          {selectedNavlink && selectedNavlink.dropdown && (
-            selectedNavlink.dropdown.map((dropdownItem, index) => (
+          <ul className='flex flex-col gap-3 translate-y-6 opacity-0' ref={openItemContentRef}>
+            {selectedNavlink?.dropdown?.map((dropdownItem, index) => (
               <li key={index} className='text-standar-darker text-xl'>
-                {dropdownItem.title}
+                <p>{dropdownItem.title}</p>
               </li>
-            ))
-            )}
+            ))}
           </ul>
+          <div className={classNames('absolute left-0 bottom-0 p-3 w-full h-[35vh]',[styles.imageDropdown], {[styles.active]: openSlide})}>
+            <Image 
+              src={`/images/${selectedNavlink?.img}`}
+              layout='fill'
+              objectFit='cover'
+              alt='clothes'
+            />
+            <span className='text-white text-lg absolute z-10'>{selectedNavlink?.title}</span>
+          </div>
         </div>
       </div>
     </>

@@ -14,6 +14,8 @@ import { getImage } from '@/services/products'
 import { LinkTransition } from '../shared/LinkTransition/LinkTransition';
 import useDeviceType from '@/hooks/useDeviceType';
 import { useGSAP } from '@gsap/react';
+import classNames from 'classnames';
+import { IoIosArrowDroprightCircle } from "react-icons/io";
 
 export type CollectionType = {
 	id: number,
@@ -175,7 +177,7 @@ export default function Gallery() {
 					</div>
 				)}
 				{isMobile && (
-					<div className='flex gap-5' ref={collectionMobileRef}>
+					<div className={classNames('flex gap-5', [styles.mobileDraggable])} ref={collectionMobileRef}>
 						{collections.map((collection, index) => {
 							return(
 								<div 
@@ -197,8 +199,11 @@ export default function Gallery() {
 													objectFit: 'cover',
 													minHeight: '100%'
 												}}
-											/>	
-											<p>{collection.title}</p>
+											/>
+											<div className={classNames('absolute bottom-0 left-0 z-10 flex h-full justify-between w-full p-4 items-end', styles.overlayGalleryMobile)}>
+												<p className='text-white text-lg '>{collection.title}</p>
+												<IoIosArrowDroprightCircle className='text-white text-2xl'/>
+											</div>	
 										</div>
 									</LinkTransition>
 								</div>
