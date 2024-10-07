@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const useDeviceType = () => {
   const [isMobile, setIsMobile] = useState(() => {
-    return window.innerWidth <= 768;
+  return window.innerWidth <= 768;
   });
 
   useEffect(() => {

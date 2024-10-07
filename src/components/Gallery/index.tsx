@@ -183,6 +183,7 @@ export default function Gallery() {
 								<div 
 									className={styles.collectionMobile} 
 									id={`gallery-item-mobile-${index}`}
+									key={index}
 									ref={(el) => {
 										collectionMobileItemRefs.current[index] = el;
 									}}

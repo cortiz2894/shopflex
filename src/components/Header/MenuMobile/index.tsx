@@ -124,9 +124,9 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
             <FiChevronLeft className='text-[28px] text-standar-darker'/>
             <span className={styles.mobileLink}>{openSlide}</span>
           </div>
-          <ul className='flex flex-col gap-3 translate-y-6 opacity-0' ref={openItemContentRef}>
+          <ul className='flex flex-col gap-4 translate-y-6 opacity-0' ref={openItemContentRef}>
             {selectedNavlink?.dropdown?.map((dropdownItem, index) => (
-              <li key={index} className='text-standar-darker text-xl'>
+              <li key={index} className='text-standar-darker'>
                 <p>{dropdownItem.title}</p>
               </li>
             ))}
