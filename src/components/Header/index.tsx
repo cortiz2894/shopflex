@@ -21,6 +21,7 @@ import { useLoaderStore } from "@/store/loaderStore";
 import useDeviceType from "@/hooks/useDeviceType";
 import MobileMenu from "./MenuMobile";
 import { IoCloseOutline } from "react-icons/io5";
+import { usePathname } from 'next/navigation'
 
 const NAVLINKS = [
     { 
@@ -161,27 +162,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Header() {
 
-    const [navlinks, setNavlinks] = useState<Navlink[]>(NAVLINKS);
-		const isMobile = useDeviceType();
+	const [navlinks, setNavlinks] = useState<Navlink[]>(NAVLINKS);
+	const isMobile = useDeviceType();
+	const pathname = usePathname()
 
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const [showDropdown, setShowDropdown] = useState<boolean>(false);
-		const [isCartOpen, setIsCartOpen] = useState(false);
-		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
-		const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
-		const [mobileMenu, setMobileMenu] = useState<boolean>(false)
-		const [logoWhite, setLogoWhite] = useState(isMobile)
-		const isLoading = useLoaderStore((state) => state.isLoading);
+	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const [showDropdown, setShowDropdown] = useState<boolean>(false);
+	const [isCartOpen, setIsCartOpen] = useState(false);
+	const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
+	const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+	const [mobileMenu, setMobileMenu] = useState<boolean>(false)
+	const [logoWhite, setLogoWhite] = useState(isMobile)
+	const isLoading = useLoaderStore((state) => state.isLoading);
 
-		const headerRef = useRef<HTMLDivElement>(null)
-		const navBarRef = useRef<HTMLDivElement>(null)
-		const lenisRef = useRef<Lenis | null>(null);
+	const headerRef = useRef<HTMLDivElement>(null)
+	const navBarRef = useRef<HTMLDivElement>(null)
+	const lenisRef = useRef<Lenis | null>(null);
 
-		const { totals } = useCartStore((state:CartStore) => ({
-			totals : state.totals
-		}), shallow)
+	const { totals } = useCartStore((state:CartStore) => ({
+		totals : state.totals
+	}), shallow)
 
-		let tl = gsap.timeline({ paused: true });
+	let tl = gsap.timeline({ paused: true });
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -347,7 +349,7 @@ export default function Header() {
 										}}
 									>
 										<LinkTransition href={'/'}>
-											<Logo drawAnimation={logoWhite && !mobileMenu ? true : false}/>
+											<Logo drawAnimation={logoWhite && !mobileMenu && pathname === '/' ? true : false}/>
 										</LinkTransition>
 									</div>
 									<ul className="appear overflow-hidden md:flex hidden">
