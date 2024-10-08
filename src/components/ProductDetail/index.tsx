@@ -107,7 +107,7 @@ export default function ProductDetail({product, isLite}: Props) {
 	const addProductToCart = () => {
 		gsap.to('#navBar', {
       yPercent: 0,
-      opacity: 1,
+      opacity: 1
     })
 
 		if(!sizeSelected || !colorSelected) {

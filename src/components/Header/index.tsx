@@ -170,6 +170,7 @@ export default function Header() {
 		const [hoveredButtonIndex, setHoveredButtonIndex] = useState<number | null>(null);
 		const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
 		const [mobileMenu, setMobileMenu] = useState<boolean>(false)
+		const [logoWhite, setLogoWhite] = useState(isMobile)
 		const isLoading = useLoaderStore((state) => state.isLoading);
 
 		const headerRef = useRef<HTMLDivElement>(null)
@@ -271,12 +272,20 @@ export default function Header() {
 				
 				onUpdate: (self:any) => {
 					if(self.direction === -1) {
-						showAnim.play() 
+						showAnim.play()
 					}
 					else {
 						restartMenu()
 						setShowDropdown(false);
 						showAnim.reverse()
+						if(isMobile) {
+							gsap.to(navBarRef.current , {
+								backgroundColor: '#f9f9f9',
+								delay: .5,
+								borderBottom: '1px solid #ececec',
+								onComplete: () => setLogoWhite(false)
+							})
+						}
 					} 
 				}
 			});
@@ -338,7 +347,7 @@ export default function Header() {
 										}}
 									>
 										<LinkTransition href={'/'}>
-											<Logo />
+											<Logo drawAnimation={logoWhite && !mobileMenu ? true : false}/>
 										</LinkTransition>
 									</div>
 									<ul className="appear overflow-hidden md:flex hidden">

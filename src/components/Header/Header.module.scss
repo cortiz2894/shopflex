@@ -46,7 +46,11 @@
     &:hover {
       background-color: white;
     }
-  
+    
+    @include md-down {
+      background-color: transparent;
+      backdrop-filter: blur(0px);
+    }
     
   }
 

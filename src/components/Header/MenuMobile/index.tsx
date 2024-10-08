@@ -8,6 +8,7 @@ import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import { CustomEase } from 'gsap/CustomEase';
 import Image from 'next/image';
 import { useGSAP } from '@gsap/react';
+import { LinkTransition } from '@/components/shared/LinkTransition/LinkTransition';
 
 interface MobileMenuProps {
   navlinks: Navlink[]
@@ -91,13 +92,11 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
       duration: 0.2
     })
     gsap.to(openItemContentRef.current, {
-      // delay: 0.3,
       opacity: 0,
       y: 25,
-      onComplete: () => {
-        setOpenSlide('')
-      }
     })
+    setOpenSlide('')
+
   }
 
   return (
@@ -138,7 +137,14 @@ const MobileMenu = ({navlinks, active}: MobileMenuProps) => {
               objectFit='cover'
               alt='clothes'
             />
-            <span className='text-white text-lg absolute z-10'>{selectedNavlink?.title}</span>
+            <span className='text-white text-lg absolute z-10 top-3 left-3'>{selectedNavlink?.title}</span>
+            <button 
+              className='bg-white text-standar-darker px-3 py-2 text-sm absolute z-10 bottom-3 left-3'
+            >
+              <LinkTransition href={'/products'}>
+                See all
+              </LinkTransition>
+            </button>
           </div>
         </div>
       </div>
