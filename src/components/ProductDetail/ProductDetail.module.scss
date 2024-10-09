@@ -1,104 +1,126 @@
 .infoContainer {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include md-down {
+    order: 2;
+    width: 100%;
+    padding: 0 5%;
+  }
 }
 
 .detailsContainer {
-    width: 20%;
+  width: 20%;
+  @include md-down {
+    width: 100%;
+    order: 3;
+    padding: 0 5%;
+  }
 }
 
 .title {
-    font-size: clamp(1.5625rem, 0.5477rem + 1.6269vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: -2px;
-    line-height: clamp(1.5625rem, 0.5477rem + 1.6269vw, 2.5rem);
+  font-size: clamp(1.5625rem, 0.5477rem + 1.6269vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: clamp(1.5625rem, 0.5477rem + 1.6269vw, 2.5rem);
 }
 .price {
-    font-size: 2em;
-    font-weight: 300;
+  font-size: 2em;
+  font-weight: 300;
 }
 
 .containerAnimated {
-    transform: translateY(200px);
-    opacity: 0;
+  transform: translateY(200px);
+  opacity: 0;
 }
 
 .imageContainer {
-    max-height: 60vw;
-    min-height: 50vw;
+  max-height: 60vw;
+  min-height: 50vw;
+  @include md-down {
+    max-height: 100vh;
+    min-height: 100vh;
+    gap: 0;
+  }
 }
 
 .colorSelector {
-    border-radius: 8px;
-    border: 1px solid white;
-    padding: 0.5em;
-    width: 20%;
-    height: 100%;
-    border-color: rgb(170, 170, 170);
+  border-radius: 8px;
+  border: 1px solid white;
+  padding: 0.5em;
+  width: 20%;
+  height: 100%;
+  border-color: rgb(170, 170, 170);
 
-    &.Black {
-        div{
-            background-color: #242424;
-        }
+  &.Black {
+    div {
+      background-color: #242424;
     }
-    &.Red {
-        div{
-            background-color: #b41213;
-        }
+  }
+  &.Red {
+    div {
+      background-color: #b41213;
     }
-    &.White {
-        div{
-            background-color: white;
-        }
+  }
+  &.White {
+    div {
+      background-color: white;
     }
-    & > div {
-        width: 100%;
-        height: 100%;
-        border-radius: 5px;
-    }
-    &.active {
-        border-color: black;
-    }
-    &:hover {
-        border-color: black;
-    }
+  }
+  & > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+  &.active {
+    border-color: black;
+  }
+  &:hover {
+    border-color: black;
+  }
 }
 
 .sizeSelector {
-    width: 2.5em;
-    height: 2.5em;
-    display: flex;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px; 
-    border: 1px solid rgb(170, 170, 170);
+  width: 2.5em;
+  height: 2.5em;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid rgb(170, 170, 170);
+  p {
+    color: rgb(170, 170, 170);
+  }
+  &.active {
+    border-color: black;
     p {
-        color: rgb(170, 170, 170);
+      color: black;
     }
-    &.active {
-        border-color: black;
-        p {
-            color: black;
-        }
-    }
+  }
 }
 
 .paymentText {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:before {
+    content: '';
     width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:before {
-        content: '';
-        width: 100%;
-        position: absolute;
-        height: 1px;
-        background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(210,210,210,1) 30%, rgba(210,210,210,1) 70%, rgba(0,0,0,0) 100%);
-        left: 0;
-        top: 50%;
-    }
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(210, 210, 210, 1) 30%,
+      rgba(210, 210, 210, 1) 70%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    left: 0;
+    top: 50%;
+  }
 }
