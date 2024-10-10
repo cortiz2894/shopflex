@@ -67,6 +67,22 @@
       transform: translateX(0%);
     }
   }
+  @include md-down {
+    width: 20%;
+
+    &:hover {
+      .animatedButton {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+    }
+    &:active {
+      .animatedButton {
+        opacity: 1;
+        transform: translateX(0%);
+      }
+    }
+  }
   &.left {
     &:hover {
       .svgPrime {
@@ -75,11 +91,43 @@
       }
     }
   }
+  @include md-down {
+    &.left {
+      &:hover {
+        .svgPrime {
+          opacity: 1;
+          transform: translateX(0%);
+        }
+      }
+      &:active {
+        .svgPrime {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+      }
+    }
+  }
   &.right {
     &:hover {
       .svgPrime {
         opacity: 0;
         transform: translateX(100%);
+      }
+    }
+  }
+  @include md-down {
+    &.right {
+      &:hover {
+        .svgPrime {
+          opacity: 1;
+          transform: translateX(0%);
+        }
+      }
+      &:active {
+        .svgPrime {
+          opacity: 0;
+          transform: translateX(100%);
+        }
       }
     }
   }

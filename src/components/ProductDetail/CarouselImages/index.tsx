@@ -12,6 +12,7 @@ import ButtonPrimary from '@/components/shared/ButtonPrimary/index';
 import { getRemValue } from '@/utils/fontValues';
 import styles from './CarouselImages.module.scss';
 import { getImage } from '@/services/products';
+import useDeviceType from '@/hooks/useDeviceType';
 
 interface Props {
   images: string[];
@@ -27,6 +28,8 @@ export default function CarouselImages({ images }: Props) {
   const [isZoomActive, setIsZoomActive] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
   const loupeRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const isMobile = useDeviceType();
 
   useGSAP(() => {
     Draggable.create(refSelectedImageContainer.current, {
@@ -69,7 +72,7 @@ export default function CarouselImages({ images }: Props) {
     setSelected(index);
 
     gsap.to(refSelectedImageContainer.current, {
-      x: -(widthImageContainer * index + gap * index),
+      x: -(isMobile ? window.screen.width * index : widthImageContainer * index + gap * index),
       ease: 'Power4.inOut',
     });
     gsap.to(refImageSelected.current, {

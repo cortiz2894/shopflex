@@ -1,9 +1,8 @@
-
 .navLink {
   font-size: clamp(0.875rem, 0.6044rem + 0.4338vw, 1.125rem);
 }
 
-.navbar { 
+.navbar {
   width: calc(91.666667vw - 48px);
   box-shadow: '1px 1px 5px #9898980f';
 
@@ -18,13 +17,13 @@
     }
     & > li.active {
       color: #363636 !important;
-    } 
+    }
   }
 
   &.activeMobile {
     &::before {
       @include md-down {
-        transition: background-color .2s ease-in-out;
+        transition: background-color 0.2s ease-in-out;
         background-color: white;
       }
     }
@@ -41,17 +40,17 @@
     -webkit-backdrop-filter: blur(10px) brightness(1.2);
     backdrop-filter: blur(10px) brightness(1.2);
     z-index: -1;
-    transition: background-color .5s ease-in-out;
-    
+    transition: background-color 0.5s ease-in-out;
+
     &:hover {
       background-color: white;
     }
-    
+
     @include md-down {
       background-color: transparent;
+      -webkit-backdrop-filter: blur(0px);
       backdrop-filter: blur(0px);
     }
-    
   }
 
   @include md-down {

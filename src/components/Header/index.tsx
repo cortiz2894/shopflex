@@ -287,14 +287,6 @@ export default function Header() {
           restartMenu();
           setShowDropdown(false);
           showAnim.reverse();
-          if (isMobile) {
-            gsap.to(navBarRef.current, {
-              backgroundColor: '#f9f9f9',
-              delay: 0.5,
-              borderBottom: '1px solid #ececec',
-              onComplete: () => setLogoWhite(false),
-            });
-          }
         }
       },
     });
@@ -329,17 +321,32 @@ export default function Header() {
     }
   };
 
+  const backgroundChangeMobile = () => {
+    setMobileMenu(false);
+    setLogoWhite(true);
+    gsap.to(navBarRef.current, {
+      background: 'transparent',
+      border: 'none',
+      duration: 0.2,
+    });
+  };
+
   useEffect(() => {
+    backgroundChangeMobile();
+
     const handleScroll = () => {
-      if (isMobile && window.scrollY === 0) {
-        setMobileMenu(false);
-        setLogoWhite(true);
-        gsap.to('#navBar', {
-          background: 'transparent',
-          border: 'none',
+      if (isMobile && window.scrollY <= window.screen.height) {
+        backgroundChangeMobile();
+      } else {
+        setLogoWhite(false);
+        gsap.to(navBarRef.current, {
+          backgroundColor: '#f9f9f9',
+          borderBottom: '1px solid #ececec',
+          duration: 0.3,
         });
       }
     };
+
     window.addEventListener('scroll', handleScroll);
 
     return () => {
@@ -378,14 +385,14 @@ export default function Header() {
               </div>
               <div className="flex items-center">
                 <div
-                  className="text-black w-28 md:mr-10"
+                  className={classNames('w-28 md:mr-10 text-black', { '!text-white': logoWhite && !mobileMenu })}
                   onMouseEnter={() => {
                     restartMenu();
                     setShowDropdown(false);
                   }}
                 >
                   <LinkTransition href={'/'}>
-                    <Logo drawAnimation={logoWhite && !mobileMenu ? true : false} />
+                    <Logo />
                   </LinkTransition>
                 </div>
                 <ul className="appear overflow-hidden md:flex hidden">
