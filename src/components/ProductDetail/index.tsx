@@ -18,6 +18,7 @@ import { CartStore, useCartStore } from '@/store/cartStore';
 import type { Product, ProductDetail, ProductStore } from '@/components/ProductCard/product.types';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
+import useDeviceType from '@/hooks/useDeviceType';
 
 const PAYMENTS_METHODS = [
   {
@@ -62,6 +63,7 @@ export default function ProductDetail({ product, isLite }: Props) {
   const [colorSelected, setColorSelected] = useState<string | null>(null);
   const [sizeSelected, setSizeSelected] = useState<string | null>(null);
 
+  const isMobile = useDeviceType();
   const addProductToStore = useCartStore((state: CartStore) => state.addToCart);
 
   useGSAP(() => {
@@ -200,14 +202,16 @@ export default function ProductDetail({ product, isLite }: Props) {
         </div>
         <div className={styles.infoContainer}>
           <div>
-            <span className="text-standar-darker text-base mb-3">{product.drop.title}</span>
-            <h2 className={classNames('text-black uppercase mt-3', [styles.title])}>{product.title}</h2>
-            <p className={classNames('text-black mt-2', [styles.price])}>
+            <span className="md:text-standar-darker text-white text-base">{product.drop.title}</span>
+            <h2 className={classNames('md:text-black text-white uppercase md:mt-3 mt-2', [styles.title])}>
+              {product.title}
+            </h2>
+            <p className={classNames('md:text-black text-white mt-2', [styles.price])}>
               $ <b>{product.price}</b>
             </p>
           </div>
           <div>
-            <h3 className="text-black mb-3">Sizes</h3>
+            <h3 className="text-black mb-3 md:block hidden">Sizes</h3>
             <div className="flex gap-3 mb-3">
               {product.sizes.map((size, i) => (
                 <button
@@ -219,7 +223,7 @@ export default function ProductDetail({ product, isLite }: Props) {
                 </button>
               ))}
             </div>
-            <h3 className="text-black mb-3">Colors</h3>
+            <h3 className="text-black mb-3 md:block hidden">Colors</h3>
             <div className="flex gap-3 w-full h-10">
               {product.colors.map((color, i) => (
                 <button
@@ -236,7 +240,7 @@ export default function ProductDetail({ product, isLite }: Props) {
           </div>
           <div className="flex flex-col gap-3">
             <ButtonPrimary
-              theme="dark"
+              theme={isMobile ? 'light' : 'dark'}
               action={() => addProductToCart()}
               size="full"
               variant="lessRounded"
@@ -247,7 +251,7 @@ export default function ProductDetail({ product, isLite }: Props) {
                 </span>
               }
             />
-            <div className="mt-3">
+            <div className="mt-3 md:block hidden">
               <div className={classNames('mb-3', [styles.paymentText])}>
                 <p className="text-standar-lighter text-sm text-center bg-white relative px-2">Our payment methods</p>
               </div>

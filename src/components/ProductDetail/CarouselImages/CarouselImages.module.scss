@@ -45,6 +45,17 @@
   @include md-down {
     height: 100vh;
     border-radius: 0px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 20%;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgb(0 0 0 / 60%) 86%);
+      z-index: 9991;
+    }
   }
 }
 
@@ -69,6 +80,7 @@
   }
   @include md-down {
     width: 20%;
+    height: 75%;
 
     &:hover {
       .animatedButton {
