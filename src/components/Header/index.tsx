@@ -332,6 +332,8 @@ export default function Header() {
   };
 
   useEffect(() => {
+    if (!isMobile) return;
+
     backgroundChangeMobile();
 
     const handleScroll = () => {

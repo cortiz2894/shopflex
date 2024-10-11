@@ -16,11 +16,12 @@ import useDeviceType from '@/hooks/useDeviceType';
 
 interface Props {
   images: string[];
+  isLite?: boolean;
 }
 
 gsap.registerPlugin(Draggable);
 
-export default function CarouselImages({ images }: Props) {
+export default function CarouselImages({ images, isLite = false }: Props) {
   const [selected, setSelected] = useState(0);
   const refSelectedImageContainer = useRef<HTMLDivElement | null>(null);
   const refImageSelected = useRef<(HTMLDivElement | null)[]>([]);
@@ -149,7 +150,7 @@ export default function CarouselImages({ images }: Props) {
 
   return (
     <>
-      <div className={styles.image}>
+      <div className={classNames(styles.image, { '!h-full': isLite })}>
         <div className="absolute top-2 left-2 z-[99999] hidden md:block">
           <ButtonPrimary theme="light" size="small" variant="lessRounded" text={<FiHeart className="text-[20px]" />} />
         </div>
@@ -213,23 +214,25 @@ export default function CarouselImages({ images }: Props) {
           </button>
         )}
       </div>
-      <div className={styles.carouselImages}>
-        {images.map((image, index) => (
-          <div
-            className={classNames(selected === index && [styles.active])}
-            onClick={() => handleSelectImage(index)}
-            key={index}
-          >
-            <Image
-              src={getImage(image)}
-              layout="fill"
-              objectFit="cover"
-              alt={'Reign-Of-Blood'}
-              className={styles.imageCenter}
-            />
-          </div>
-        ))}
-      </div>
+      {!isLite && (
+        <div className={styles.carouselImages}>
+          {images.map((image, index) => (
+            <div
+              className={classNames(selected === index && [styles.active])}
+              onClick={() => handleSelectImage(index)}
+              key={index}
+            >
+              <Image
+                src={getImage(image)}
+                layout="fill"
+                objectFit="cover"
+                alt={'Reign-Of-Blood'}
+                className={styles.imageCenter}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }

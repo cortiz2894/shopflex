@@ -148,7 +148,13 @@ export default function ProductDetail({ product, isLite }: Props) {
 
   return (
     <Container mobileFullWidth={true}>
-      <div className={classNames('flex md:flex-row flex-col gap-5 ', { 'md:pt-[64px] md:mt-6 ': !isLite })}>
+      <div
+        className={classNames(
+          'flex md:flex-row flex-col gap-5 ',
+          { 'md:pt-[64px] md:mt-6 ': !isLite },
+          { 'max-h-fit h-full': isLite },
+        )}
+      >
         <div className={styles.detailsContainer} ref={accordionContainerRef}>
           <Accordion
             title={'Description'}
@@ -186,10 +192,11 @@ export default function ProductDetail({ product, isLite }: Props) {
             'md:w-1/2 w-full relative md:min-h-[85vh] min-h-[100vh] flex flex-col gap-4',
             [styles.imageContainer],
             [styles.containerAnimated],
+            { 'max-h-full min-h-full': isLite },
           )}
           ref={imageContainerRef}
         >
-          <CarouselImages images={product.images} />
+          <CarouselImages images={product.images} isLite={isLite} />
         </div>
         <div className={styles.infoContainer}>
           <div>
