@@ -3,7 +3,7 @@ import Footer from '@/components/Footer/index';
 import Header from '@/components/Header/index';
 import Loader from '@/components/shared/Loader/index';
 import { Inter } from 'next/font/google';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '@/styles/globals.scss';
 // replace with the glabolas.scss
 import './globals.css';
@@ -20,8 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const params = useParams<{ tag: string; item: string }>();
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
+    if (!localStorage.getItem('isLoaded')) {
+      setShowLoader(true);
+    }
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 300);
@@ -38,10 +42,12 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        {/* {showLoader && <Loader />} */}
         <Loader />
-        {/* <Header/>   */}
+
+        <Header />
         {children}
-        {/* <Footer /> */}
+        <Footer />
         <Cursor />
         <Toaster
           position="top-right"

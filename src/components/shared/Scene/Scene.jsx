@@ -4,6 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import Model from './Model';
 import { Environment } from '@react-three/drei';
 import { useControls } from 'leva';
+import styles from './Scene.module.scss';
 
 export default function Scene() {
   const lightProps = useControls({
@@ -14,13 +15,16 @@ export default function Scene() {
   });
 
   return (
-    <Canvas style={{ backgroundColor: 'black' }}>
-      <directionalLight
-        intensity={lightProps.intensity}
-        position={[lightProps.positionY, lightProps.positionX, lightProps.positionZ]}
-      />
-      <Environment preset="city" />
-      <Model />
-    </Canvas>
+    <>
+      <div className={styles.blurElement}></div>
+      <Canvas style={{ backgroundColor: 'transparent' }}>
+        <directionalLight
+          intensity={lightProps.intensity}
+          position={[lightProps.positionY, lightProps.positionX, lightProps.positionZ]}
+        />
+        <Environment preset="city" />
+        <Model />
+      </Canvas>
+    </>
   );
 }
