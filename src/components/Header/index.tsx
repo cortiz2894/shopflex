@@ -414,12 +414,12 @@ export default function Header() {
                 </ul>
               </div>
               <div className="flex gap-2">
-                <div className="md:block hidden">
+                {/* <div className="md:block hidden">
                   <ButtonPrimary text={<FiSearch className="text-[20px]" />} variant="default" size="small" />
                 </div>
                 <div className="md:block hidden">
                   <ButtonPrimary text={<FiUser className="text-[20px]" />} variant="default" size="small" />
-                </div>
+                </div> */}
                 <div id="cartButton" className="relative">
                   <div className="text rounded-full border border-white w-4 h-4 flex justify-center items-center bg-black z-10 p-[0.6em] absolute top-[-0.4em] right-[-0.5em]">
                     <Counter number={totals.quantity} />
