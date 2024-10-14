@@ -5,6 +5,7 @@ import Model from './Model';
 import { Environment } from '@react-three/drei';
 import { useControls } from 'leva';
 import styles from './Scene.module.scss';
+import { Leva } from 'leva';
 
 export default function Scene() {
   const lightProps = useControls({
@@ -17,6 +18,7 @@ export default function Scene() {
   return (
     <>
       <div className={styles.blurElement}></div>
+      <Leva hidden />
       <Canvas style={{ backgroundColor: 'transparent' }}>
         <directionalLight
           intensity={lightProps.intensity}
