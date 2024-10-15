@@ -89,4 +89,13 @@
 
 .containerImageMobile {
     height: 100%;
+    position: relative;
+}
+
+.mobileDraggable {
+    transition: transform 0.1s linear;
+}
+
+.overlayGalleryMobile {
+    background: linear-gradient(180deg, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 52%) 99%)
 }

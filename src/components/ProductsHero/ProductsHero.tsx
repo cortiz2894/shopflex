@@ -30,9 +30,9 @@ export default function ProductsHero({image, title} :ProductsHeroProps) {
         <div className='h-full flex flex-col items-start justify-end w-full z-10'>
           <h3 className={styles.title}>{title}</h3>
           <ul className={styles.breadcrumb}>
-            <li className='hover:underline'><LinkTransition href="/">Home</LinkTransition></li>
-            <li className='hover:underline'><LinkTransition href="/product-list">Products</LinkTransition></li>
-            <li>{title}</li>
+            <li className='hover:underline text-xs md:text-base'><LinkTransition href="/">Home</LinkTransition></li>
+            <li className='hover:underline text-xs md:text-base'><LinkTransition href="/product-list">Products</LinkTransition></li>
+            <li className='hover:underline text-xs md:text-base'>{title}</li>
           </ul>
         </div>
       </Container>

@@ -15,6 +15,11 @@
   font-size: clamp(2.5rem, 1.1413rem + 2.1739vw, 3.75rem);
   line-height: clamp(3rem, 1.6413rem + 2.1739vw, 4.25rem);
   color: white;
+
+  @include md-down {
+    font-size: 2em;
+    line-height: 2em;
+  }
 }
 
 .breadcrumb {
@@ -25,6 +30,10 @@
 
   li+li:before {
     margin-right: 1em;
-  content: '/';
- }
+    content: '/';
+  }
+
+  @include md-down {
+    margin-top: 0.5em;
+  }
 }
