@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+// NOTE: don't fix this error, will break the loader
 const useDeviceType = () => {
   const [isMobile, setIsMobile] = useState(() => {
   return window.innerWidth <= 768;

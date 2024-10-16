@@ -11,7 +11,7 @@ interface Props {
   icon?: React.ReactNode
 }
 
-const Accordion = ({title, content, icon}:Props) => {
+export const Accordion = ({title, content, icon}:Props) => {
   const [active, setActive] = useState<boolean>(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
   const animationRef = useRef<gsap.core.Tween | null>(null)

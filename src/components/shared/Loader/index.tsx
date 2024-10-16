@@ -9,7 +9,7 @@ type Props = {
   onAnimationEnd?: () => void;
 };
 
-export default function Loader({ onAnimationEnd }: Props) {
+export function Loader({ onAnimationEnd }: Props) {
   const loader = useRef<HTMLDivElement>(null);
   const path = useRef<SVGPathElement>(null);
   const [activeLogoAnimation, setActiveLogoAnimation] = useState(true);
@@ -95,3 +95,5 @@ export default function Loader({ onAnimationEnd }: Props) {
     </div>
   );
 }
+
+export default Loader;

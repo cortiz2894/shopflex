@@ -11,7 +11,7 @@ type Props = {
 type Size = 'small' | 'medium' | 'large'
 
 
-const Cursor: FC<Props> = ({
+export const Cursor: FC<Props> = ({
   duration = 0.3,
   ease = 'power3',
 }) => {

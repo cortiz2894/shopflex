@@ -15,7 +15,7 @@ import SectionTitle from '../shared/SectionTitle';
 import { Carousel } from '../shared/Carousel';
 import { getDrops } from '@/services/products';
 import { CartStore, useCartStore } from '@/store/cartStore';
-import type { Product, ProductDetail, ProductStore } from '@/components/ProductCard/product.types';
+import type { Product, ProductDetail, ProductStore } from '@/interfaces/products.interface';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import useDeviceType from '@/hooks/useDeviceType';
@@ -213,7 +213,7 @@ export default function ProductDetail({ product, isLite }: Props) {
           <div>
             <h3 className="text-black mb-3 md:block hidden">Sizes</h3>
             <div className="flex gap-3 mb-3">
-              {product.sizes.map((size, i) => (
+              {product.sizes.map((size: any, i: number) => (
                 <button
                   key={`size-selector-${i}`}
                   onClick={() => setSizeSelected(size)}
@@ -225,7 +225,7 @@ export default function ProductDetail({ product, isLite }: Props) {
             </div>
             <h3 className="text-black mb-3 md:block hidden">Colors</h3>
             <div className="flex gap-3 w-full h-10">
-              {product.colors.map((color, i) => (
+              {product.colors.map((color: any, i: number) => (
                 <button
                   key={`color-selector-${i}`}
                   onClick={() => setColorSelected(color)}
